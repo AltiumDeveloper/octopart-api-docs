@@ -1,0 +1,31 @@
+# Dependencies
+/node_modules
+
+# Production
+/build
+
+# Generated files
+.docusaurus
+.cache-loader
+/.schema/
+/docs/reference/
+/docs/changelog/
+/static/schema.graphql
+/static/search-index.json
+
+# Internal design notes and working logs (never published)
+/docs/superpowers/
+/notes/
+
+# Misc
+.DS_Store
+# Editor settings (local paths)
+/.vscode/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

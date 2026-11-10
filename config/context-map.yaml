@@ -1,0 +1,144 @@
+# Bounded-context mapping for the Octopart API reference (the Nexar gateway, https://api.nexar.com/graphql).
+# Public-safe: no owners, teams, OAuth resources or internal links.
+#
+# One entry per row of the Nexar ledger. Regexes are copied from the ledger; `source` lists the gateway subgraphs
+# (`@source(schema:)` in the SDL) that the context owns.
+#
+# Matching: overrides > common names > single gateway subgraph > CDM mapping (types) > most specific anchored regex
+# > common > unassigned. When several contexts share a subgraph (`Intel`), the regexes decide among them only.
+# "Most specific" = longest literal prefix after '^', then longest match.
+# Regexes must not use top-level '|' alternation: split them into separate entries.
+#
+# `publish: false` contexts are out of scope for this site: their operations are removed from the published schema
+# (lib/scope.mjs), and their types are published only where an in-scope operation still reaches them, in the
+# `adoptedBy` context. Design (des*) has moved to the Altium 365 API reference.
+#
+# `cdm` is left empty on purpose. The CDM groups every Octopart entity in one `supply` subset, so it cannot tell the
+# contexts apart, and overview pages carry no "Common Data Model" section. Type pages still show their CDM entity
+# (from the CDM index, independent of this map).
+contexts:
+  - id: supply
+    title: Supply
+    description: Parts, offers, sellers, manufacturers, categories, attributes, part search and part matching.
+    source: [Supply]
+    query: ['^sup']
+    mutation: ['^sup']
+    type: ['^Sup']
+  - id: part-family
+    title: Part Family
+    description: Part families and part groups, their parameters, and search across families and their parts.
+    source: [SupPartFamily]
+    query: ['^supPartFamil(y|ies)', '^supPartGroups?']
+    mutation: ['^sup.*PartFamil(y|ies)', '^sup.*PartGroups?']
+    type: ['^SupPartFamily', '^SupPartGroup']
+  - id: reference-design
+    title: Reference Design
+    description: Reference designs, their files, parts, evaluation kits and resources.
+    source: [SupRefDesign]
+    query: ['^supRef']
+    mutation: ['^supRef']
+    type: ['^SupRef', '^SupImage', '^SupDocument']
+  - id: solution-template
+    title: Solution Template
+    description: Solution templates, reusable blueprints for an integrated hardware and software solution, and their applications, parameters, compatible evaluation kits and reference designs.
+    source: [SupSolutionTemplate]
+    query: ['^supSolutionTemplates?']
+    mutation: ['^supSolutionTemplate']
+    type: ['^SupSolutionTemplate', '^SupEvalKit', '^SupSoftwareProject', '^SupImage']
+  - id: eval-kit
+    title: Eval Kit
+    description: Evaluation kits, their devices, parameters, preview images, and the reference designs and software projects they are compatible with.
+    source: [SupEvalKit]
+    query: ['^supEvalKits?']
+    mutation: ['^supEvalKit']
+    type: ['^SupEvalKit', '^SupImage', '^SupRefDesign', '^SupSoftwareProject']
+  - id: supply-software-project
+    title: Supply Software Project
+    description: Software projects for solution templates, evaluation kits and reference designs, with their parameters and compatibility.
+    source: [SupSoftwareProject]
+    query: ['^supSoftwareProjects?']
+    mutation: ['^supSoftwareProject']
+    type: ['^SupSoftwareProject', '^SupEvalKit', '^SupImage', '^SupSolutionTemplate']
+  # Ledger row "BOM Analysis"; published as Procurement.
+  - id: procurement
+    title: Procurement
+    description: "Bill of materials analysis built on supply data: part matching for BOM lines, part history, duplicate and category analysis."
+    source: [Intel]
+    query: ['^datBom']
+    mutation: ['^datBom']
+    type: ['^DatBom', '^DatError']
+
+  # ---- Out of scope for this site ----
+  - id: gateway
+    title: Gateway
+    description: Gateway-level lookups by global id.
+    # No published type implements Node, so node/nodes would return nothing documented here.
+    publish: false
+    query: ['^node$', '^nodes$']
+  - id: design
+    title: Design
+    description: Design data; documented in the Altium 365 API reference.
+    publish: false
+    # Part extras and lifecycle are stitched into SupPart from the Design subgraph.
+    adoptedBy: supply
+    source: [Design]
+    query: ['^des', '^supPart', '^sup.*Ciiva']
+    mutation: ['^des']
+    subscription: ['^des']
+    type: ['^Des', '^SupError', '^SupPart']
+  - id: manufacturing
+    title: Manufacturing
+    description: Manufacturing services.
+    publish: false
+    source: [Manufacture]
+    query: ['^man']
+    mutation: ['^man']
+    type: ['^Man']
+  - id: admin
+    title: Admin
+    description: Organization administration.
+    publish: false
+    source: [Admin]
+    query: ['^adm']
+    mutation: ['^adm']
+    type: ['^Adm']
+  - id: eddi
+    title: EDDI
+    description: Electronic Design to Delivery Index.
+    publish: false
+    source: [Intel]
+    query: ['^datEddi']
+    mutation: ['^datEddi']
+    type: ['^DatEddi']
+  - id: scr
+    title: SCR
+    description: Supply chain resilience.
+    publish: false
+    source: [Intel]
+    query: ['^datScr']
+    mutation: ['^datScr']
+    type: ['^DatScr']
+  - id: octocart
+    title: Octocart
+    description: BOM purchasing baskets.
+    publish: false
+    source: [Intel]
+    query: ['^supOctocart']
+    mutation: ['^supOctocart']
+    type: ['^SupOctocart']
+  - id: reporting
+    title: Reporting
+    description: Customer reports.
+    publish: false
+    source: [Report]
+    query: ['^datRep']
+    mutation: ['^datRep']
+    type: ['^DatRep']
+common:
+  title: Common
+  description: Shared scalars, paging, errors and sorting types used across all bounded contexts.
+  names: [Node, PageInfo, Error, DateTime, Long, Decimal, Any, Map, SortEnumType]
+  type: ['OperationFilterInput$', 'FilterInputType$', '^ListFilterInputType', '^Comparable']
+overrides:
+  # Defined by both the SupEvalKit and SupSoftwareProject subgraphs; used by software project inputs.
+  SupSoftwareProjectEvalKitProjectSourceType: supply-software-project

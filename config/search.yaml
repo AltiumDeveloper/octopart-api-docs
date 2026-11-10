@@ -1,0 +1,25 @@
+# Search ranking knobs, embedded into static/search-index.json by `npm run search:index` (the engine itself is in
+# src/search/engine.mjs). Check every change with `npm run search:eval`.
+
+# Leading name words that only say where a name comes from (docs/guides/naming-conventions.mdx, plus the roots of the
+# bounded-context namespaces and the sub-area prefixes after them). Ranking ignores them, so "part" finds
+# SupPart and "offer" SupOffer first. camelCase entries are word sequences; the longest match is dropped.
+# Only the domains: the areas after them (supPartFamily, supSolutionTemplate, ...) are the entity names themselves, and
+# dropping them would turn SupPartFamilyPart into "Part".
+prefixes: [sup, dat]
+
+# Phrasings that never appear in names. When `match` (a case-insensitive regular expression) matches the query, the
+# query is extended with `add`.
+synonyms:
+  - { match: '\bbills? of materials?\b', add: bom }
+  - { match: '\bmanufacturer part numbers?\b', add: mpn }
+  - { match: '\bpaging\b|\bpaginat\w*', add: pagination connection }
+  - { match: '\bauth\b|\blog ?in\b|\bsign ?in\b', add: authentication }
+  - { match: '\breference designs?\b', add: ref design }
+  - { match: '\b(?:eval(?:uation)? kits?|dev(?:elopment)? boards?)\b', add: eval kit }
+  - { match: '\bdistributors?\b', add: seller }
+  - { match: '\b(?:stock|inventory|pricing|prices?)\b', add: offer }
+  - { match: '\bdatasheets?\b', add: document }
+
+# Ranking prior per bounded context (default 1).
+contextWeights: {}

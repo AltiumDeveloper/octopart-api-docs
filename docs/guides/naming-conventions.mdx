@@ -1,0 +1,68 @@
+---
+title: Naming conventions
+description: Domain prefixes, lookup and search operation names, Set and Patch mutations, and the Input, Payload and Error types.
+sidebar_position: 3
+---
+
+Names in the Octopart API follow a few patterns. Once you know them, the operation you need is usually easy to guess.
+
+## Prefixes
+
+Every operation and type name starts with the domain that owns it, then the area within that domain:
+
+| Prefix | Domain | Examples |
+| --- | --- | --- |
+| `sup` / `Sup` | Supply data | `supSearch`, `SupPart`, `SupOffer` |
+| `supPartFamily`, `supPartGroup` | Part families | `supPartFamilySearch`, `SupPartGroup` |
+| `supRef` | Reference designs | `supRefDesignById`, `SupRefDesign` |
+| `supSolutionTemplate` | Solution templates | `supSolutionTemplateById`, `SupSolutionTemplate` |
+| `supEvalKit` | Evaluation kits | `supEvalKitById`, `SupEvalKit` |
+| `supSoftwareProject` | Software projects | `supSoftwareProjectById`, `SupSoftwareProject` |
+| `datBom` / `DatBom` | Procurement: BOM analysis | `datBomParts`, `DatBomPart` |
+
+Search on this site ignores the prefixes: typing `part family` finds `SupPartFamily`.
+
+## Queries
+
+| Pattern | Returns | Example |
+| --- | --- | --- |
+| `…ById(id:)` | One item, or `null` | `supRefDesignById`, `supSolutionTemplateById` |
+| `…ByIds(ids:)` | A list | `supSolutionTemplatesByIds`, `supSoftwareProjectsByIds` |
+| `…ByName(name:)` | One item | `supRefDesignByName`, `supPartGroupByName` |
+| `…Search` | A result set or a connection | `supPartFamilySearch`, `supSolutionTemplateSearch` |
+
+For parts, `supParts(ids:)` looks up by Octopart part id, and `supSearchMpn` and `supMultiMatch` look up by
+manufacturer part number:
+
+```graphql
+query PartsByIdAndMpn {
+  supParts(ids: ["39619421"]) {
+    id
+    mpn
+  }
+  supMultiMatch(queries: [{ mpn: "LM358", start: 0, limit: 1 }]) {
+    hits
+    parts {
+      id
+      mpn
+    }
+  }
+}
+```
+
+## Mutations
+
+Mutations take a single `input` argument of type `…Input!` and return a `…Payload!`:
+
+```graphql title="SDL"
+type Mutation {
+  supSolutionTemplateSetTags(input: SupSolutionTemplateSetTagsInput!): SupSolutionTemplateSetTagsPayload!
+}
+```
+
+Collections of a solution template, an evaluation kit or a software project have two mutations:
+
+- **Set** replaces the whole collection: `supSolutionTemplateSetTags` takes the full `tags` list.
+- **Patch** adds and removes items: `supSolutionTemplatePatchTags` takes `addTags` and `removeTags`.
+
+Payloads carry an `errors` list typed as a union of the errors that the mutation can return. See [Errors](./errors.mdx).

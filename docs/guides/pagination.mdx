@@ -1,0 +1,70 @@
+---
+title: Pagination
+description: Offset paging with start, limit and hits, and cursor paging with first, after and pageInfo.
+sidebar_position: 4
+---
+
+Lists in the Octopart API are paged in one of two ways. The arguments of an operation tell you which one it uses.
+
+## Offset paging
+
+Part search, part family search and reference design search take `start` (the offset of the first result) and
+`limit` (the page size), and return the total number of matches in `hits`:
+
+```graphql
+query SecondPage {
+  supSearch(q: "buck converter", start: 10, limit: 10) {
+    hits
+    results {
+      part {
+        mpn
+        manufacturer {
+          name
+        }
+      }
+    }
+  }
+}
+```
+
+Request the next page by adding `limit` to `start` until `start` reaches `hits`.
+
+Operations that page this way include [`supSearch`](/reference/supply/operations/queries/sup-search),
+[`supSearchMpn`](/reference/supply/operations/queries/sup-search-mpn),
+[`supPartFamilySearch`](/reference/part-family/operations/queries/sup-part-family-search),
+[`supRefDesigns`](/reference/reference-design/operations/queries/sup-ref-designs),
+[`supSolutionTemplates`](/reference/solution-template/operations/queries/sup-solution-templates),
+[`supEvalKits`](/reference/eval-kit/operations/queries/sup-eval-kits) and
+[`supSoftwareProjects`](/reference/supply-software-project/operations/queries/sup-software-projects).
+
+## Cursor paging
+
+The `…Search` operations of solution templates, evaluation kits and software projects return
+[Relay connections](https://relay.dev/graphql/connections.htm). They take `first` and `after` (or `last` and
+`before`), and return `nodes` (or `edges`), `pageInfo` and `totalCount`:
+
+```graphql
+query SolutionTemplates($after: String) {
+  supSolutionTemplateSearch(first: 20, after: $after) {
+    totalCount
+    nodes {
+      id
+      title
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
+```
+
+Pass `pageInfo.endCursor` as `after` to get the next page while `pageInfo.hasNextPage` is `true`.
+
+Operations that page this way: [`supSolutionTemplateSearch`](/reference/solution-template/operations/queries/sup-solution-template-search),
+[`supSolutionTemplateApplicationsSearch`](/reference/solution-template/operations/queries/sup-solution-template-applications-search),
+[`supEvalKitSearch`](/reference/eval-kit/operations/queries/sup-eval-kit-search),
+[`supSoftwareProjectSearch`](/reference/supply-software-project/operations/queries/sup-software-project-search) and
+[`supSoftwareProjectEvalKitCompatibleSoftwareProjectSearch`](/reference/supply-software-project/operations/queries/sup-software-project-eval-kit-compatible-software-project-search).
+
+The Developer Center has more on [paging through search results](https://www.altium.com/documentation/altium-developer-center/octopart/api/pagination).

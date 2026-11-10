@@ -1,0 +1,51 @@
+---
+title: Bounded contexts
+description: The seven bounded contexts of the Octopart API, what each one owns, and what the gateway serves that this site does not document.
+sidebar_position: 2
+---
+
+The reference is grouped by **bounded context**: a business area with its own entities and vocabulary. Each
+context lists its queries, mutations and types. A type that is used in one context but defined in another shows
+the defining context as a badge.
+
+| Context | What it owns | Example entry points |
+| --- | --- | --- |
+| [Supply](/reference/supply/overview) | Parts, offers, sellers, manufacturers, categories, attributes, part search and matching | `supSearch`, `supSearchMpn`, `supParts`, `supMultiMatch` |
+| [Part Family](/reference/part-family/overview) | Part families and part groups, their parameters, and search | `supPartFamilySearch`, `supPartGroupById` |
+| [Reference Design](/reference/reference-design/overview) | Reference designs, their files, parts and resources | `supRefDesigns`, `supRefDesignById` |
+| [Solution Template](/reference/solution-template/overview) | Solution templates and their applications, parameters, compatible evaluation kits and reference designs | `supSolutionTemplateSearch`, `supSolutionTemplateById` |
+| [Eval Kit](/reference/eval-kit/overview) | Evaluation kits, their devices, parameters and preview images, and the reference designs and software projects they are compatible with | `supEvalKitSearch`, `supEvalKitById` |
+| [Supply Software Project](/reference/supply-software-project/overview) | Software projects and their compatibility with evaluation kits and solution templates | `supSoftwareProjectSearch`, `supSoftwareProjectById` |
+| [Procurement](/reference/procurement/overview) | Bill of materials analysis built on supply data | `datBomParts`, `datBomAnalyses` |
+
+[Common](/reference/common/overview) holds the scalars, paging and error types that every context uses.
+
+A single request can combine contexts. This one matches a BOM line to Octopart parts (Procurement) and reads
+each match from Supply:
+
+```graphql
+query MatchBomLine {
+  datBomParts(items: [{ itemRefId: "R1", mpn: "RC0603FR-0710KL", manufacturerName: "Yageo" }]) {
+    itemRefId
+    parts {
+      confidence
+      part {
+        mpn
+        manufacturer {
+          name
+        }
+      }
+    }
+  }
+}
+```
+
+## What is not on this site
+
+The endpoint serves more than these seven contexts. Operations that are not documented here are not part of the
+Octopart API as described on this site:
+
+- Design data (`des…` operations) is documented in the [Altium 365 API reference](https://altiumdeveloper.github.io/platform-api-docs/).
+- Other domains served by the same gateway are outside the scope of this reference.
+
+The downloadable [schema.graphql](pathname:///schema.graphql) contains the documented scope only.

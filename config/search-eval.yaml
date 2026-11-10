@@ -1,0 +1,76 @@
+# Search ranking eval: `npm run search:eval`. Each case is a query and the result a reader expects, which must appear
+# within the first `within` results (default 1) of the list the search box shows (members sharing a name collapsed).
+# `expect` matches a record name (or any of a list of names); `parent` narrows it to a member of that type; `kind` to a record kind.
+# The cases are targets chosen from what a reader would want, not from what the engine returns today; some may fail.
+# `within`: 1 for an unambiguous exact name, 3 for word and concept queries, up to 5 for typos and fuzzy phrases.
+# Replace or extend with real queries from users as they come in.
+cases:
+  # 1. Exact names: queries and mutations, across the bounded contexts
+  - { query: supSearchMpn, expect: supSearchMpn }
+  - { query: supSearch, expect: supSearch }
+  - { query: supParts, expect: supParts }
+  - { query: supMultiMatch, expect: supMultiMatch }
+  - { query: supCategories, expect: supCategories }
+  - { query: supPartFamilySearch, expect: supPartFamilySearch }
+  - { query: supPartGroupById, expect: supPartGroupById }
+  - { query: supRefDesignById, expect: supRefDesignById }
+  - { query: supSolutionTemplateSearch, expect: supSolutionTemplateSearch }
+  - { query: supSolutionTemplateCreateSolutionTemplate, expect: supSolutionTemplateCreateSolutionTemplate }
+  - { query: supSoftwareProjectById, expect: supSoftwareProjectById }
+  - { query: datBomParts, expect: datBomParts }
+  - { query: supEvalKitSearch, expect: supEvalKitSearch }
+  - { query: supEvalKitCreateEvalKit, expect: supEvalKitCreateEvalKit }
+  # Types: object, input, enum, union, interface, scalar
+  - { query: SupPart, expect: SupPart }
+  - { query: SupOffer, expect: SupOffer }
+  - { query: SupPartFamily, expect: SupPartFamily }
+  - { query: SupRefDesign, expect: SupRefDesign }
+  - { query: SupSolutionTemplate, expect: SupSolutionTemplate }
+  - { query: SupSoftwareProject, expect: SupSoftwareProject }
+  - { query: SupEvalKit, expect: SupEvalKit }
+  - { query: DatBomItemInput, expect: DatBomItemInput }
+  - { query: SupPartFamilySearchResult, expect: SupPartFamilySearchResult }
+  - { query: PageInfo, expect: PageInfo }
+  - { query: Error, expect: Error }
+
+  # 2. Case and partial names
+  - { query: supsearchmpn, expect: supSearchMpn }
+  - { query: SUPPART, expect: SupPart }
+  - { query: supSearchM, expect: supSearchMpn, within: 2 }
+  - { query: supSolutionTemplateBy, expect: [supSolutionTemplateById, supSolutionTemplateByName], within: 3 }
+
+  # 3. Names without their prefix, and words of a name
+  - { query: Part, expect: SupPart, within: 3 }
+  - { query: offer, expect: SupOffer, within: 3 }
+  - { query: part family, expect: SupPartFamily, within: 3 }
+  - { query: reference design, expect: [Reference Design, SupRefDesign, supRefDesigns], within: 3 }
+  - { query: solution template, expect: SupSolutionTemplate, within: 3 }
+  - { query: software project, expect: SupSoftwareProject, within: 3 }
+  - { query: eval kit, expect: [SupEvalKit, Eval Kit], within: 3 }
+  - { query: search mpn, expect: supSearchMpn, within: 3 }
+  - { query: part family search, expect: supPartFamilySearch, within: 3 }
+  - { query: bom parts, expect: datBomParts, within: 3 }
+
+  # 4. Members
+  - { query: SupPart.mpn, expect: mpn, parent: SupPart }
+  - { query: SupOffer.inventoryLevel, expect: inventoryLevel, parent: SupOffer }
+  - { query: inventoryLevel, expect: inventoryLevel, within: 3 }
+  - { query: factoryLeadDays, expect: factoryLeadDays, within: 3 }
+
+  # 5. Phrases and synonyms
+  - { query: manufacturer part number, expect: [supSearchMpn, mpn], within: 3 }
+  - { query: bill of materials, expect: [Procurement, datBomParts, datBomAnalyses], within: 3 }
+  - { query: datasheet, expect: [SupDocument, SupDocumentCollection, bestDatasheet], within: 5 }
+  - { query: distributor, expect: [SupPartSeller, sellers, supSellers], within: 5 }
+  - { query: evaluation kit, expect: SupEvalKit, within: 5 }
+
+  # 6. Typos
+  - { query: supSerchMpn, expect: supSearchMpn, within: 3 }
+  - { query: SupPrat, expect: SupPart, within: 5 }
+
+  # 7. Guides and contexts
+  - { query: pagination, expect: Pagination, kind: guide, within: 3 }
+  - { query: plan tier, expect: Plans and limits, kind: guide, within: 3 }
+  - { query: Supply, expect: Supply, kind: overview, within: 3 }
+  - { query: procurement, expect: Procurement, kind: overview, within: 3 }
+  - { query: bounded context, expect: [Bounded contexts], kind: guide, within: 3 }
