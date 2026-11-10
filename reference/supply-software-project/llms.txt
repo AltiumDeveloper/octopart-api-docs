@@ -1,0 +1,37 @@
+# Supply Software Project — Octopart API
+> Software projects for solution templates, evaluation kits and reference designs, with their parameters and compatibility.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/schema.graphql) (~6194 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/overview.md).
+
+## Entities
+- [SupSoftwareProject](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/objects/sup-software-project.md): Software Project — A software project published in the supply catalog, together with the evaluation kits it is compatible with. GRID `grid:supply::platform:software-project/{id}`. Via: supSoftwareProjectById, supSoftwareProjectsByIds, supSoftwareProjectEvalKitCompatibleSoftwareProjectsByEvalKitId, supSoftwareProjectEvalKitCompatibleSoftwareProjectSearch, supSoftwareProjects, …
+
+## Entry points
+- [supSoftwareProjectById](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-by-id.md): Search a specific software project by its unique identifier.
+- [supSoftwareProjectsByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-projects-by-ids.md): Search a specific software project by its unique identifier.
+- [supSoftwareProjectEvalKitCompatibleSoftwareProjectsByEvalKitId](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-eval-kit-compatible-software-projects-by-eval-kit-id.md) (list): Get evaluation kit compatible software projects.
+- [supSoftwareProjectEvalKitCompatibleSoftwareProjectSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-eval-kit-compatible-software-project-search.md) (list): Searches evauation kit compatible software projects.
+- [supSoftwareProjects](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-projects.md) (list): List a reference solutions.
+- [supSoftwareProjectSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-search.md) (list): Searches software projects.
+- [supSoftwareProjectSolutionTemplateSoftwareProjectsBySolutionTemplateId](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-solution-template-software-projects-by-solution-template-id.md) (list): Get software projects associated with a solution template.
+
+## Queries
+- [supSoftwareProjectEvalKitCompatibleSoftwareProjectIdsByEvalKitId](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-eval-kit-compatible-software-project-ids-by-eval-kit-id.md): Get evaluation kit compatible software project idenfitiers.
+- [supSoftwareProjectParameterInfos](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-parameter-infos.md): List all available software project parameter definitions.
+- [supSoftwareProjectSolutionTemplateSoftwareProjectIdsBySolutionTemplateId](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-solution-template-software-project-ids-by-solution-template-id.md): Get software project identifiers associated with a solution template.
+- [supSoftwareProjectSolutionTemplateSoftwareProjectsBySolutionTemplateIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/queries/sup-software-project-solution-template-software-projects-by-solution-template-ids.md): Get software projects associated with multiple solution templates, grouped by solution template identifier.
+
+## Mutations
+- [supSoftwareProjectCreateSoftwareProject](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-create-software-project.md): Create a new software project.
+- [supSoftwareProjectDeleteSoftwareProject](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-delete-software-project.md): Delete a software project.
+- [supSoftwareProjectPatchParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-patch-parameters.md): Add or remove parameters on a software project.
+- [supSoftwareProjectPatchPreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-patch-preview-images.md): Patch preview images on a software project: add, delete, or reorder.
+- [supSoftwareProjectPatchSoftwareProjectSolutionTemplates](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-patch-software-project-solution-templates.md): Add or remove software project associations on a solution template.
+- [supSoftwareProjectSetParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-set-parameters.md): Replace all parameters on a software project.
+- [supSoftwareProjectSetPreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-set-preview-images.md): Replace all preview images on a software project.
+- [supSoftwareProjectSetSoftwareProjectSolutionTemplates](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-set-software-project-solution-templates.md): Replace all software project associations on a solution template.
+- [supSoftwareProjectUpdateEvalKitCompatibleSoftwareProject](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-update-eval-kit-compatible-software-project.md): Update evaluation kit's compatible software project.
+- [supSoftwareProjectUpdateSoftwareProject](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/operations/mutations/sup-software-project-update-software-project.md): Update a software project.
+
+## Optional
+- [All types in Supply Software Project](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types.txt): one line per type (~3122 tokens)

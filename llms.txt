@@ -1,0 +1,40 @@
+# Octopart API
+> GraphQL API for electronic component supply data from Octopart (parts, offers, part families, reference designs, solution templates, software projects and BOM analysis), organised into bounded contexts.
+
+How to navigate (for assistants):
+1. Pick the bounded context for the task (list below).
+2. Read that context's llms.txt: entities, entry points, operations.
+3. Load its schema.graphql slice instead of the full schema.
+Conventions: one endpoint, `https://api.nexar.com/graphql`; auth is a Bearer token from the OAuth 2.0 client credentials grant (see Developer Center); operation and type names carry a domain prefix (`sup` supply, `dat` data products, then the area: `supPartFamily`, `supRefDesign`, `supSolutionTemplate`, `supEvalKit`, `supSoftwareProject`, `datBom`); most mutations take `input: XInput!` and return `XPayload!` with a typed `errors` union; search and list operations page by offset (`start`/`limit`, total in `hits`), and the `…Search` operations of solution templates, evaluation kits and software projects are Relay connections (`first`/`after`); some fields need a plan tier or plan feature, noted in their description.
+
+## Bounded contexts
+- [Supply](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/llms.txt): Parts, offers, sellers, manufacturers, categories, attributes, part search and part matching.
+- [Part Family](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/llms.txt): Part families and part groups, their parameters, and search across families and their parts.
+- [Reference Design](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/llms.txt): Reference designs, their files, parts, evaluation kits and resources.
+- [Solution Template](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/llms.txt): Solution templates, reusable blueprints for an integrated hardware and software solution, and their applications, parameters, compatible evaluation kits and reference designs.
+- [Eval Kit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/llms.txt): Evaluation kits, their devices, parameters, preview images, and the reference designs and software projects they are compatible with.
+- [Supply Software Project](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/llms.txt): Software projects for solution templates, evaluation kits and reference designs, with their parameters and compatibility.
+- [Procurement](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/llms.txt): Bill of materials analysis built on supply data: part matching for BOM lines, part history, duplicate and category analysis.
+
+## Guides
+- [Getting started](https://altiumdeveloper.github.io/octopart-api-docs/guides/getting-started.md): The endpoint, the Authorization header, a first part search, and the Nitro and Voyager tools.
+- [Bounded contexts](https://altiumdeveloper.github.io/octopart-api-docs/guides/bounded-contexts.md): The seven bounded contexts of the Octopart API, what each one owns, and what the gateway serves that this site does not document.
+- [Naming conventions](https://altiumdeveloper.github.io/octopart-api-docs/guides/naming-conventions.md): Domain prefixes, lookup and search operation names, Set and Patch mutations, and the Input, Payload and Error types.
+- [Pagination](https://altiumdeveloper.github.io/octopart-api-docs/guides/pagination.md): Offset paging with start, limit and hits, and cursor paging with first, after and pageInfo.
+- [Errors](https://altiumdeveloper.github.io/octopart-api-docs/guides/errors.md): The errors array and partial data, and the typed errors in mutation payloads.
+- [Plans and limits](https://altiumdeveloper.github.io/octopart-api-docs/guides/plans-and-limits.md): What the plan tier, plan feature and constraint notes in field and argument descriptions mean.
+
+## Developer Center
+- [Quick start (Octopart API)](https://www.altium.com/documentation/altium-developer-center/quick-starts/octopart-api)
+- [Octopart API overview](https://www.altium.com/documentation/altium-developer-center/octopart/api)
+- [Authorization](https://www.altium.com/documentation/altium-developer-center/octopart/api/authorization)
+- [Plans and subscriptions](https://www.altium.com/documentation/altium-developer-center/octopart/api/plans-subscriptions)
+- [Search](https://www.altium.com/documentation/altium-developer-center/octopart/api/search)
+- [Pagination](https://www.altium.com/documentation/altium-developer-center/octopart/api/pagination)
+- [Example queries](https://www.altium.com/documentation/altium-developer-center/octopart/api/example-queries)
+
+## Optional
+- [Common types](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/llms.txt): Shared scalars, paging, errors and sorting types used across all bounded contexts.
+- [Deprecated](https://altiumdeveloper.github.io/octopart-api-docs/reference/deprecated/llms.txt): deprecated operations by bounded context
+- [Full schema SDL](https://altiumdeveloper.github.io/octopart-api-docs/schema.graphql): ~40333 tokens — prefer per-context slices
+- [llms-full.txt](https://altiumdeveloper.github.io/octopart-api-docs/llms-full.txt): all guides and reference pages as markdown (~213255 tokens)

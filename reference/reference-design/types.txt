@@ -1,0 +1,24 @@
+# Reference Design — types
+> Types of the Reference Design bounded context that are not entities, one line each; Relay `*Connection` and `*Edge` types are omitted. Entities, entry points and operations: [llms.txt](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/llms.txt).
+
+- [SupRefApplicationBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-application-bucket.md): Aggregation bucket for reference design applications with application identifier + counts.
+- [SupRefCategoryBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-category-bucket.md): Aggregation bucket for reference design categories with category identifier + counts.
+- [SupRefDesignFile](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-design-file.md): Represents a design file belonging to a reference design.
+- [SupRefDesignNote](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-design-note.md): Represents a note attached to a reference design file.
+- [SupRefDesignResultSet](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-design-result-set.md): Reference designs with pagination, aggregation information.
+- [SupRefDesignTypeBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-design-type-bucket.md): Aggregation bucket for reference design types with type + counts.
+- [SupRefEvaluationKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-evaluation-kit.md)
+- [SupRefFaq](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-faq.md): Represents a frequently asked question for a reference design.
+- [SupRefKeyFeature](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-key-feature.md): Represents a key feature of a reference design.
+- [SupRefPart](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-part.md)
+- [SupRefPoint2D](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-point-2-d.md): Represents a 2D point for a file note.
+- [SupRefPublisherBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-publisher-bucket.md): Aggregation bucket for reference design publishers with company identifier + counts.
+- [SupRefResource](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-resource.md): Represents a resource related to a reference design.
+- [SupRefTag](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-tag.md): Represents a tag for categorizing a reference design.
+- [SupRefTagBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-tag-bucket.md): Aggregation bucket for reference design tags with name + counts.
+- [SupRefDesignFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/inputs/sup-ref-design-filter-input.md): Input for filtering reference designs by additional conditions.
+- [SupRefDesignOrderInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/inputs/sup-ref-design-order-input.md): Input for ordering reference designs by one or more fields.
+- [SupRefDesignStatus](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/enums/sup-ref-design-status.md)
+- [SupRefDesignType](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/enums/sup-ref-design-type.md)
+- [SupRefPartType](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/enums/sup-ref-part-type.md)
+- [SupRefSortDirection](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/enums/sup-ref-sort-direction.md): Specifies the sort direction for ordering results.

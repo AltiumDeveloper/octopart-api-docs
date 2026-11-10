@@ -1,0 +1,4294 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+interface Error {
+  message: String!
+}
+
+"Shared Fields between `SupPartFamily` and `SupPartGroup`."
+interface SupPartFamilyEntity {
+  id: ID!
+  stableName: String!
+  title: String!
+  subtitle: String!
+  overview: String!
+  categoryID: String!
+  manufacturerID: String!
+  applicationIDs: [String!]!
+  tags: [SupPartFamilyTag!]!
+  keyFeatures: [SupPartFamilyKeyFeature!]!
+}
+
+type DatBomAnalysis {
+  items: [DatBomPartItem!]!
+  level: DatBomAnalysisLevel!
+  message: String!
+}
+
+type DatBomCategory {
+  categoryID: Int!
+}
+
+type DatBomPart {
+  partId: String!
+  confidence: Float!
+  strategy: DatBomPartSearchStrategy!
+  "Nexar supply part data for internal use only. Array of size 1."
+  part: [SupPart]!
+}
+
+type DatBomPartHistory {
+  threeMonthGrowthPercentage: Float!
+}
+
+type DatBomPartItem {
+  itemRefId: String
+  partId: String!
+  alternateCandidatePartIds: [String!]
+  quantity: Int!
+}
+
+type DatBomPartsResult {
+  itemRefId: String
+  parts: [DatBomPart!]!
+}
+
+type Mutation {
+  "Add devices to an evaluation kit."
+  supEvalKitAddDevices(input: SupEvalKitAddDevicesInput!): SupEvalKitAddDevicesPayload!
+  "Delete devices from an evaluation kit."
+  supEvalKitDeleteDevices(input: SupEvalKitDeleteDevicesInput!): SupEvalKitDeleteDevicesPayload!
+  "Create a new evaluation kit."
+  supEvalKitCreateEvalKit(input: SupEvalKitCreateEvalKitInput!): SupEvalKitCreateEvalKitPayload!
+  "Update a evaluation kit."
+  supEvalKitUpdateEvalKit(input: SupEvalKitUpdateEvalKitInput!): SupEvalKitUpdateEvalKitPayload!
+  "Delete a evaluation kit."
+  supEvalKitDeleteEvalKit(input: SupEvalKitDeleteEvalKitInput!): SupEvalKitDeleteEvalKitPayload!
+  "Modify a software project compatible evaluation kit."
+  supEvalKitSoftwareProjectCompatibleEvalKit(input: SupEvalKitSoftwareProjectCompatibleEvalKitInput!): SupEvalKitSoftwareProjectCompatibleEvalKitPayload!
+  "Add evaluation kits to a reference design."
+  supEvalKitAddRefDesignCompatibleEvalKit(input: SupEvalKitAddRefDesignCompatibleEvalKitInput!): SupEvalKitAddRefDesignCompatibleEvalKitPayload!
+  "Delete evaluation kits from a reference design."
+  supEvalKitDeleteRefDesignCompatibleEvalKit(input: SupEvalKitDeleteRefDesignCompatibleEvalKitInput!): SupEvalKitDeleteRefDesignCompatibleEvalKitPayload!
+  "Add or remove parameters on an evaluation kit. Replaces values of existing parameters."
+  supEvalKitPatchParameters(input: SupEvalKitPatchParametersInput!): SupEvalKitPatchParametersPayload!
+  "Replace all parameters on an evaluation kit. Deletes all existing parameters and values, then inserts the new ones."
+  supEvalKitSetParameters(input: SupEvalKitSetParametersInput!): SupEvalKitSetParametersPayload!
+  "Add preview images to an evaluation kit."
+  supEvalKitAddPreviewImages(input: SupEvalKitAddPreviewImagesInput!): SupEvalKitAddPreviewImagesPayload!
+  "Delete preview images from an evaluation kit."
+  supEvalKitDeletePreviewImages(input: SupEvalKitDeletePreviewImagesInput!): SupEvalKitDeletePreviewImagesPayload!
+  "Sort preview images of an evaluation kit."
+  supEvalKitSortPreviewImages(input: SupEvalKitSortPreviewImagesInput!): SupEvalKitSortPreviewImagesPayload!
+  "Set the main reference design for an evaluation kit."
+  supEvalKitSetMainRefDesign(input: SupEvalKitSetMainRefDesignInput!): SupEvalKitSetMainRefDesignPayload!
+  "Unset a specific main reference design for an evaluation kit."
+  supEvalKitUnsetMainRefDesign(input: SupEvalKitUnsetMainRefDesignInput!): SupEvalKitUnsetMainRefDesignPayload!
+  "Add or remove parameters on a software project. Replaces values of existing parameters."
+  supSoftwareProjectPatchParameters(input: SupSoftwareProjectPatchParametersInput!): SupSoftwareProjectPatchParametersPayload!
+  "Replace all parameters on a software project. Deletes all existing parameters and values, then inserts the new ones."
+  supSoftwareProjectSetParameters(input: SupSoftwareProjectSetParametersInput!): SupSoftwareProjectSetParametersPayload!
+  "Patch preview images on a software project: add, delete, or reorder."
+  supSoftwareProjectPatchPreviewImages(input: SupSoftwareProjectPatchPreviewImagesInput!): SupSoftwareProjectPatchPreviewImagesPayload!
+  "Replace all preview images on a software project."
+  supSoftwareProjectSetPreviewImages(input: SupSoftwareProjectSetPreviewImagesInput!): SupSoftwareProjectSetPreviewImagesPayload!
+  "Create a new software project."
+  supSoftwareProjectCreateSoftwareProject(input: SupSoftwareProjectCreateSoftwareProjectInput!): SupSoftwareProjectCreateSoftwareProjectPayload!
+  "Update a software project."
+  supSoftwareProjectUpdateSoftwareProject(input: SupSoftwareProjectUpdateSoftwareProjectInput!): SupSoftwareProjectUpdateSoftwareProjectPayload!
+  "Delete a software project."
+  supSoftwareProjectDeleteSoftwareProject(input: SupSoftwareProjectDeleteSoftwareProjectInput!): SupSoftwareProjectDeleteSoftwareProjectPayload!
+  "Update evaluation kit's compatible software project."
+  supSoftwareProjectUpdateEvalKitCompatibleSoftwareProject(input: SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectInput!): SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectPayload!
+  "Replace all software project associations on a solution template."
+  supSoftwareProjectSetSoftwareProjectSolutionTemplates(input: SupSoftwareProjectSetSoftwareProjectSolutionTemplatesInput!): SupSoftwareProjectSetSoftwareProjectSolutionTemplatesPayload!
+  "Add or remove software project associations on a solution template."
+  supSoftwareProjectPatchSoftwareProjectSolutionTemplates(input: SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesInput!): SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesPayload!
+  "Add or remove list of key feature groups related to a solution template."
+  supSolutionTemplatePatchKeyFeatureGroups(input: SupSolutionTemplatePatchKeyFeatureGroupsInput!): SupSolutionTemplatePatchKeyFeatureGroupsPayload!
+  "Replace existing list of key feature groups by new one related to a solution template."
+  supSolutionTemplateSetKeyFeatureGroups(input: SupSolutionTemplateSetKeyFeatureGroupsInput!): SupSolutionTemplateSetKeyFeatureGroupsPayload!
+  "Patch preview images on a solution template: add, delete, or reorder."
+  supSolutionTemplatePatchPreviewImages(input: SupSolutionTemplatePatchPreviewImagesInput!): SupSolutionTemplatePatchPreviewImagesPayload!
+  "Replace all preview images on a solution template."
+  supSolutionTemplateSetPreviewImages(input: SupSolutionTemplateSetPreviewImagesInput!): SupSolutionTemplateSetPreviewImagesPayload!
+  "Replace all compatible eval kits on a solution template."
+  supSolutionTemplateSetCompatibleEvalKits(input: SupSolutionTemplateSetCompatibleEvalKitsInput!): SupSolutionTemplateSetCompatibleEvalKitsPayload!
+  "Add, update or remove individual compatible eval kits on a solution template."
+  supSolutionTemplatePatchCompatibleEvalKits(input: SupSolutionTemplatePatchCompatibleEvalKitsInput!): SupSolutionTemplatePatchCompatibleEvalKitsPayload!
+  "Patch the ESD source of a solution template: upload, replace, or clear individual files."
+  supSolutionTemplatePatchEsdSource(input: SupSolutionTemplateEsdSourcePatchInput!): SupSolutionTemplatePatchEsdSourcePayload!
+  "Create a new solution template."
+  supSolutionTemplateCreateSolutionTemplate(input: SupSolutionTemplateCreateSolutionTemplateInput!): SupSolutionTemplateCreateSolutionTemplatePayload!
+  "Update a solution template."
+  supSolutionTemplateUpdateSolutionTemplate(input: SupSolutionTemplateUpdateSolutionTemplateInput!): SupSolutionTemplateUpdateSolutionTemplatePayload!
+  "Update the status of a solution template."
+  supSolutionTemplateUpdateSolutionTemplateStatus(input: SupSolutionTemplateUpdateSolutionTemplateStatusInput!): SupSolutionTemplateUpdateSolutionTemplateStatusPayload!
+  "Delete a solution template."
+  supSolutionTemplateDeleteSolutionTemplate(input: SupSolutionTemplateDeleteSolutionTemplateInput!): SupSolutionTemplateDeleteSolutionTemplatePayload!
+  "Create a new solution template application."
+  supSolutionTemplateCreateSolutionTemplateApplication(input: SupSolutionTemplateCreateSolutionTemplateApplicationInput!): SupSolutionTemplateCreateSolutionTemplateApplicationPayload!
+  "Update a new solution template application."
+  supSolutionTemplateUpdateSolutionTemplateApplication(input: SupSolutionTemplateUpdateSolutionTemplateApplicationInput!): SupSolutionTemplateUpdateSolutionTemplateApplicationPayload!
+  "Delete a solution template application."
+  supSolutionTemplateDeleteSolutionTemplateApplication(input: SupSolutionTemplateDeleteSolutionTemplateApplicationInput!): SupSolutionTemplateDeleteSolutionTemplateApplicationPayload!
+  "Index list of solution templates by identifiers."
+  supSolutionTemplateIndexSolutionTemplate(input: SupSolutionTemplateIndexSolutionTemplateInput!): SupSolutionTemplateIndexSolutionTemplatePayload!
+  "Replace all parameters on a solution template."
+  supSolutionTemplateSetParameters(input: SupSolutionTemplateSetParametersInput!): SupSolutionTemplateSetParametersPayload!
+  "Add, update, or remove individual parameters on a solution template."
+  supSolutionTemplatePatchParameters(input: SupSolutionTemplatePatchParametersInput!): SupSolutionTemplatePatchParametersPayload!
+  "Replace all reference designs on a solution template."
+  supSolutionTemplateSetRefDesigns(input: SupSolutionTemplateSetRefDesignsInput!): SupSolutionTemplateSetRefDesignsPayload!
+  "Add or remove individual reference designs on a solution template."
+  supSolutionTemplatePatchRefDesigns(input: SupSolutionTemplatePatchRefDesignsInput!): SupSolutionTemplatePatchRefDesignsPayload!
+  "Add or remove list of tags related to a solution template."
+  supSolutionTemplatePatchTags(input: SupSolutionTemplatePatchTagsInput!): SupSolutionTemplatePatchTagsPayload!
+  "Replace existing list of tags by new one related to a solution template."
+  supSolutionTemplateSetTags(input: SupSolutionTemplateSetTagsInput!): SupSolutionTemplateSetTagsPayload!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+type Query {
+  "Get all attributes"
+  supAttributes: [SupAttribute!]!
+  "Get manufacturer companies"
+  supManufacturers(
+    "list of company IDs.  Omit to fetch all manufacturers."
+    ids: [String!]
+    "list of URL slugs for /manufacturers paths"
+    slugs: [String!]
+    "Include temporarily suspended manufacturers in results. Intended for manufacturer taxonomy pages."
+    includeSuspended: Boolean! = false
+  ): [SupCompany!]!
+  "Get seller companies (distributors)"
+  supSellers(
+    "list of company IDs.  Omit to fetch all sellers."
+    ids: [String!]
+    "Include only companies that support custom pricing."
+    customPricingOnly: Boolean! = false
+    "Include temporarily suspended distributors in results. Intended for distributor taxonomy pages."
+    includeSuspended: Boolean! = false
+    "list of URL slugs for /distributors paths"
+    slugs: [String!]
+  ): [SupCompany!]!
+  "Get categories"
+  supCategories(
+    "list of category IDs. Omit to fetch all categories. Where id can be either an Octopart internal id or an Altium Global Resource ID (GRID)."
+    ids: [String!]
+    "list of SEO page paths for categories to include."
+    paths: [String!]
+    "Root of categories to include, defaults to ElectronicParts."
+    root: SupCategoryRoot! = ElectronicParts
+  ): [SupCategory!]!
+  "Get a single category by id. Where id can be either an Octopart internal id or an Altium Global Resource ID (GRID)."
+  supCategoryById(id: ID!): SupCategory
+  "Get a list of categories by ids. Where id can be either an Octopart internal id or an Altium Global Resource ID (GRID)."
+  supCategoriesByIds(ids: [ID!]!): [SupCategory]!
+  "Get parts by ID."
+  supParts(
+    "list of part IDs. APIv3 UIDs are also supported."
+    ids: [String!]!
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`) up to a max 10s"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+  ): [SupPart]!
+  """
+  Attempt to complete a partial query string.  Used for autosuggest / typeahead text inputs.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  supSuggest(
+    """
+    partial query string
+    
+    Constraint: `max=1000`.
+    """
+    q: String!
+    "categoryId to scope suggestions to"
+    categoryId: String
+    "only return part number suggestions"
+    partNumbersOnly: Boolean
+  ): [SupSuggestion!]!
+  "Search parts, including filters, pagination, aggregation, sorting"
+  supSearch(
+    """
+    the query to search
+    
+    Constraint: `max=2000`.
+    """
+    q: String
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "offset in the result set"
+    start: Int
+    "page size of results"
+    limit: Int
+    "field to sort by.  See [sort values](https://octopart.com/api/v4/values#sort)"
+    sort: String
+    "direction of sort: `asc` or `desc`"
+    sortDir: SupSortDirection
+    "filter to remove parts with no stocking distributors"
+    inStockOnly: Boolean
+    "a key: value map of filters. See [filter values](https://octopart.com/api/v4/values#attributes)"
+    filters: Map
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`)"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+    "Specifying a ranking method."
+    rankingMethod: SupSearchRankingMethod! = DEFAULT
+  ): SupPartResultSet!
+  "Search parts by mpn only, including filters, pagination, aggregation, sorting"
+  supSearchMpn(
+    """
+    the query to search on mpn
+    
+    Constraint: `max=2000`.
+    """
+    q: String
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "offset in the result set"
+    start: Int
+    "page size of results"
+    limit: Int
+    "field to sort by.  See [sort values](https://octopart.com/api/v4/values#sort)"
+    sort: String
+    "direction of sort: `asc` or `desc`"
+    sortDir: SupSortDirection
+    "filter to remove parts with no stocking distributors"
+    inStockOnly: Boolean
+    "a key: value map of filters. See [filter values](https://octopart.com/api/v4/values#attributes)"
+    filters: Map
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`)"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+    "Specifying a ranking method."
+    rankingMethod: SupSearchRankingMethod! = DEFAULT
+  ): SupPartResultSet!
+  """
+  Suggest alternate queries when no results are found.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  supSearchCorrection(
+    """Constraint: `max=2000`."""
+    q: String!
+    filters: Map
+    "Fixed filters that should always be applied i.e. don't suggest corrections that would drop these filters."
+    fixedFilters: Map
+  ): [SupSearchCorrection!]!
+  """
+  Suggest an alternate `q` when no results are found. This treats the query as an MPN search so will return suggestions based on MPNs.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  supSpellingCorrection(
+    """
+    query string to correct
+    
+    Constraint: `max=2000`.
+    """
+    q: String!
+  ): [SupSpellingCorrection!]!
+  "Match multiple manufacturer + mpn pairs at once.  Useful for when you have a list of parts, as with a BOM (Bill of Materials)"
+  supMultiMatch(
+    "list of inputs to attempt to match"
+    queries: [SupPartMatchQuery!]!
+    "options when matching such as applying filters or only including authorized or in-stock parts"
+    options: SupPartMatchOptions
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`)"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+    "Specifying a ranking method."
+    rankingMethod: SupSearchRankingMethod! = DEFAULT
+  ): [SupPartMatch!]!
+  "Search a specific evaluation kit by its unique identifier."
+  supEvalKitById(id: ID!): SupEvalKit
+  "Search a specific evaluation kit by its unique identifier."
+  supEvalKitsByIds(ids: [ID!]!): [SupEvalKit]!
+  "List a evaluation kits."
+  supEvalKits(
+    "The search query string. Leave empty to query all."
+    q: String
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+    "Optional structured filter input for searching."
+    filter: SupEvalKitFilterInput
+    "Order the results by one or more fields. The first input is main order field."
+    order: [SupEvalKitOrderInput!]
+  ): [SupEvalKit]!
+  "Searches evaluation kits."
+  supEvalKitSearch(
+    where: SupEvalKitSearchFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupEvalKitSortInput!]
+  ): SupEvalKitConnection
+  "Searches evauation kit compatible software projects."
+  supEvalKitSoftwareProjectCompatibleEvalKitSearch(
+    softwareProjectId: ID!
+    where: SupSoftwareProjectCompatibleEvalKitFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectCompatibleEvalKitSortInput!]
+  ): SupSoftwareProjectEvalKitSourceConnection
+  "The list of evaluation kit sources associated with the software project."
+  supEvalKitSoftwareProjectCompatibleEvalKitsBySoftwareProjectId(softwareProjectId: ID!): [SupSoftwareProjectEvalKitSource!]
+  "The evaluation kit source associated with the software project."
+  supEvalKitSoftwareProjectCompatibleEvalKitBySoftwareProjectIdAndEvalKitId(softwareProjectId: ID!, id: ID!): SupSoftwareProjectEvalKitSource
+  "The evaluation kits of reference design."
+  supEvalKitDetailsByRefDesignId(
+    refDesignId: ID!
+    where: SupEvalKitByRefDesignFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupEvalKitSortInput!]
+  ): SupEvalKitConnection
+  "List all available evaluation kit parameter definitions."
+  supEvalKitParameterInfos: [SupEvalKitParameterInfo!]!
+  "Search project source toolchains by querying in the database."
+  supEvalKitSoftwareProjectToolchains(
+    where: SupEvalKitSoftwareProjectToolchainFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupEvalKitSoftwareProjectToolchainSortInput!]
+  ): SupEvalKitSoftwareProjectToolchainConnection
+  "Search for part families and groups.\nThere is a limit on the number of parts allowed for each group. If you want the complete set of parts for a group\nmake a follow up request to `supPartGroupByName` or `supPartGroupById`."
+  supPartFamilySearch(
+    "The query text for the descriptive search of the part groups."
+    q: String!
+    "Part group filters to be applied to this search."
+    filters: SupPartFamilyFilterInput
+    "Start offset of the results in the result set."
+    start: Int = 0
+    "Page size of the results in the result set."
+    limit: Int = 10
+  ): SupPartFamilyResultSet!
+  "Search for part and group them by Part Group if applicable."
+  supPartFamilyPartSearch(
+    "The query text for descriptive search."
+    q: String
+    "The query text for MPN matching search.\nOverride q when this input is given."
+    mpn: String
+    "Filter to remove parts with no stocking distributors."
+    inStockOnly: Boolean
+    "Filter to only include parts with a datasheet."
+    hasDatasheetOnly: Boolean
+    "Spec Filters to be applied."
+    filters: Map
+    "Start offset of the results in the result set."
+    start: Int! = 0
+    "Limit of the number of results to return in the result set."
+    limit: Int! = 20
+  ): SupPartFamilyPartResultSet!
+  "Get a specific part group by its unique identifier (GRID)."
+  supPartGroupById(id: ID!): SupPartGroup!
+  "Get a specific part group by its unique name."
+  supPartGroupByName(name: String!): SupPartGroup!
+  "Get a set of part groups by their unique identifiers (GRIDs).\nIf an ID is not found it will be returned as null, ensuring a one to one mapping of input ids to output."
+  supPartGroupsByIds(ids: [ID!]!): [SupPartGroup]!
+  "Get a part group by the ID of the part."
+  supPartGroupByPartId(partId: ID!): SupPartGroup!
+  "Get the set of filterable parameters for a part group within the given category."
+  supPartFamilyParameters(categoryId: ID!): [SupPartFamilyParameter!]!
+  "Search a specific reference design by its unique identifier."
+  supRefDesignById(id: ID!): SupRefDesign
+  "Search a specific reference designs by its unique identifiers."
+  supRefDesignByIds(ids: [ID!]!): [SupRefDesign!] @deprecated(reason: "Use 'supRefDesignsByIds' instead.")
+  "Search a specific reference designs by its unique identifiers."
+  supRefDesignsByIds(ids: [ID!]!): [SupRefDesign]!
+  "Search a specific reference design by its unique name."
+  supRefDesignByName(name: String!): SupRefDesign
+  "Search a reference designs."
+  supRefDesigns(
+    "The search query string. Leave empty to query all."
+    q: String!
+    "Optional structured filter input for searching."
+    filter: SupRefDesignFilterInput
+    "Sort order for results. Supports multiple fields."
+    order: [SupRefDesignOrderInput!]
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+  ): SupRefDesignResultSet!
+  "Search a specific parts by reference design unique identifier and part's designators."
+  supRefParts(refDesignId: ID!, designators: [String!], start: Int! = 0, limit: Int! = 50): [SupRefPart!]
+  "Search a specific software project by its unique identifier."
+  supSoftwareProjectById(id: ID!): SupSoftwareProject
+  "Search a specific software project by its unique identifier."
+  supSoftwareProjectsByIds(ids: [ID!]!): [SupSoftwareProject]!
+  "List a reference solutions."
+  supSoftwareProjects(
+    "The search query string. Leave empty to query all."
+    q: String
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+    "Optional structured filter input for searching."
+    filter: SupSoftwareProjectFilterInput
+    "Order the results by one or more fields. The first input is main order field."
+    order: [SupSoftwareProjectOrderInput!]
+  ): [SupSoftwareProject]!
+  "Searches software projects."
+  supSoftwareProjectSearch(
+    where: SupSoftwareProjectSearchFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupSoftwareProjectConnection
+  "Searches evauation kit compatible software projects."
+  supSoftwareProjectEvalKitCompatibleSoftwareProjectSearch(
+    evalKitId: ID!
+    where: SupEvalKitCompatibleSoftwareProjectFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupEvalKitCompatibleSoftwareProjectConnection
+  "Get evaluation kit compatible software project idenfitiers."
+  supSoftwareProjectEvalKitCompatibleSoftwareProjectIdsByEvalKitId(evalKitId: ID!, start: Int! = 0, limit: Int! = 100): [ID!]!
+  "Get evaluation kit compatible software projects."
+  supSoftwareProjectEvalKitCompatibleSoftwareProjectsByEvalKitId(evalKitId: ID!, start: Int! = 0, limit: Int! = 100): [SupSoftwareProject!]!
+  "List all available software project parameter definitions."
+  supSoftwareProjectParameterInfos: [SupSoftwareProjectParameterInfo!]!
+  "Get software project identifiers associated with a solution template."
+  supSoftwareProjectSolutionTemplateSoftwareProjectIdsBySolutionTemplateId(solutionTemplateId: ID!): [ID!]!
+  "Get software projects associated with a solution template."
+  supSoftwareProjectSolutionTemplateSoftwareProjectsBySolutionTemplateId(solutionTemplateId: ID!): [SupSoftwareProject!]!
+  "Get software projects associated with multiple solution templates, grouped by solution template identifier."
+  supSoftwareProjectSolutionTemplateSoftwareProjectsBySolutionTemplateIds(solutionTemplateIds: [ID!]!): [SupSoftwareProjectSolutionTemplateSoftwareProjectsResult!]!
+  "Search a specific solution template by its unique identifier."
+  supSolutionTemplateById(id: ID!): SupSolutionTemplate
+  "Search a specific solution template by its unique stable name identifier."
+  supSolutionTemplateByName(name: String!): SupSolutionTemplate
+  "Search a specific solution template by its unique identifier."
+  supSolutionTemplatesByIds(ids: [ID!]!): [SupSolutionTemplate]!
+  "List a solution templates."
+  supSolutionTemplates(
+    "The search query string. Leave empty to query all."
+    q: String
+    "Optional structured filter input for searching."
+    filter: SupSolutionTemplateFilterInput
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+  ): [SupSolutionTemplate]!
+  "Search a specific solution template by application identifier."
+  supSolutionTemplatesByApplicationId(id: String!): [SupSolutionTemplate]!
+  "Search a specific solution template by its unique identifier."
+  supSolutionTemplateApplicationById(id: ID!): SupSolutionTemplateApplication
+  "Search a specific solution template by its application identifier."
+  supSolutionTemplateApplicationByApplicationId(id: String!): SupSolutionTemplateApplication
+  "List a solution template applications."
+  supSolutionTemplateApplications(
+    "The search query string. Leave empty to query all."
+    q: String
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+  ): [SupSolutionTemplateApplication]!
+  "Searches solution templates."
+  supSolutionTemplateSearch(
+    where: SupSolutionTemplateSearchFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSolutionTemplateSortInput!]
+  ): SupSolutionTemplateConnection
+  "Searches solution template applications."
+  supSolutionTemplateApplicationsSearch(
+    where: SupSolutionTemplateApplicationSearchFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSolutionTemplateApplicationSortInput!]
+  ): SupSolutionTemplateApplicationConnection
+  "Search solution templates and reference designs."
+  supSolutionTemplateRefDesignSearch(q: String!, start: Int!, limit: Int!, filter: SupSolutionTemplateRefDesignFilterInput, order: [SupSolutionTemplateRefDesignOrderInput!]): SupSolutionTemplateRefDesignResultSet!
+  datBomPart(item: DatBomItemInput!): DatBomPartsResult!
+  datBomParts(items: [DatBomItemInput!]!): [DatBomPartsResult!]!
+  datBomPartHistories(partIds: [String!]!): [DatBomPartHistory]!
+  datBomDuplicateAnalyses(items: [DatBomPartItemInput!]!): [DatBomAnalysis!]!
+  datBomAnalyses(items: [DatBomPartItemInput!]!): [DatBomAnalysis!]!
+  datBomCategoryIdsByDesignator(designators: [String!]!): [DatBomCategory]!
+}
+
+"Used to show the filters that are applied to current search."
+type SupAppliedFilter {
+  "shortname is the key in the filters Map.  Usually an attribute shortname, or `manufacturerId`, `distributorId`, etc."
+  shortname: String!
+  "human readable name to display in the UI"
+  name: String!
+  "values in the filter Map."
+  values: [String!]!
+  "human readable values to display in the UI"
+  displayValues: [String!]!
+  "The symbol of the units"
+  unitsSymbol: String
+}
+
+"Defines an attribute like Capacitance or Resistance."
+type SupAttribute {
+  "Internal Octopart ID"
+  id: ID!
+  "display name"
+  name: String!
+  "use as key for `sort` or `filter` in part search"
+  shortname: String!
+  "use to group together similar attributes, e.g. Technical, Physical, Compliance"
+  group: String!
+  "The type of the value"
+  valueType: String!
+  "The short name of the units"
+  unitsName: String!
+  "The symbol of the units"
+  unitsSymbol: String!
+  "Shortened display name"
+  shortDisplayname: String!
+}
+
+"Groups similar attributes together, as can be seen with column groups in specs view"
+type SupAttributeGroup {
+  "Name of group, e.g. Technical, Physical, Compliance"
+  name: String!
+  "Attributes in group"
+  attributes: [SupAttribute!]!
+}
+
+"Information for use on /electronic-parts Category pages."
+type SupBlurb {
+  "Category name."
+  name: String!
+  "Path to /electronic-parts Category page."
+  pathName: String!
+  "Short description of Category."
+  description: String!
+  "Longer description of Category."
+  content: String!
+  "Description used in webpage metadata - SEO optimised"
+  metaDescription: String!
+  "Title used in webpage metadata - SEO optimised"
+  metaTitle: String!
+}
+
+"cadAgg produces a CadBucket with the count of parts that have CAD Symbol + Footprint and 3D model"
+type SupCadBucket {
+  cadState: String!
+  count: Int
+}
+
+"A Category exists in a Category tree.  Examples include Passive Components or Capacitors.  The `path` field is helpful to see where a category is in the tree."
+type SupCategory {
+  "Octopart internal id."
+  id: ID!
+  "ID of parent category."
+  parentId: ID!
+  "Display name"
+  name: String!
+  "List of all ancestor in category tree."
+  ancestors: [SupCategory!]!
+  "List of direct children in category tree."
+  children: [SupCategory!]!
+  "Slash separated path.  Can be used to visit URL for category page.  (e.g. `/electronic-parts/circuit-protection/esd-and-circuit-protection-ics`)"
+  path: String!
+  "List of Attributes deemed to be relevant to this category.  (e.g. Resistance for Resistor category).  Useful for showing contextual filters in UI."
+  relevantAttributes: [SupAttribute!]!
+  "Blurb for Category, used on /electronic-parts pages."
+  blurb: SupBlurb
+  "Number of parts in Category."
+  numParts: Int!
+}
+
+"categoryAgg produces a CategoryBucket with category + counts"
+type SupCategoryBucket {
+  category: SupCategory!
+  count: Int
+}
+
+"A company record represents a manufacturer or distributor, depending on context."
+type SupCompany {
+  "Octopart internal id"
+  id: ID!
+  "Display name of company"
+  name: String!
+  "Aliases of company"
+  aliases: [String!]!
+  "The country code for the display flag"
+  displayFlag: String
+  "Homepage URL of company"
+  homepageUrl: String
+  "Used for URLs like `/manufacturers/aimtec` or `/distributors/digi-key`"
+  slug: String!
+  "True if a manufacturer participates in Octopart's Verified Manufacturer program.  See [verified](https://octopart.com/verified) for more information."
+  isVerified: Boolean!
+  "True if a distributor is a broker.  See [authorized](https://octopart.com/authorized) for more information."
+  isBroker: Boolean! @deprecated(reason: "use `PartSeller.is_broker` instead")
+  "True if a distributor has an API integration with Octopart to provide latest pricing and stock data."
+  isDistributorApi: Boolean!
+  "True if Octocart is supported for this distributor"
+  isOctocartSupported: Boolean!
+  "True if the company is temporarily suspended and excluded from normal results."
+  isSuspended: Boolean!
+  "Custom Pricing details."
+  customPricingDetails: SupCustomPricingDetails
+}
+
+"manufacturerAgg and distributorAgg produce a CompanyBucket with company + counts"
+type SupCompanyBucket {
+  company: SupCompany!
+  count: Int
+}
+
+"A country's name, country code, and continent code."
+type SupCountry {
+  name: String!
+  countryCode: String!
+  continentCode: String!
+}
+
+type SupCustomPricingDetails {
+  authType: SupCustomPricingAuthType!
+}
+
+"Textual description of a part"
+type SupDescription {
+  "Description text"
+  text: String!
+  "Source of description.  Used for attribution."
+  creditString: String!
+  "Source URL of description.  Used for attribution."
+  creditUrl: String!
+}
+
+"Document represents a PDF file and can be a Datasheet, Compliance Document, PCN, etc."
+type SupDocument {
+  name: String!
+  pageCount: Int
+  createdAt: DateTime
+  url: String!
+  creditString: String!
+  creditUrl: String!
+  mimeType: String!
+}
+
+"DocumentCollection groups documents together by type: Datasheets, Compliance Statements."
+type SupDocumentCollection {
+  "Name of group, e.g. Datasheets"
+  name: String!
+  "List of Documents in group"
+  documents: [SupDocument!]!
+}
+
+type SupDroppedFilter {
+  key: String!
+  value: String!
+}
+
+type SupEvalKit {
+  "The evaluation kit identifier."
+  id: ID!
+  "The evaluation kit title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The detailed description."
+  description: String
+  "The source url."
+  sourceUrl: String
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "The user id who last updated the evaluation kit."
+  updatedById: String
+  "The user name who last updated the evaluation kit."
+  updatedByName: String
+  "The list of evaluation kit images."
+  previewImages: [SupImage!]
+  "The best evaluation kit images."
+  bestPreviewImage: SupImage
+  "The list of part identifiers associated with the evaluation kit."
+  partIds: [String!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The list of reference design identifiers associated with the evaluation kit."
+  refDesignIds: [String!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  refDesigns: [SupRefDesign!]!
+  "The main reference design identifier associated with the evaluation kit."
+  mainRefDesignId: String @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  mainRefDesign: SupRefDesign
+  "The esd source."
+  esdSource: SupEvalKitESDSource
+  "The list of devices associated with the evaluation kit."
+  devices: [SupEvalKitDevice!]!
+  "The list of parameters associated with the evaluation kit."
+  parameters: [SupEvalKitParameter!]
+  parts: [SupPart]!
+  publisher: [SupCompany!]
+  "The list of compatible software project identifiers associated with the evaluation kit."
+  compatibleSoftwareProjectIds(start: Int! = 0, limit: Int! = 100): [ID!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The list of compatible software projects associated with the evaluation kit."
+  compatibleSoftwareProjects(start: Int! = 0, limit: Int! = 100): [SupSoftwareProject!]! @deprecated(reason: "Use 'compatibleSoftwareProjectDetails' instead.")
+  "The compatible software projects of evaluation kit."
+  compatibleSoftwareProjectData(
+    where: SupEvalKitCompatibleSoftwareProjectFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupEvalKitCompatibleSoftwareProjectConnection @deprecated(reason: "Use 'compatibleSoftwareProjectDetails' instead.")
+  "The compatible software projects of evaluation kit."
+  compatibleSoftwareProjectDetails(
+    where: SupEvalKitCompatibleSoftwareProjectFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupEvalKitCompatibleSoftwareProjectConnection
+}
+
+"Payload returned after adding devices to the evaluation kit."
+type SupEvalKitAddDevicesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitAddDevicesError!]
+}
+
+type SupEvalKitAddPreviewImagesPayload {
+  errors: [SupEvalKitAddPreviewImagesError!]
+}
+
+type SupEvalKitAddRefDesignCompatibleEvalKitPayload {
+  supEvalKitAddRefDesignCompatibleEvalKitsPayload: SupEvalKitAddRefDesignCompatibleEvalKitsPayload
+  errors: [SupEvalKitAddRefDesignCompatibleEvalKitError!]
+}
+
+type SupEvalKitAddRefDesignCompatibleEvalKitsPayload {
+  "Return true if operation succeeded."
+  success: Boolean!
+}
+
+"A connection to a list of items."
+type SupEvalKitCompatibleSoftwareProjectConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupEvalKitCompatibleSoftwareProjectEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSoftwareProject!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupEvalKitCompatibleSoftwareProjectEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSoftwareProject!
+}
+
+"A connection to a list of items."
+type SupEvalKitConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupEvalKitEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupEvalKit!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"Payload associated with creating a evaluation kit."
+type SupEvalKitCreateEvalKitPayload {
+  "Evaluation kit identifier."
+  id: ID
+  errors: [SupEvalKitCreateEvalKitError!]
+}
+
+"Payload returned after deleting devices from an evaluation kit."
+type SupEvalKitDeleteDevicesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitDeleteDevicesError!]
+}
+
+"Payload associated with deleting a evaluation kit."
+type SupEvalKitDeleteEvalKitPayload {
+  errors: [SupEvalKitDeleteEvalKitError!]
+}
+
+type SupEvalKitDeletePreviewImagesPayload {
+  errors: [SupEvalKitDeletePreviewImagesError!]
+}
+
+type SupEvalKitDeleteRefDesignCompatibleEvalKitPayload {
+  supEvalKitDeleteRefDesignCompatibleEvalKitsPayload: SupEvalKitDeleteRefDesignCompatibleEvalKitsPayload
+  errors: [SupEvalKitDeleteRefDesignCompatibleEvalKitError!]
+}
+
+type SupEvalKitDeleteRefDesignCompatibleEvalKitsPayload {
+  "Return true if operation succeeded."
+  success: Boolean!
+}
+
+type SupEvalKitDevice {
+  "Device part number."
+  deviceMpn: String!
+  refDesignId: ID! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  designProject: SupRefDesign!
+}
+
+type SupEvalKitESDSource {
+  "The URL of the document file associated with the evaluation kit."
+  documentFileUrl: String
+  "The URL of the compile model associated with the evaluation kit."
+  compileModelUrl: String
+}
+
+"An edge in a connection."
+type SupEvalKitEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupEvalKit!
+}
+
+type SupEvalKitNotFoundError implements Error {
+  message: String!
+  errorCode: SupEvalKitErrorCode!
+}
+
+type SupEvalKitOperationFailedError implements Error {
+  message: String!
+  errorCode: SupEvalKitErrorCode!
+}
+
+"Represents a parameter in the evaluation kit."
+type SupEvalKitParameter {
+  "The parameter definition."
+  parameter: SupEvalKitParameterInfo!
+  "The parameter values."
+  values: [String!]
+}
+
+"Represents the information of a parameter in the evaluation kit."
+type SupEvalKitParameterInfo {
+  "The parameter title."
+  title: String!
+}
+
+"Payload returned after patching parameters on an evaluation kit."
+type SupEvalKitPatchParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitPatchParametersError!]
+}
+
+"Payload returned after setting the main reference design of an evaluation kit."
+type SupEvalKitSetMainRefDesignPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitSetMainRefDesignError!]
+}
+
+"Payload returned after setting parameters on an evaluation kit."
+type SupEvalKitSetParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitSetParametersError!]
+}
+
+"Payload associated with updating a software project compatible evaluation kits."
+type SupEvalKitSoftwareProjectCompatibleEvalKitPayload {
+  errors: [SupEvalKitSoftwareProjectCompatibleEvalKitError!]
+}
+
+type SupEvalKitSoftwareProjectToolchain {
+  toolchainId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  name: String!
+  supportedVersions: [String!]!
+}
+
+"A connection to a list of items."
+type SupEvalKitSoftwareProjectToolchainConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupEvalKitSoftwareProjectToolchainEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupEvalKitSoftwareProjectToolchain!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupEvalKitSoftwareProjectToolchainEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupEvalKitSoftwareProjectToolchain!
+}
+
+type SupEvalKitSortPreviewImagesPayload {
+  errors: [SupEvalKitSortPreviewImagesError!]
+}
+
+"Payload returned after unsetting the main reference design of an evaluation kit."
+type SupEvalKitUnsetMainRefDesignPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitUnsetMainRefDesignError!]
+}
+
+"Payload associated with updating a evaluation kit."
+type SupEvalKitUpdateEvalKitPayload {
+  errors: [SupEvalKitUpdateEvalKitError!]
+}
+
+"Image of a part.  In the case of some symbol and footprint images, the scaled version may not actually be scaled and cropped, and may need to be scaled using CSS or other techniques."
+type SupImage {
+  urlLargest: String! @deprecated(reason: "use `url` instead")
+  url55px: String! @deprecated(reason: "use `url` instead")
+  url75px: String! @deprecated(reason: "use `url` instead")
+  url90px: String! @deprecated(reason: "use `url` instead")
+  "Image URL"
+  url: String!
+  "Source of description.  Used for attribution."
+  creditString: String!
+  "Source URL of description.  Used for attribution."
+  creditUrl: String!
+}
+
+"cadLevelAgg and contentVaultLevelAgg produce a LevelBucket with level + displayName"
+type SupLevelBucket {
+  level: Int
+  displayName: String!
+  count: Int
+}
+
+"An offer is a specific buyable part from a distributor, with specific packaging, pricing, stock, moq."
+type SupOffer {
+  "Cache ID"
+  _cacheId: String!
+  "Octopart internal ID for this offer"
+  id: ID!
+  "Stock Keeping Unit used by internally by distributor"
+  sku: String!
+  "The code indicating the region(s) for which offer is valid"
+  eligibleRegion: String
+  "Number of units available to be shipped.  (aka Stock, Quantity)"
+  inventoryLevel: Int!
+  "Packaging of parts (eg Tape, Reel)"
+  packaging: String
+  "Minimum Order Quantity: smallest number of parts that can be purchased"
+  moq: Int
+  "The price points of the offer, sorted by minimum order quantity"
+  prices: [SupPricePoint!]!
+  "The URL to view offer on distributor website.  This will redirect via Octopart's server."
+  clickUrl: String!
+  "The last time data was received from distributor feed or API for this offer."
+  updated: DateTime!
+  """
+  Number of days to acquire parts from factory.
+  
+  Requires plan feature: `LEAD_TIME`.
+  """
+  factoryLeadDays: Int
+  "Number of parts on order from factory."
+  onOrderQuantity: Int
+  "Order multiple for factory orders."
+  factoryPackQuantity: Int
+  "Number of items which must be ordered together."
+  orderMultiple: Int
+  "The quantity of parts as packaged by the seller."
+  multipackQuantity: Int
+  "Whether this offer is specific to the customer making the request."
+  isCustomPricing: Boolean!
+}
+
+"Part model contains the relevant data around a part, including: datasheets, specs, sellers + offers, images, etc."
+type SupPart {
+  "Cache ID"
+  _cacheId: String!
+  "Octopart internal ID for this part.  Appears at the end of PDP URL / `slug` field."
+  id: ID!
+  "manufacturer + mpn for easy display"
+  name: String!
+  "Manufacturer Part Number"
+  mpn: String!
+  "Best guess at a generic MPN"
+  genericMpn: String!
+  "Company that manufactures this part"
+  manufacturer: SupCompany!
+  "A link to the manufacturer detail page for this part or series."
+  manufacturerUrl: String
+  "A link to a manufacturer page to request free sample kits for this part."
+  freeSampleUrl: String
+  """
+  Documents including Datasheets, Compliance Documents, PCNs
+  
+  Requires plan tier: `PRO`. Requires plan feature: `DATASHEETS`.
+  """
+  documentCollections: [SupDocumentCollection!]!
+  "Best description around 110 characters long, as can be seen on SERP or PDP.  May need truncation if all descriptions are long."
+  shortDescription: String!
+  "All part descriptions from sources"
+  descriptions: [SupDescription!]!
+  "All part images"
+  images: [SupImage!]!
+  """
+  Attribute values for this part
+  
+  Requires plan tier: `PRO`. Requires plan feature: `TECH_SPECS`.
+  """
+  specs: [SupSpec!]!
+  "Path component of PDP URL (e.g. `/ad7792bruz-analog+devices-402798`)"
+  slug: String!
+  "A link to the part page on Octopart. Do not include `rel=\"nofollow\"` when linking to this URL."
+  octopartUrl: String!
+  """
+  Parts identified by Octopart to be similar in specs and functionality.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  similarParts: [SupPart!]!
+  """
+  Parts identified by the manufacturer as companion products.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  companionProducts: [SupSponsoredPart!]!
+  category: SupCategory
+  series: SupPartSeries
+  bestImage: SupImage
+  """Requires plan tier: `PRO`. Requires plan feature: `DATASHEETS`."""
+  bestDatasheet: SupDocument
+  """Requires plan tier: `PRO`. Requires plan feature: `DATASHEETS`."""
+  referenceDesigns: [SupReferenceDesign!]!
+  "Data about part's CAD model.  If null `cadRequestUrl` can be used to request a CAD model be made."
+  cad: SupPartCad
+  "URL to request a CAD model from eeconcierge if a part doesn't already have a CAD model.  Will be null part is not eligible, e.g. a multimeter"
+  cadRequestUrl: String
+  "The UID from Octopart APIv3.  Provided for backwards compatibility, in general ID should be used."
+  v3uid: ID!
+  "A Map of number of related objects.  Can be used to know the number of `images` or `descriptions` without having to request those related objects."
+  counts: Map!
+  "The median USD price at quantity 1,000, discarding outliers.  A reasonable estimate of average price for a part."
+  medianPrice1000: SupPricePoint
+  "Sum of stock available across all distributors"
+  totalAvail: Int!
+  "The average stock level at each distributor"
+  avgAvail: Float!
+  "Companies with Offers for this part"
+  sellers(includeBrokers: Boolean! = false, authorizedOnly: Boolean! = false, customPricingOnly: Boolean! = false): [SupPartSeller!]!
+  """
+  The estimated factory lead time in days derived from trusted distributor offers.
+  
+  Requires plan tier: `PRO`. Requires plan feature: `LEAD_TIME`.
+  """
+  estimatedFactoryLeadDays: Int
+  "This part might be known by these alternate MPNs"
+  akaMpns: [String!]!
+  "Nexar supply part data for internal use only."
+  extras: SupPartExtras
+}
+
+type SupPartCad {
+  "URL to add this part to your Upverter library. Requires an Upverter account."
+  addToLibraryUrl: String
+  "If true, a STEP model will be included with the tool-specific downloads."
+  has3dModel: Boolean!
+  hasAltium: Boolean!
+  hasEagle: Boolean!
+  hasOrcad: Boolean!
+  hasKicad: Boolean!
+  downloadUrlAltium: String!
+  downloadUrlEagle: String!
+  downloadUrlOrcad: String!
+  downloadUrlKicad: String!
+  footprintImageUrl: String
+  symbolImageUrl: String
+}
+
+"Nexar supply part data for internal use only."
+type SupPartExtras {
+  "Alternative manufacturer components."
+  alternatives(
+    "Limits the number returned."
+    first: Int! = 100
+  ): [SupPartExtras!]!
+  "Part identifier."
+  partId: String!
+  "Part description."
+  description: String
+  "Indicates whether the part is *RoHS* compliant."
+  isRohsCompliant: Boolean
+  "Confidence score for the data from the source."
+  confidence: Float
+  "List of datasheet URLs associated with the part."
+  datasheetUrls: [String!]
+  "Lifecycle state of the supplier part."
+  lifeCycle: SupPartLifeCycle!
+  "Part parameters."
+  parameters: [SupPartExtrasParameter!]
+  technicalDetails: [SupPartExtrasTechnicalDetail!] @deprecated(reason: "Use `parameters`.")
+}
+
+"Nexar supply part data for internal use only."
+type SupPartExtrasParameter {
+  "Parameter name."
+  name: String!
+  "Parameter unit."
+  unit: String
+  "Parameter value."
+  value: [String!]
+}
+
+"Nexar supply part data for internal use only."
+type SupPartExtrasTechnicalDetail {
+  "Technical detail name."
+  name: String!
+  "Technical detail value."
+  value: String!
+}
+
+"`SupPartFamily` contains the relevant information related to a part family.\nIt exists in a hierarchy of other part families, they can contain children which represent other part families or\n`partGroups` which represent the leaves of the hierarchy tree."
+type SupPartFamily implements SupPartFamilyEntity {
+  "`id` is the global resource id (GRID) for this Part Family."
+  id: ID!
+  "`stableName` is an immutable name of this part family."
+  stableName: String!
+  "`familyType` describes the part family in a part family hierarchy.\nIt is vendor and part family specific.\nExamples include: 'Series', 'Family', etc."
+  familyType: String!
+  "`parent` is the the direct parent of this family. This will be `null` if this is the highest level."
+  parent: SupPartFamily
+  "`children` is a list of the part families that are the direct children of this family.\nThere will be one of either `children` or `partGroups`."
+  children: [SupPartFamily!]!
+  "`partGroups` is a list of the part groups that are the direct children of this family.\nThere will be one of either `children` or `partGroups`."
+  partGroups: [SupPartGroup!]!
+  "`siblings` is a list of direct sibling part families of the current group, which have the same parent.\nThey are usually a close alternative choice of the current group."
+  siblings: [SupPartFamily!]!
+  "`title` of the part family."
+  title: String!
+  "`subtitle` of the part family."
+  subtitle: String!
+  "`overview` of the part family."
+  overview: String!
+  "`categoryID` is the identifier of the part category of this part family."
+  categoryID: String!
+  "`applicationIDs` is a list of the identifiers of relevant applications this part family can be useful for."
+  applicationIDs: [String!]!
+  "`tags` is a list of additional metadata for categorizing this part family."
+  tags: [SupPartFamilyTag!]!
+  "`keyFeatures` is the list of key part features relevant to this part family."
+  keyFeatures: [SupPartFamilyKeyFeature!]!
+  "`manufacturerID` is the identifier of the manufacturer of this part family."
+  manufacturerID: String!
+  category: SupCategory!
+  applications: [SupCategory!]
+  manufacturer: [SupCompany!]
+}
+
+"Used to show the filters that are applied to current search."
+type SupPartFamilyAppliedFilter {
+  "Name of the filter applied, will match the filter key used in the search."
+  name: String!
+  "Human readable name to display in the UI."
+  displayName: String!
+  "Values in the filter Map."
+  values: SupPartFamilyFilterValues!
+  "Human readable values to display in the UI."
+  displayValues: [String!]!
+  "The units of the values."
+  units: String
+}
+
+type SupPartFamilyBucket {
+  PartFamily: SupPartFamily!
+  count: Int
+}
+
+"`SupPartFamilyComplementaryPart` contains the details of the complementary part for this part group."
+type SupPartFamilyComplementaryPart {
+  "`partGroupID` is the GRID of the part group."
+  partGroupID: ID!
+  "`name` of the part or part group."
+  name: String!
+  "`categoryID` of the category of this part or part group."
+  categoryID: String!
+  "`slug` is the url slug for this part or part group on Octopart."
+  slug: String!
+  "`lifecycle` status of this part or part group."
+  lifecycle: String!
+}
+
+"`SupPartFamilyDocument` contains the details for the documentation provided for a Part Family.\n`url` contains a link to the given document.\n`updatedAt` is the time we last updated this document."
+type SupPartFamilyDocument {
+  type: SupPartFamilyDocumentType!
+  description: String!
+  url: String!
+  updatedAt: DateTime!
+}
+
+"`SupPartFamilyFeatureMetadata` contains additional information about a given feature."
+type SupPartFamilyFeatureMetadata {
+  name: String!
+  value: String!
+  displayValue: String!
+  units: String!
+}
+
+"Values applied within the filter."
+type SupPartFamilyFilterValues {
+  values: [String]
+  min: String
+  max: String
+}
+
+"`SupPartFamilyKeyFeature` contains the key details for a Part Family feature."
+type SupPartFamilyKeyFeature {
+  name: String!
+  group: String!
+  value: String!
+  valueType: SupPartFamilyFeatureValueType!
+  displayValue: String!
+  units: String!
+  metadata: [SupPartFamilyFeatureMetadata!]!
+}
+
+"`SupPartFamilyParameter` is the parameter definition for a filterable parameter of a part group."
+type SupPartFamilyParameter {
+  "Name of this parameter."
+  name: String!
+  "Formatted name for use in the UI."
+  displayName: String!
+  "Methods of filtering available for this parameter."
+  filterTypes: [SupPartFamilyFilterType!]!
+  "Aggregation of parameter values."
+  parameterAgg: SupPartFamilyParameterAgg!
+}
+
+"Aggregation of parameter values, `buckets` contains aggregations of the different parameter values.\nWill contain a `min`, `max`, and `units` if the parameter is a numeric value."
+type SupPartFamilyParameterAgg {
+  "Aggregation buckets for this parameter.\n'size' specifies the number of aggregation buckets to include."
+  buckets(size: Int = 10): [SupPartFamilyParameterBucket!]!
+  "Min value of this parameter, if this is a numeric parameter."
+  min: Float
+  "Max value of this parameter, if this is a numeric parameter."
+  max: Float
+  "Units of this parameter, if this is a numeric parameter."
+  units: String
+}
+
+"Aggregation bucket for parameter values.\nIf the parameter is discrete it will be a terms aggregation.\nIf the parameter is numeric it will be a range aggregation and `min`, `max` will be populated."
+type SupPartFamilyParameterBucket {
+  displayValue: String!
+  min: Float
+  max: Float
+  count: Int!
+}
+
+"Represents a part object from the supply schema."
+type SupPartFamilyPart {
+  "Nexar ID of the part this object represents."
+  partID: ID!
+  "Nexar supply part data for internal use only. Array of size 1."
+  part(country: String! = "US", currency: String! = "USD"): [SupPart]!
+}
+
+"`SupPartFamilyPartResultSet` is the search results with pagination information."
+type SupPartFamilyPartResultSet {
+  "Total number of parts and/or groups found."
+  hits: Int!
+  "Total number of parts found."
+  partHits: Int!
+  "List of part or part groups in the current result set."
+  results: [SupPartFamilyPartSearchResult!]!
+  "List of filters that were applied to this search."
+  appliedFilters: [SupPartFamilyAppliedFilter!]!
+  "Aggregation for parts by part family."
+  partFamilyAgg: [SupPartFamilyBucket!]!
+}
+
+"`SupPartFamilyPrice` contains the min and max price of parts in the group. Sourced from octopart part offers."
+type SupPartFamilyPrice {
+  "`min` is the minimum price of any part in this group."
+  min: Float!
+  "`max` is the maximum price of any part in this group."
+  max: Float!
+  "`median` is the median price of the parts in this group."
+  median: Float!
+  "`priceBreak` is the quantity break at which the prices were calculated."
+  priceBreak: Int!
+  "`currency` of the price provided."
+  currency: String!
+}
+
+"`SupPartFamilyResultSet` is the search results with pagination and aggregation information."
+type SupPartFamilyResultSet {
+  "Total number of part families and/or groups found."
+  hits: Int!
+  "List of part families or part groups in the current result set."
+  results: [SupPartFamilySearchResult!]!
+}
+
+"`SupPartFamilySoftwareSupport` contains the details for the software support provided for a Part Family.\n`url` contains a link to the given software support package.\n`updatedAt` is the time we last updated this document."
+type SupPartFamilySoftwareSupport {
+  title: String!
+  url: String!
+  updatedAt: DateTime!
+}
+
+"`SupPartFamilyTag` represents additional metadata for a Part Family."
+type SupPartFamilyTag {
+  type: String!
+  value: String!
+}
+
+"`SupPartFamilyVideo` contains the details and link for a given training video."
+type SupPartFamilyVideo {
+  "Title of this training video."
+  title: String!
+  "URL at which this video can be accessed."
+  url: String!
+  "URL at which the video thumbnail can be accessed."
+  thumbnailUrl: String!
+  "Time at which we last updated this video."
+  updatedAt: DateTime!
+}
+
+"`SupPartGroup` contains the relevant information relating to a part group.\nIt represents the leaves of the Part Family hierarchy, and contain the parts represented by this group."
+type SupPartGroup implements SupPartFamilyEntity {
+  "`id` is the global resource id (GRID) for this Part Group."
+  id: ID!
+  "`stableName` is an immutable name of this part family."
+  stableName: String!
+  "`parent` is the the part family representing the direct parent of this group."
+  parent: SupPartFamily
+  "`siblings` is a list of direct sibling part groups of the current group, which have the same parent.\nThey are usually a close alternative choice of the current group."
+  siblings: [SupPartGroup!]!
+  "`title` of the part group."
+  title: String!
+  "`subtitle` of the part group."
+  subtitle: String!
+  "`overview` of the key details of this part group."
+  overview: String!
+  "`categoryID` is the identifier of the part category of this part group."
+  categoryID: String!
+  "`applicationIDs` is a list of the identifiers of relevant applications this part group can be useful for."
+  applicationIDs: [String!]!
+  "`tags` is a list of additional metadata for categorizing this part group."
+  tags: [SupPartFamilyTag!]!
+  "`lifecycleStatus` is an enum representing the normalized lifecycle status of this part group."
+  lifecycleStatus: SupPartFamilyLifecycleStatus!
+  "`keyFeatures` is the list of key part features relevant to this part group."
+  keyFeatures: [SupPartFamilyKeyFeature!]!
+  "`manufacturerID` is the identifier of the manufacturer of this part group."
+  manufacturerID: String!
+  "`partIDs` is the list of identifiers of the physical parts within this group.\nstart and limit are used for paging part results (including those under the parts field).\nlimit has a max value of 20, any value greater than this will be reduced to it."
+  partIDs(start: Int! = 0, limit: Int! = 10): [String!]!
+  "`price` contains pricing information for this part group.\nIt contains the minimum, maximum, and median unit price @ given quantity among all parts in the group."
+  price(country: String! = "US", currency: String! = "USD", quantity: Int! = 1000): SupPartFamilyPrice
+  "`complementaryParts` is a list of the identifiers of relevant parts which work with this group."
+  complementaryParts: [SupPartFamilyComplementaryPart!]!
+  "`referenceDesignIDs` is a list of the identifiers of reference designs relevant to this part group."
+  referenceDesignIDs: [String!]!
+  "`documents` is a list of the key documentation related to this part group."
+  documents(type: SupPartFamilyDocumentType): [SupPartFamilyDocument!]!
+  "`softwareSupport` is a list of the key supporting documents for this part group."
+  softwareSupport: [SupPartFamilySoftwareSupport!]!
+  "`videos` is a list of key videos related to this part group."
+  videos: [SupPartFamilyVideo!]!
+  category: SupCategory!
+  applications: [SupCategory]!
+  manufacturer: [SupCompany!]
+  parts: [SupPart]!
+}
+
+type SupPartMatch {
+  "Will match `reference` supplied in PartMatchQuery."
+  reference: String
+  "Number of parts matched"
+  hits: Int!
+  "Matched parts (may be subset, based on start + limit)"
+  parts: [SupPart!]!
+  "Possible error message"
+  error: String
+}
+
+type SupPartResult {
+  "Cache ID"
+  _cacheId: String!
+  "The part object"
+  part: SupPart!
+  explain: String! @deprecated(reason: "always empty")
+  "If the search `q` is an alternate MPN for this part, the `akaMpn` will be populated with this alternate MPN."
+  akaMpn: String
+  "Description with query terms highlighted.  Often this is the same as part.shortDescription,\nbut if the search `q` matched on a different description it may be longer than part.shortDescription and require truncation."
+  description: String!
+}
+
+"Result of part search."
+type SupPartResultSet {
+  total: Int! @deprecated(reason: "use `hits` instead")
+  "Number of parts in result set"
+  hits: Int!
+  "Contains nested part along side some fields specific to the query that explain reason for match."
+  results: [SupPartResult!]
+  """
+  Grouped attributes used to render the columns in specs view.
+  
+  Requires plan tier: `PRO`. Requires plan feature: `TECH_SPECS`.
+  """
+  specsViewAttributeGroups: [SupAttributeGroup!]!
+  "If an invalid query was modified or rejected, warnings indicate this fact to the user.  For example if query contained too many tokens, some tokens may be ignored."
+  warnings: [String!]
+  """
+  Perform aggregations on Spec values across multiple Attributes.
+  You *must* specify `attributeNames` for this field to be populated.
+  `attributeNames` should be a list of Attribute.shortname values (e.g. `capacitance` or `voltageRatingDc`)
+  - You can set `attributeSelection=WITHSUGGESTED` to additionally include suggested attributes for aggregation
+  - Alternatively, set `attributeSelection=ALL` to include all attributes for aggregation
+  - To rely solely on suggested attributes, set `attributeSelection=WITHSUGGESTED` and `attributeNames=[]`
+  
+  Requires plan tier: `PRO`. Requires plan feature: `TECH_SPECS`.
+  """
+  specAggs(
+    "a list of Attribute.shortname values to aggregate on (e.g. `capacitance` or `voltageRatingDc`)"
+    attributeNames: [String!]!
+    "defines how attributes are selected for aggregation (default EXPLICIT)"
+    attributeSelection: SupSpecAggsSelection! = EXPLICIT
+    "number of spec value buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupSpecAgg!]!
+  "Aggregate on manufacturers for this result set"
+  manufacturerAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCompanyBucket!]!
+  "Aggregate on distributors for this result set"
+  distributorAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCompanyBucket!]!
+  "Aggregate on categories for this result set"
+  categoryAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCategoryBucket!]!
+  "Aggregate on child categories for this result set. Will be empty if appliedCategory is null."
+  childCategoryAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCategoryBucket!]!
+  """
+  Aggregate on the availability of CAD models for the result set
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  cadAgg: [SupCadBucket!]!
+  "Aggregate on CAD levels for this result set"
+  cadLevelAgg: [SupLevelBucket!]!
+  "Categories that are determined by search algo to be related to the search term.  Useful for suggesting a Category filter in the search UI."
+  suggestedCategories: [SupCategoryBucket!]!
+  "Attributes that are determined by search algo to be related to the search term.  Useful for suggesting most relevant filters in the search UI."
+  suggestedFilters: [SupAttribute!]!
+  "Full list of available Attributes in the result set"
+  allFilters(sort: SupAllFiltersSort! = default, minCoverage: Float! = 0.01): [SupAttribute!]!
+  "If a Category filter is applied, this will be the Category"
+  appliedCategory: SupCategory
+  "If filters are applied, this will contain display information"
+  appliedFilters: [SupAppliedFilter!]!
+}
+
+"A company with offers for a given part"
+type SupPartSeller {
+  "Cache ID"
+  _cacheId: String!
+  "The distributor"
+  company: SupCompany!
+  "Distributor's country"
+  country: String
+  "List of offers.  Multiple offers may exist in different packaging.\nWhile multiple geo-targeted offers may exist, currently the API only exposes one geo-targeted offer at a time based on `country` parameter.\nPlease contact us if you have a need to see all geo-targeted offer variants."
+  offers: [SupOffer!]!
+  "True if the distributor is an authorized distributor for this manufacturer.  See [authorized](https://octopart.com/authorized) for more information."
+  isAuthorized: Boolean!
+  "True if the distributor is a Non-Authorized Dealer.  See [authorized](https://octopart.com/authorized) for more information."
+  isBroker: Boolean!
+  "True if you can request a quote from this seller."
+  isRfq: Boolean!
+  "List of countries the seller ships to. An empty list represents zero shipping restrictions."
+  shipsToCountries: [SupCountry!]!
+}
+
+"A Part can be a member of a PartSeries, which represents a product line or \"family\" of parts from the manufacturer.\n\nSee [series](https://octopart.com/series) page for examples."
+type SupPartSeries {
+  "Octopart internal ID for this series"
+  id: ID!
+  "Name of the part series"
+  name: String!
+  "Octopart URL for this series, specific to the parent part"
+  url: String!
+}
+
+"Price in a specific currency + quantity.  By supplying a `currency` parameter the API will populate an estimated convertedPrice in the user's desired currency."
+type SupPricePoint {
+  "Cache ID"
+  _cacheId: String!
+  "Minimum purchase quantity to get this price (aka price break)"
+  quantity: Int!
+  "Price in currency"
+  price: Float!
+  "Currency for price"
+  currency: String!
+  "Price converted to user's currency using foreign exchange rates.\n\nSince this is an estimate, an indicator should be shown to user if currency != convertedCurrency."
+  convertedPrice: Float!
+  "Currency for `convertedPrice`.  Will match value of `currency` argument."
+  convertedCurrency: String!
+  "The exchange rate used to calculate convertedPrice"
+  conversionRate: Float!
+}
+
+"Aggregation bucket for reference design applications with application identifier + counts."
+type SupRefApplicationBucket {
+  "The identifier of application."
+  applicationId: String!
+  "Number of items in the bucket."
+  count: Int!
+  application: [SupCategory!]
+}
+
+"Aggregation bucket for reference design categories with category identifier + counts."
+type SupRefCategoryBucket {
+  "The identifier of category."
+  categoryId: String!
+  "Number of items in the bucket."
+  count: Int!
+  category: [SupCategory!]
+}
+
+"A reference design model aggregates the relevant documents, files and parts."
+type SupRefDesign {
+  "The reference design identifier."
+  id: ID!
+  "The reference design title."
+  title: String!
+  "The stable name identifier."
+  stableName: String!
+  "The subtitle providing context."
+  subtitle: String
+  "The detailed description."
+  description: String!
+  "The type identifier of this reference design."
+  type: SupRefDesignType!
+  "The source URL where the reference design is published."
+  sourceUrl: String
+  "Indicates whether the reference design is verified."
+  isVerified: Boolean!
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "Indicates if an evaluation board is available."
+  hasEvalBoard: Boolean!
+  "The publisher identifier."
+  publisherId: String!
+  "The bill of materials (BOM) identifier."
+  bomId: String
+  "The release date of the reference design."
+  releaseDate: DateTime
+  "The default schematic file associated with the reference design."
+  defaultSchematicFile: String
+  "The status name."
+  status: SupRefDesignStatus
+  "Part identifiers of the reference design, including their designators."
+  parts(designators: [String!], type: SupRefPartType @deprecated(reason: "Use 'types' instead"), types: [SupRefPartType], start: Int! = 0, limit: Int! = 50): [SupRefPart]!
+  "The list of application identifiers related to the reference design."
+  applicationIds: [String!]!
+  "The list of evaluation kit identifiers associated with the reference design."
+  evaluationKitIds: [String!]! @deprecated(reason: "Use 'evaluationKits' instead.")
+  "Preview images that provide a visual overview of the reference design."
+  previewImages: [SupImage]
+  "Frequently asked questions about the reference design."
+  faqs: [SupRefFaq!]!
+  "Key features highlighting the capabilities of the reference design."
+  keyFeatures: [SupRefKeyFeature]!
+  "Design files, such as schematics and layouts, for the reference design."
+  designFiles(type: String, extensions: [String!]): [SupRefDesignFile]!
+  "Documentation resources related to the reference design."
+  documentations: [SupDocument]!
+  "Tags categorizing the reference design for search and organization."
+  tags: [SupRefTag]
+  "Software packages and resources associated with the reference design."
+  softwares: [SupRefResource]!
+  "The list of evaluation kits associated with the reference design."
+  evaluationKits: [SupRefEvaluationKit!]
+  publisher: [SupCompany!]
+  applications: [SupCategory!]
+  evalKitDetails(
+    where: SupEvalKitByRefDesignFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+  ): SupEvalKitConnection
+  "The reference design entity for Nexar schema stitching purposes."
+  self: SupRefDesign
+}
+
+"Represents a design file belonging to a reference design."
+type SupRefDesignFile {
+  "The design file identifier."
+  refDesignFileId: String!
+  "The design file name."
+  name: String!
+  "The design file download URL."
+  url: String!
+  "The design file type."
+  type: String!
+  "The design file extension."
+  extension: String!
+  "Notes attached to the design file."
+  notes: [SupRefDesignNote]!
+}
+
+"Represents a note attached to a reference design file."
+type SupRefDesignNote {
+  "The note title."
+  title: String!
+  "The note description."
+  description: String
+  "The note identifier."
+  objectId: String
+  "The attached resource for the note."
+  attachment: SupDocument
+  "Points representing the position of the note attached on the design file."
+  points: [SupRefPoint2D]!
+}
+
+"Reference designs with pagination, aggregation information."
+type SupRefDesignResultSet {
+  "Total number of reference designs found."
+  hits: Int!
+  "List of reference designs in the current result set."
+  results: [SupRefDesign!]!
+  "Aggregate on publishers for this result set."
+  publisherAgg(size: Int = 10): [SupRefPublisherBucket!]
+  "Aggregate on applications for this result set."
+  applicationAgg(size: Int = 10): [SupRefApplicationBucket!]
+  "Aggregate on tags for this result set."
+  tagAgg(size: Int = 10): [SupRefTagBucket!]
+  "Aggregate on categories for this result set."
+  categoryAgg(size: Int = 10): [SupRefCategoryBucket!]
+  "Aggregate on reference design types for this result set."
+  typeAgg(size: Int = 10): [SupRefDesignTypeBucket!]
+}
+
+"Aggregation bucket for reference design types with type + counts."
+type SupRefDesignTypeBucket {
+  "Reference design type."
+  type: SupRefDesignType!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+type SupRefEvaluationKit {
+  "The part identifier."
+  partId: String!
+  "The evaluation kit title."
+  title: String!
+  "Preview images that provide a visual overview of the evaluation kit."
+  previewImages: [SupImage!]!
+  "Nexar supply part data for internal use only. Array of size 1."
+  evalKit(country: String! = "US", currency: String! = "USD"): [SupPart]!
+}
+
+"Represents a frequently asked question for a reference design."
+type SupRefFaq {
+  "The question text."
+  question: String!
+  "The answer text."
+  answer: String!
+}
+
+"Represents a key feature of a reference design."
+type SupRefKeyFeature {
+  "The feature name."
+  name: String!
+  "The feature description."
+  description: String!
+  "The feature description in HTML format."
+  html: String
+}
+
+type SupRefPart {
+  "The part identifier."
+  partId: String!
+  "The type identifier of this component, indicating its role in the reference design."
+  type: SupRefPartType!
+  "The global identifier linked to the reference design components."
+  designators: [String!]!
+  "Nexar supply part data for internal use only. Array of size 1."
+  part(country: String! = "US", currency: String! = "USD"): [SupPart]!
+}
+
+"Represents a 2D point for a file note."
+type SupRefPoint2D {
+  "The point type."
+  type: String!
+  "The X coordinate."
+  x: Float!
+  "The Y coordinate."
+  y: Float!
+}
+
+"Aggregation bucket for reference design publishers with company identifier + counts."
+type SupRefPublisherBucket {
+  "The identifier of the company that publish the reference design."
+  publisherId: String!
+  "Number of items in the bucket."
+  count: Int!
+  publisher: [SupCompany!]
+}
+
+"Represents a resource related to a reference design."
+type SupRefResource {
+  "The resource title."
+  title: String!
+  "The resource description."
+  description: String!
+  "An optional note for the resource."
+  note: String
+  "The information of the download URL."
+  downloadText: String!
+  "The download URL for the resource."
+  downloadUrl: String!
+  "The revision date for the resource."
+  revisionDate: DateTime!
+  "Other related resources."
+  otherResources: [SupRefResource]!
+}
+
+"Represents a tag for categorizing a reference design."
+type SupRefTag {
+  "The tag value."
+  value: String!
+  "The tag category name."
+  category: String!
+}
+
+"Aggregation bucket for reference design tags with name + counts."
+type SupRefTagBucket {
+  "Tag name associated with reference design."
+  name: String!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+type SupReferenceDesign {
+  name: String!
+  url: String!
+}
+
+type SupSearchCorrection {
+  "The type of suggestion this is. Useful for knowing how the suggestion was generated"
+  correctionType: SupCorrectionType!
+  "The new search string for this suggestion"
+  correctionString: String!
+  "List of any terms from the original search string that have been dropped in this correction. Only populated in `DROPPEDTERM` type corrections"
+  droppedTerms: [String!]!
+  "List of any filters from the original search that have been dropped in this correction. Only populated in `DROPPEDFILTER` type corrections"
+  droppedFilters: SupDroppedFilter!
+  "Estimated number of part hits for this correction"
+  hits: Int!
+}
+
+type SupSoftwareProject {
+  "The software project identifier."
+  id: ID!
+  "The software project title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The recommendation score. Range is 0 to 65535."
+  recommendScore: Int!
+  "Whether the software project is recommended."
+  isRecommended: Boolean!
+  "The detailed description."
+  description: String
+  "The software project type."
+  type: SupSoftwareProjectType!
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "The user id who last updated the software project."
+  updatedById: String
+  "The user name who last updated the software project."
+  updatedByName: String
+  "The list of software project images."
+  previewImages: [SupImage!]
+  "The best software project image."
+  bestPreviewImage: SupImage
+  "The list of parameters associated with the software project."
+  parameters: [SupSoftwareProjectParameter!]
+  publisher: [SupCompany!]
+  "The list of evaluation kit sources associated with the software project."
+  compatibleEvalKits: [SupSoftwareProjectEvalKitSource!]
+  "The evaluation kit source associated with the software project."
+  compatibleEvalKit(id: ID!): SupSoftwareProjectEvalKitSource
+  "The compatible evaluation kits of software project."
+  compatibleEvalKitData(
+    where: SupSoftwareProjectCompatibleEvalKitFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectCompatibleEvalKitSortInput!]
+  ): SupSoftwareProjectEvalKitSourceConnection @deprecated(reason: "Use 'compatibleEvalKitDetails' instead.")
+  "The compatible evaluation kits of software project."
+  compatibleEvalKitDetails(
+    where: SupSoftwareProjectCompatibleEvalKitFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectCompatibleEvalKitSortInput!]
+  ): SupSoftwareProjectEvalKitSourceConnection
+}
+
+"A connection to a list of items."
+type SupSoftwareProjectConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupSoftwareProjectEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSoftwareProject!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"Payload associated with creating a software project."
+type SupSoftwareProjectCreateSoftwareProjectPayload {
+  "Software project identifier."
+  id: ID
+  errors: [SupSoftwareProjectCreateSoftwareProjectError!]
+}
+
+"Payload associated with deleting a software project."
+type SupSoftwareProjectDeleteSoftwareProjectPayload {
+  errors: [SupSoftwareProjectDeleteSoftwareProjectError!]
+}
+
+"An edge in a connection."
+type SupSoftwareProjectEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSoftwareProject!
+}
+
+type SupSoftwareProjectEvalKitProjectSource {
+  "The project source identifier."
+  projectSourceId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  "The type of the compatible evaluation kit project source."
+  type: SupSoftwareProjectEvalKitProjectSourceType!
+  "The URL of the source."
+  sourceUrl: String!
+  "The URL of the config XML."
+  configXmlUrl: String!
+  "The artifact version."
+  artifactVersion: String
+  "The selected toolchain version string."
+  toolchainVersion: String
+  "The selected toolchain and its supported versions."
+  toolchain: SupEvalKitSoftwareProjectToolchain
+  "The driver framework of the project source."
+  framework: SupSoftwareProjectEvalKitProjectSourceFramework
+  "The device family of the project source."
+  family: SupSoftwareProjectEvalKitProjectSourceDeviceFamily
+  "The last updated date."
+  updatedAt: DateTime!
+  "The artifact associated with the project source."
+  artifact: SupSoftwareProjectEvalKitProjectSourceArtifact
+}
+
+type SupSoftwareProjectEvalKitProjectSourceArtifact {
+  "The last updated date of the artifact."
+  updatedAt: DateTime!
+  "The download URL of the artifact."
+  downloadUrl: String!
+  "The file name of the artifact."
+  fileName: String!
+  "The size of the artifact file in bytes."
+  fileSizeInBytes: Long!
+  "The URL of the output SDM."
+  outputSdmUrl: String!
+}
+
+type SupSoftwareProjectEvalKitSource {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  "The URL of the source associated with the software project."
+  sourceUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the config XML associated with the software project."
+  configXmlUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the config associated with the software project."
+  configUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the readme associated with the software project."
+  readmeUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The evaluation kit identifier."
+  evalKitId: ID! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The evaluation kit associated with the software project."
+  evalKit: SupEvalKit!
+  "The list of evaluation kit project sources."
+  projectSources(types: [SupSoftwareProjectEvalKitProjectSourceType]): [SupSoftwareProjectEvalKitProjectSource!]
+}
+
+"A connection to a list of items."
+type SupSoftwareProjectEvalKitSourceConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupSoftwareProjectEvalKitSourceEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSoftwareProjectEvalKitSource!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupSoftwareProjectEvalKitSourceEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSoftwareProjectEvalKitSource!
+}
+
+type SupSoftwareProjectNotFoundError implements Error {
+  message: String!
+  errorCode: SupSoftwareProjectErrorCode!
+}
+
+type SupSoftwareProjectOperationFailedError implements Error {
+  message: String!
+  errorCode: SupSoftwareProjectErrorCode!
+}
+
+"Represents a parameter in the software project."
+type SupSoftwareProjectParameter {
+  "The parameter definition."
+  parameter: SupSoftwareProjectParameterInfo!
+  "The parameter values."
+  values: [String!]
+}
+
+"Represents the information of a parameter in the software project."
+type SupSoftwareProjectParameterInfo {
+  "The parameter title."
+  title: String!
+}
+
+"Payload returned after patching parameters on a software project."
+type SupSoftwareProjectPatchParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectPatchParametersError!]
+}
+
+"Payload for patching preview images on a software project."
+type SupSoftwareProjectPatchPreviewImagesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectPatchPreviewImagesError!]
+}
+
+"Payload returned after patching software projects on a solution template."
+type SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesError!]
+}
+
+"Payload returned after setting parameters on a software project."
+type SupSoftwareProjectSetParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectSetParametersError!]
+}
+
+"Payload for replacing all preview images on a software project."
+type SupSoftwareProjectSetPreviewImagesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectSetPreviewImagesError!]
+}
+
+"Payload returned after setting software projects on a solution template."
+type SupSoftwareProjectSetSoftwareProjectSolutionTemplatesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectSetSoftwareProjectSolutionTemplatesError!]
+}
+
+type SupSoftwareProjectSolutionTemplateSoftwareProjectsResult {
+  "The solution template identifier."
+  solutionTemplateId: ID!
+  "The software projects associated with the solution template."
+  softwareProjects: [SupSoftwareProject!]!
+}
+
+"Payload associated with updating a evaluation kit compatible software projects."
+type SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectPayload {
+  errors: [SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectError!]
+}
+
+"Payload associated with updating a software project."
+type SupSoftwareProjectUpdateSoftwareProjectPayload {
+  errors: [SupSoftwareProjectUpdateSoftwareProjectError!]
+}
+
+type SupSolutionTemplate {
+  "The solution template identifier."
+  id: ID!
+  "The solution template title."
+  title: String!
+  "The solution template stable name identifier."
+  stableName: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The solution template status."
+  status: SupSolutionTemplateStatus!
+  "The detailed description."
+  description: String
+  "The solution source url."
+  sourceUrl: String
+  "The solution source url."
+  solutionSourceUrl: String @deprecated(reason: "Use 'sourceUrl' instead.")
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "The user id who last updated the solution template."
+  updatedById: String
+  "The user name who last updated the solution template."
+  updatedByName: String
+  "The list of part identifiers associated with the solution template."
+  evalKitIds: [ID!]! @deprecated(reason: "Use 'compatibleEvalKits' instead")
+  evalKits: [SupEvalKit!]!
+  "The esd source."
+  esdSource: SupSolutionTemplateESDSource!
+  "The list of solution template images."
+  previewImages: [SupImage!]
+  "The list of solution template images."
+  bestPreviewImage: SupImage
+  "The list of application identifiers associated with the solution template."
+  applicationIds: [String!]!
+  "The list of parameter bundles associated with the solution template."
+  parameters: [SupSolutionTemplateParameterBundle!]!
+  "The list of evaluation kit parameter bundles associated with the solution template."
+  compatibleEvalKits: [SupSolutionTemplateCompatibleEvalKit!]!
+  "The list of reference design identifiers associated with the solution template."
+  refDesignIds: [String!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The list of reference designs associated with the solution template."
+  refDesigns: [SupRefDesign!]!
+  "The list of AI model identifiers associated with the solution template."
+  aiModelIds: [String!]
+  "Tags categorizing the solution template for search and organization."
+  tags: [SupSolutionTemplateTag]
+  "The list of key features group associated with the solution template."
+  keyFeatureGroups: [SupSolutionTemplateKeyFeatureGroup!]!
+  "The default requirement string used when a user first clones the solution template."
+  requirementTemplate: String
+  "The optional release date."
+  releaseDate: DateTime
+  "The list of software projects identifiers associated with the solution template."
+  softwareProjectIds: [ID!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The list of software projects identifiers associated with the solution template."
+  softwareProjects: [SupSoftwareProject!]!
+  applications: [SupCategory!]
+  publisher: [SupCompany!]
+  "The solution template entity for Nexar schema stitching purposes."
+  self: SupSolutionTemplate
+}
+
+type SupSolutionTemplateApplication {
+  "The solution template application identifier."
+  id: ID!
+  "The solution template application description."
+  description: String
+  "The solution template application identifier."
+  applicationId: String!
+  "The date and time when the solution template application was created."
+  createdAt: DateTime!
+  "The date and time when the solution template application was updated."
+  updatedAt: DateTime!
+  "The list of parameter bundles associated with the solution template."
+  parameters: [SupSolutionTemplateApplicationParameterBundle!]!
+  application: [SupCategory!]
+}
+
+"A connection to a list of items."
+type SupSolutionTemplateApplicationConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupSolutionTemplateApplicationEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSolutionTemplateApplication!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupSolutionTemplateApplicationEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSolutionTemplateApplication!
+}
+
+type SupSolutionTemplateApplicationIsExistedError implements Error {
+  message: String!
+  errorCode: SupSolutionTemplateErrorCode!
+}
+
+type SupSolutionTemplateApplicationNotFoundError implements Error {
+  message: String!
+  errorCode: SupSolutionTemplateErrorCode!
+}
+
+type SupSolutionTemplateApplicationParameterBundle {
+  "The content of the question associated with this parameter bundle."
+  question: String!
+  "The display order of the parameter bundle."
+  order: Int!
+  "Indicates whether the parameter bundle is mandatory."
+  required: Boolean!
+  "Details about the parameter of the parameter bundle."
+  parameter: SupSolutionTemplateParameter!
+  "The parameter's list of values."
+  values: [SupSolutionTemplateParameterValue!]!
+}
+
+type SupSolutionTemplateCompatibleEvalKit {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  "The evaluation kit identifier associated with the solution template."
+  evalKitId: ID!
+  evalKit: SupEvalKit!
+  "The list of parameters."
+  parameters: [SupSolutionTemplateParameterBundle!]!
+}
+
+"A connection to a list of items."
+type SupSolutionTemplateConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupSolutionTemplateEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSolutionTemplate!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"Payload associated with creating a solution template application."
+type SupSolutionTemplateCreateSolutionTemplateApplicationPayload {
+  "Solution template application identifier."
+  id: ID
+  errors: [SupSolutionTemplateCreateSolutionTemplateApplicationError!]
+}
+
+"Payload associated with creating a solution template."
+type SupSolutionTemplateCreateSolutionTemplatePayload {
+  "Solution template identifier."
+  id: ID
+  errors: [SupSolutionTemplateCreateSolutionTemplateError!]
+}
+
+"Payload associated with deleting a solution template application."
+type SupSolutionTemplateDeleteSolutionTemplateApplicationPayload {
+  errors: [SupSolutionTemplateDeleteSolutionTemplateApplicationError!]
+}
+
+"Payload associated with deleting a solution template."
+type SupSolutionTemplateDeleteSolutionTemplatePayload {
+  errors: [SupSolutionTemplateDeleteSolutionTemplateError!]
+}
+
+type SupSolutionTemplateESDSource {
+  "The URL of the document file associated with the solution template."
+  documentFileUrl: String
+  "The URL of the compile model associated with the solution template."
+  compileModelUrl: String
+  "The URL of the preview resource associated with the solution template."
+  previewUrl: String
+}
+
+"An edge in a connection."
+type SupSolutionTemplateEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSolutionTemplate!
+}
+
+"Payload associated with indexing a solution template."
+type SupSolutionTemplateIndexSolutionTemplatePayload {
+  "Indicates whether the indexing operation was successful."
+  success: Boolean
+  errors: [SupSolutionTemplateIndexSolutionTemplateError!]
+}
+
+type SupSolutionTemplateInvalidDataError implements Error {
+  message: String!
+  errorCode: SupSolutionTemplateErrorCode!
+}
+
+type SupSolutionTemplateKeyFeatureGroup {
+  "The key feature group title."
+  title: String!
+  "The display order of the key feature group."
+  order: Int!
+  "The list of attributes associated with key feature group."
+  attributes: [SupSolutionTemplateKeyFeatureGroupAttribute!]!
+}
+
+type SupSolutionTemplateKeyFeatureGroupAttribute {
+  "The attribute name."
+  name: String!
+  "The attribute value."
+  value: String
+}
+
+type SupSolutionTemplateNotFoundError implements Error {
+  message: String!
+  errorCode: SupSolutionTemplateErrorCode!
+}
+
+type SupSolutionTemplateOperationFailedError implements Error {
+  message: String!
+  errorCode: SupSolutionTemplateErrorCode!
+}
+
+type SupSolutionTemplateParameter {
+  "The parameter title."
+  title: String!
+  "Details about the parameter."
+  info: SupSolutionTemplateParameterInfo
+}
+
+"The parameter bundle's list of values."
+type SupSolutionTemplateParameterBundle {
+  "Details about the parameter of the parameter bundle."
+  parameter: SupSolutionTemplateParameter!
+  values: [SupSolutionTemplateParameterValue!]!
+}
+
+type SupSolutionTemplateParameterInfo {
+  "A detailed explanation of the parameter."
+  description: String
+  "The URL of the image associated with this parameter."
+  imageUrl: String
+  "A brief summary of the parameter."
+  summary: String
+}
+
+type SupSolutionTemplateParameterValue {
+  "The value of this parameter value."
+  value: String!
+  "The name of this parameter value."
+  name: String!
+  "Details about the parameter."
+  info: SupSolutionTemplateParameterInfo
+}
+
+"Payload for patching compatible eval kits on a solution template."
+type SupSolutionTemplatePatchCompatibleEvalKitsPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplatePatchCompatibleEvalKitsError!]
+}
+
+"Payload for patching the ESD source of a solution template."
+type SupSolutionTemplatePatchEsdSourcePayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplatePatchEsdSourceError!]
+}
+
+type SupSolutionTemplatePatchKeyFeatureGroupsPayload {
+  result: SupSolutionTemplateResultPayload
+  errors: [SupSolutionTemplatePatchKeyFeatureGroupsError!]
+}
+
+"Payload for patching parameters on a solution template."
+type SupSolutionTemplatePatchParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplatePatchParametersError!]
+}
+
+"Payload for patching preview images on a solution template."
+type SupSolutionTemplatePatchPreviewImagesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplatePatchPreviewImagesError!]
+}
+
+"Payload for patching reference designs on a solution template."
+type SupSolutionTemplatePatchRefDesignsPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplatePatchRefDesignsError!]
+}
+
+type SupSolutionTemplatePatchTagsPayload {
+  result: SupSolutionTemplateResultPayload
+  errors: [SupSolutionTemplatePatchTagsError!]
+}
+
+"Aggregation bucket for applications with application identifier + counts."
+type SupSolutionTemplateRefDesignApplicationBucket {
+  "The identifier of application."
+  applicationId: String!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+"Aggregation bucket for reference design categories with category identifier + counts."
+type SupSolutionTemplateRefDesignCategoryBucket {
+  "The identifier of category."
+  categoryId: String!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+"Aggregation bucket for reference design publishers with company identifier + counts."
+type SupSolutionTemplateRefDesignPublisherBucket {
+  "The identifier of the company that publish the reference design."
+  publisherId: String!
+  "Number of items in the bucket."
+  count: Int!
+  publisher: [SupCompany!]
+}
+
+"Reference designs with pagination, aggregation information."
+type SupSolutionTemplateRefDesignResultSet {
+  "Total number of reference designs found."
+  hits: Int!
+  "List of reference designs in the current result set."
+  results: [SupSolutionTemplateRefDesign!]!
+  "Aggregate on publishers for this result set."
+  publisherAgg(size: Int = 10): [SupSolutionTemplateRefDesignPublisherBucket!]
+  "Aggregate on applications for this result set."
+  applicationAgg(size: Int = 10): [SupSolutionTemplateRefDesignApplicationBucket!]
+  "Aggregate on tags for this result set."
+  tagAgg(size: Int = 10): [SupSolutionTemplateRefDesignTagBucket!]
+  "Aggregate on categories for this result set."
+  categoryAgg(size: Int = 10): [SupSolutionTemplateRefDesignCategoryBucket!]
+  "Aggregate on reference design types for this result set."
+  typeAgg(size: Int = 10): [SupSolutionTemplateRefDesignTypeBucket!]
+}
+
+"Aggregation bucket for reference design tags with name + counts."
+type SupSolutionTemplateRefDesignTagBucket {
+  "Tag name associated with reference design."
+  name: String!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+"Aggregation bucket for reference design types with type + counts."
+type SupSolutionTemplateRefDesignTypeBucket {
+  "Reference design type or solution template."
+  type: SupSolutionTemplateRefDesignType!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+type SupSolutionTemplateResultPayload {
+  "Return true if operation succeeded."
+  success: Boolean!
+}
+
+"Payload for replacing all compatible eval kits on a solution template."
+type SupSolutionTemplateSetCompatibleEvalKitsPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplateSetCompatibleEvalKitsError!]
+}
+
+type SupSolutionTemplateSetKeyFeatureGroupsPayload {
+  result: SupSolutionTemplateResultPayload
+  errors: [SupSolutionTemplateSetKeyFeatureGroupsError!]
+}
+
+"Payload for replacing all parameters on a solution template."
+type SupSolutionTemplateSetParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplateSetParametersError!]
+}
+
+"Payload for replacing all preview images on a solution template."
+type SupSolutionTemplateSetPreviewImagesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplateSetPreviewImagesError!]
+}
+
+"Payload for replacing reference designs on a solution template."
+type SupSolutionTemplateSetRefDesignsPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSolutionTemplateSetRefDesignsError!]
+}
+
+type SupSolutionTemplateSetTagsPayload {
+  result: SupSolutionTemplateResultPayload
+  errors: [SupSolutionTemplateSetTagsError!]
+}
+
+"Represents a tag for categorizing a solution template."
+type SupSolutionTemplateTag {
+  "The tag value."
+  value: String!
+  "The tag category name."
+  category: String!
+}
+
+"Payload associated with updating a solution template application."
+type SupSolutionTemplateUpdateSolutionTemplateApplicationPayload {
+  errors: [SupSolutionTemplateUpdateSolutionTemplateApplicationError!]
+}
+
+"Payload associated with updating a solution template."
+type SupSolutionTemplateUpdateSolutionTemplatePayload {
+  errors: [SupSolutionTemplateUpdateSolutionTemplateError!]
+}
+
+"Payload associated with updating the status of a solution template."
+type SupSolutionTemplateUpdateSolutionTemplateStatusPayload {
+  errors: [SupSolutionTemplateUpdateSolutionTemplateStatusError!]
+}
+
+"Represents a specific value of an Attribute for a given Part"
+type SupSpec {
+  attribute: SupAttribute!
+  "The actual value"
+  value: String!
+  "The value of the spec in SI base units"
+  siValue: String!
+  "The type of the value"
+  valueType: String!
+  "The units of the value"
+  units: String!
+  "The short name of the units"
+  unitsName: String!
+  "The symbol of the units"
+  unitsSymbol: String!
+  "The formatted display value"
+  displayValue: String!
+}
+
+type SupSpecAgg {
+  attribute: SupAttribute!
+  buckets: [SupSpecBucket!]!
+  "min is the lowest spec value in this result set for numerical attributes"
+  min: Float
+  "max is the greatest spec value in this result set for numerical attributes"
+  max: Float
+  "The min value in SI base units"
+  siMin: String
+  "The max value in SI base units"
+  siMax: String
+  "displayMin is the formatted string of min"
+  displayMin: String
+  "displayMax is the formatted string of max"
+  displayMax: String
+  "The type of the value"
+  valueType: String!
+  "The units of the spec"
+  units: String
+  "The short name of the units"
+  unitsName: String
+  "The symbol of the units"
+  unitsSymbol: String
+}
+
+type SupSpecBucket {
+  "displayValue is the string value. For numerical attributes it is the formatted version of floatValue"
+  displayValue: String!
+  "floatValue is populated if the attribute is numeric"
+  floatValue: Float
+  "count will be null if aggregation timed out"
+  count: Int
+}
+
+type SupSpellingCorrection {
+  correctionString: String!
+  hits: Int!
+}
+
+"Part identified by manufacturer as being a companion part, for instance a mated connector pair."
+type SupSponsoredPart {
+  "Cache ID"
+  _cacheId: String!
+  ppid: ID! @deprecated(reason: "use part.id instead")
+  sourceId: ID! @deprecated(reason: "unused")
+  "Related part"
+  part: SupPart!
+  "URL to visit for related part"
+  url: String!
+}
+
+"Suggests a query based on partial query input.  Used for autocomplete / typeahead UIs."
+type SupSuggestion {
+  "Suggested text of longer query"
+  text: String!
+  "If the suggestion should also apply a categoryId filter, this is the category name"
+  inCategoryName: String!
+  "If the suggestion should also apply a categoryId filter, this is the Category ID"
+  inCategoryId: String!
+  "If the suggestion should also apply a manufacturer filter, this is the Manufacturer name"
+  inManufacturerName: String!
+  "If the suggestion should also apply a partId filter, this is the Part ID"
+  inPartId: String!
+}
+
+union SupEvalKitAddDevicesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitAddPreviewImagesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitAddRefDesignCompatibleEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitCreateEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitDeleteDevicesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitDeleteEvalKitError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitDeletePreviewImagesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitDeleteRefDesignCompatibleEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitPatchParametersError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitSetMainRefDesignError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitSetParametersError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitSoftwareProjectCompatibleEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitSortPreviewImagesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitUnsetMainRefDesignError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitUpdateEvalKitError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupPartFamilyPartSearchResult = SupPartFamilyPart | SupPartGroup
+
+union SupPartFamilySearchResult = SupPartFamily | SupPartGroup
+
+union SupSoftwareProjectCreateSoftwareProjectError = SupSoftwareProjectOperationFailedError
+
+union SupSoftwareProjectDeleteSoftwareProjectError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectPatchParametersError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectPatchPreviewImagesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectSetParametersError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectSetPreviewImagesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectSetSoftwareProjectSolutionTemplatesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectUpdateSoftwareProjectError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSolutionTemplateCreateSolutionTemplateApplicationError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateApplicationIsExistedError
+
+union SupSolutionTemplateCreateSolutionTemplateError = SupSolutionTemplateOperationFailedError
+
+union SupSolutionTemplateDeleteSolutionTemplateApplicationError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateApplicationNotFoundError
+
+union SupSolutionTemplateDeleteSolutionTemplateError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplateIndexSolutionTemplateError = SupSolutionTemplateOperationFailedError
+
+union SupSolutionTemplatePatchCompatibleEvalKitsError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplatePatchEsdSourceError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplatePatchKeyFeatureGroupsError = SupSolutionTemplateNotFoundError | SupSolutionTemplateInvalidDataError | SupSolutionTemplateOperationFailedError
+
+union SupSolutionTemplatePatchParametersError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplatePatchPreviewImagesError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplatePatchRefDesignsError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplatePatchTagsError = SupSolutionTemplateNotFoundError | SupSolutionTemplateOperationFailedError
+
+"Union type for solution template and reference design types."
+union SupSolutionTemplateRefDesign = SupRefDesign | SupSolutionTemplate
+
+union SupSolutionTemplateSetCompatibleEvalKitsError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplateSetKeyFeatureGroupsError = SupSolutionTemplateNotFoundError | SupSolutionTemplateInvalidDataError | SupSolutionTemplateOperationFailedError
+
+union SupSolutionTemplateSetParametersError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplateSetPreviewImagesError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplateSetRefDesignsError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplateSetTagsError = SupSolutionTemplateNotFoundError | SupSolutionTemplateOperationFailedError
+
+union SupSolutionTemplateUpdateSolutionTemplateApplicationError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateApplicationNotFoundError
+
+union SupSolutionTemplateUpdateSolutionTemplateError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+union SupSolutionTemplateUpdateSolutionTemplateStatusError = SupSolutionTemplateOperationFailedError | SupSolutionTemplateNotFoundError
+
+input DatBomItemInput {
+  itemRefId: String
+  manufacturerName: String
+  mpn: String
+  description: String
+  designator: String
+}
+
+input DatBomPartItemInput {
+  itemRefId: String
+  partId: String!
+  alternateCandidatePartIds: [String!]
+  quantity: Int!
+}
+
+input SupApiCredentials {
+  "The ID of the company that you are providing credentials for. An Octopart representative will give this value to you if needed."
+  companyId: String!
+  "Authentication details. `clientId` and `clientSecret` should be given together when an API requires them."
+  clientId: String
+  "Authentication details. `clientId` and `clientSecret` should be given together when an API requires them."
+  clientSecret: String
+  "Authentication details. `username` and `password` should be given together when an API requires them."
+  username: String
+  "Authentication details. `username` and `password` should be given together when an API requires them."
+  password: String
+  "Authentication details. `apiKey` should be given when an API requires it."
+  apiKey: String
+}
+
+"Input for adding devices to an evaluation kit."
+input SupEvalKitAddDevicesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The list of devices to add."
+  devices: [SupEvalKitDeviceInput!]!
+}
+
+"Input for adding preview images to an evaluation kit."
+input SupEvalKitAddPreviewImagesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The collection of preview images to add."
+  previewImages: [SupEvalKitFileInput!]!
+}
+
+"Input for adding compatible evaluation kits to a reference design."
+input SupEvalKitAddRefDesignCompatibleEvalKitInput {
+  "The ID of the reference design to which the evaluation kits will be added."
+  refDesignId: ID!
+  "The list of evaluation kit IDs to be added as compatible with the reference design."
+  evalKitIds: [ID!]!
+}
+
+"Represents the filter for searching evaluation kits."
+input SupEvalKitByRefDesignFilterInput {
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by part identifiers."
+  partIds: [String!]
+}
+
+"Represents the filter for searching compatible software projects."
+input SupEvalKitCompatibleSoftwareProjectFilterInput {
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by type."
+  types: [SupSoftwareProjectType!]
+}
+
+"Input for evaluation kit creation."
+input SupEvalKitCreateEvalKitInput {
+  "The evaluation kit title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The evaluation kit description."
+  description: String
+  "The evaluation kit source url."
+  sourceUrl: String
+  "The evaluation kit source file for building source url."
+  sourceFile: SupEvalKitFileInput
+  "The list of Reference Design identifiers associated with the evaluation kit."
+  refDesignIds: [ID!]
+  "The list of evaluation kit images input. The first image will be the best preview image."
+  previewImages: [SupEvalKitFileInput!]!
+  "The list of Part identifiers associated with the evaluation kit."
+  partIds: [String!]
+  "The list of Compatible Software Project identifiers associated with the evaluation kit."
+  compatibleSoftwareProjectIds: [ID!] @deprecated(reason: "CompatibleSoftwareProjectIds is deprecated and no longer accepted.")
+}
+
+input SupEvalKitCreateSoftwareProjectCompatibleEvalKitInput {
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "The project sources associated with the evaluation kit source."
+  projectSources: [SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput!]!
+}
+
+"Input for deleting devices from an evaluation kit."
+input SupEvalKitDeleteDevicesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The list of devices to remove."
+  devices: [SupEvalKitDeviceInput!]!
+}
+
+"Input for evaluation kit delete."
+input SupEvalKitDeleteEvalKitInput {
+  "The evaluation kit identifier."
+  id: ID!
+}
+
+"Input for deleting preview images from an evaluation kit."
+input SupEvalKitDeletePreviewImagesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The collection of image URLs to delete."
+  imageUrls: [String!]!
+}
+
+"Input for deleting compatible evaluation kits from a reference design."
+input SupEvalKitDeleteRefDesignCompatibleEvalKitInput {
+  "The ID of the reference design from which compatible evaluation kits will be deleted."
+  refDesignId: ID!
+  "The list of evaluation kit IDs to be deleted from the compatible evaluation kits of the reference design."
+  evalKitIds: [ID!]!
+}
+
+"Input type for device mutation."
+input SupEvalKitDeviceInput {
+  "The manufacturer part number of the device."
+  deviceMpn: String!
+  "The unique identifier of the reference design."
+  refDesignId: ID!
+}
+
+input SupEvalKitFileInput {
+  "The nexar file service identifier of the file."
+  fileId: String!
+  "The type of the file."
+  fileType: String!
+  "The file’s name with extension included (e.g., example.json, image.jpg)."
+  fileName: String!
+}
+
+"Input for filtering evaluation kits by additional conditions."
+input SupEvalKitFilterInput {
+  "Filter by a list of publisher (company) identifiers if specified."
+  publisherIds: [String!]
+}
+
+"Input type for ordering."
+input SupEvalKitOrderInput {
+  "The field to order by."
+  field: SupEvalKitOrderField!
+  "The direction of the order."
+  direction: SupEvalKitOrderDirection!
+}
+
+"Identifies a parameter by its title."
+input SupEvalKitParameterInfoInput {
+  "The title of the parameter (case-sensitive)."
+  title: String!
+}
+
+"A parameter and its values."
+input SupEvalKitParameterInput {
+  "Identifies the parameter by its title (case-sensitive)."
+  parameter: SupEvalKitParameterInfoInput!
+  "The values for this parameter."
+  values: [String!]!
+}
+
+"Input for patching parameters on an evaluation kit."
+input SupEvalKitPatchParametersInput {
+  "The unique identifier of the evaluation kit."
+  evaluationKitId: ID!
+  "Parameters to add or update. Creates the parameter if new, replaces its values if it already exists."
+  addParameters: [SupEvalKitParameterInput!]
+  "Titles of parameters to remove entirely from this evaluation kit."
+  removeParameters: [SupEvalKitParameterInfoInput!]
+}
+
+input SupEvalKitRemoveSoftwareProjectCompatibleEvalKitInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+}
+
+"Represents the filter for searching evaluation kits."
+input SupEvalKitSearchFilterInput {
+  "Searches by evaluation kit identifiers."
+  ids: [ID!]
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by part identifiers."
+  partIds: [String!]
+  "Searches by reference design identifiers."
+  refDesignIds: [ID!]
+}
+
+"Input for setting the main reference design of an evaluation kit."
+input SupEvalKitSetMainRefDesignInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The unique identifier of the reference design to set as main."
+  refDesignId: ID!
+}
+
+"Input for replacing all parameters on an evaluation kit."
+input SupEvalKitSetParametersInput {
+  "The unique identifier of the evaluation kit."
+  evaluationKitId: ID!
+  "The complete new set of parameters. Deletes all existing parameters and values, then inserts these."
+  parameters: [SupEvalKitParameterInput!]
+}
+
+"Input for software project update."
+input SupEvalKitSoftwareProjectCompatibleEvalKitInput {
+  "The software project identifier."
+  id: ID!
+  "Add a new software project evaluation kit project sources."
+  addCompatibleEvalKits: [SupEvalKitCreateSoftwareProjectCompatibleEvalKitInput!]
+  "Update current existing evaluation kit project sources."
+  updateCompatibleEvalKits: [SupEvalKitUpdateSoftwareProjectCompatibleEvalKitInput!]
+  "Remove current existing evaluation kit project sources."
+  removeCompatibleEvalKits: [SupEvalKitRemoveSoftwareProjectCompatibleEvalKitInput!]
+}
+
+input SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput {
+  "The URL of the source associated with the evaluation kit source."
+  sourceUrl: String
+  "The upload file of the source associated with the evaluation kit source."
+  sourceFile: SupEvalKitFileInput
+  "The URL of the config XML associated with the evaluation kit source."
+  configXmlUrl: String!
+  "The artifact version associated with the evaluation kit source."
+  artifactVersion: String
+  "The driver framework of the project source."
+  framework: SupSoftwareProjectEvalKitProjectSourceFramework
+  "The device family of the project source."
+  family: SupSoftwareProjectEvalKitProjectSourceDeviceFamily
+  "The toolchain identifier. A toolchain may be selected without a version."
+  toolchainId: String
+  "The supported version string from the toolchain catalog. Must belong to the selected toolchain."
+  toolchainVersion: String
+  "The project source type."
+  type: SupSoftwareProjectEvalKitProjectSourceType!
+}
+
+"Represents the filter for searching project source toolchains."
+input SupEvalKitSoftwareProjectToolchainFilterInput {
+  "Searches by toolchain identifiers."
+  ids: [String!]
+  "Searches by toolchain name."
+  q: String
+}
+
+"Input type for sorting."
+input SupEvalKitSoftwareProjectToolchainSortInput {
+  "Sorting by toolchain name."
+  name: SortEnumType
+}
+
+"Input type for sorting."
+input SupEvalKitSortInput {
+  "Sorting by title."
+  title: SortEnumType
+  "Sorting by creation date."
+  createdAt: SortEnumType
+  "Sorting by last update date."
+  updatedAt: SortEnumType
+}
+
+"Input for reordering preview images of an evaluation kit."
+input SupEvalKitSortPreviewImagesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The collection of image URLs in the desired sort order."
+  sortedImageUrls: [String!]!
+}
+
+"Input for unsetting the main reference design of an evaluation kit."
+input SupEvalKitUnsetMainRefDesignInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The unique identifier of the reference design to unset as main."
+  refDesignId: ID!
+}
+
+"Input for evaluation kit update."
+input SupEvalKitUpdateEvalKitInput {
+  "The evaluation kit identifier."
+  id: ID!
+  "The evaluation kit title."
+  title: String
+  "The publisher identifier."
+  publisherId: String
+  "The evaluation kit description."
+  description: String
+  "The evaluation kit source url."
+  sourceUrl: String
+  "The evaluation kit source file for building source url."
+  sourceFile: SupEvalKitFileInput
+  "Remove list of Reference Design identifiers associated with the evaluation kit."
+  removeRefDesignIds: [ID!]
+  "Add list of Reference Design identifiers associated with the evaluation kit."
+  addRefDesignIds: [ID!]
+  "Remove list of Part identifiers associated with the evaluation kit."
+  removePartIds: [String!]
+  "Add list of Part identifiers associated with the evaluation kit."
+  addPartIds: [String!]
+  "Replace the current evaluation kit preview images with these ones. The first image will be used as a best preview image."
+  newPreviewImages: [SupEvalKitFileInput!]
+  "Add list of Compatible Software Project identifiers associated with the evaluation kit."
+  addCompatibleSoftwareProjectIds: [ID!] @deprecated(reason: "AddCompatibleSoftwareProjectIds is deprecated and no longer accepted.")
+  "Remove list of Compatible Software Project identifiers associated with the evaluation kit."
+  removeCompatibleSoftwareProjectIds: [ID!] @deprecated(reason: "RemoveCompatibleSoftwareProjectIds is deprecated and no longer accepted.")
+}
+
+input SupEvalKitUpdateSoftwareProjectCompatibleEvalKitInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "Replace the current software project evaluation kit project sources with these ones."
+  newProjectSources: [SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput!]
+}
+
+input SupPartFamilyFilterInput {
+  applicationIDs: [String!]
+  categoryIDs: [String!]
+  manufacturerIDs: [String!]
+  families: [String!]
+  groups: [String!]
+}
+
+input SupPartMatchOptions {
+  "If true, only parts with at least one authorized seller will be returned."
+  requireAuthorizedSellers: Boolean = false
+  "If true, only parts with stock available will be returned."
+  requireStockAvailable: Boolean = false
+  "a key: value map of filters. See [filter values](https://octopart.com/api/v4/values#attributes)"
+  filters: Map
+}
+
+input SupPartMatchQuery {
+  mpn: String
+  sku: String
+  mpnOrSku: String
+  manufacturer: String
+  seller: String
+  start: Int! = 0
+  limit: Int! = 3
+  reference: String
+}
+
+"Input for filtering reference designs by additional conditions."
+input SupRefDesignFilterInput {
+  "Filter by verification status if specified."
+  isVerified: Boolean
+  "Filter to only include designs that have evaluation boards."
+  hasEvalBoard: Boolean
+  "Filter by a list of application identifiers if specified."
+  applicationIds: [String!]
+  "Filter by a list of category identifiers if specified."
+  categoryIds: [String!]
+  "Filter by a list of publisher (company) identifiers if specified."
+  publisherIds: [String!]
+  "Filter by a list of tags if specified."
+  tags: [String!]
+  "Filter by a list of reference design types if specified."
+  types: [SupRefDesignType!]
+  "Filter by a list of reference design statuses if specified."
+  statuses: [SupRefDesignStatus!]
+}
+
+"Input for ordering reference designs by one or more fields."
+input SupRefDesignOrderInput {
+  "Sort by title in the specified direction."
+  title: SupRefSortDirection
+  "Sort by type in the specified direction."
+  type: SupRefSortDirection
+  "Sort by creation date in the specified direction."
+  createdAt: SupRefSortDirection
+  "Sort by last update date in the specified direction."
+  updatedAt: SupRefSortDirection
+  "Sort by release date in the specified direction."
+  releaseDate: SupRefSortDirection
+  "Sort by stable name in the specified direction."
+  stableName: SupRefSortDirection
+  "Sort by subtitle in the specified direction."
+  subtitle: SupRefSortDirection
+}
+
+"Represents the filter for searching compatible software projects."
+input SupSoftwareProjectCompatibleEvalKitFilterInput {
+  "Searches by important fields (evaluation kit title, evaluation kit description)."
+  q: String
+  "Searches by evaluation kit identifiers."
+  evalKitIds: [ID!]
+}
+
+"Input type for sorting."
+input SupSoftwareProjectCompatibleEvalKitSortInput {
+  "Sorting by evaluation kit."
+  evalKit: SupEvalKitSortInput
+}
+
+input SupSoftwareProjectCreateEvalKitSourceInput {
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "The project sources associated with the evaluation kit source."
+  projectSources: [SupSoftwareProjectEvalKitProjectSourceInput!]!
+}
+
+"Input for software project creation."
+input SupSoftwareProjectCreateSoftwareProjectInput {
+  "The software project title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The software project description."
+  description: String
+  "The software project type."
+  type: SupSoftwareProjectType!
+  "The recommendation score. Range is 0 to 65535."
+  recommendScore: Int
+  "The list of evaluation kit sources associated with the software project."
+  compatibleEvalKits: [SupSoftwareProjectEvalKitSourceInput!] @deprecated(reason: "CompatibleEvalKits is deprecated and no longer accepted.")
+}
+
+"Input for software project delete."
+input SupSoftwareProjectDeleteSoftwareProjectInput {
+  "The software project identifier."
+  id: ID!
+}
+
+input SupSoftwareProjectEvalKitProjectSourceInput {
+  "The URL of the source associated with the evaluation kit source."
+  sourceUrl: String
+  "The upload file of the source associated with the evaluation kit source."
+  sourceFile: SupSoftwareProjectFileInput
+  "The URL of the config XML associated with the evaluation kit source."
+  configXmlUrl: String!
+  "The project source type."
+  type: SupSoftwareProjectEvalKitProjectSourceType!
+}
+
+input SupSoftwareProjectEvalKitSourceInput {
+  "The URL of the source associated with the evaluation kit source."
+  sourceUrl: String @deprecated(reason: "Use 'projectSources.sourceUrl' instead.")
+  "The upload file of the source associated with the evaluation kit source."
+  sourceFile: SupSoftwareProjectFileInput @deprecated(reason: "Use 'projectSources.sourceFile' instead.")
+  "The URL of the config XML associated with the evaluation kit source."
+  configXmlUrl: String @deprecated(reason: "Use 'projectSources.configXmlUrl' instead.")
+  "The URL of the config associated with the evaluation kit source."
+  configUrl: String @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the readme associated with the evaluation kit source."
+  readmeUrl: String @deprecated(reason: "Use 'projectSources' instead.")
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "The project sources associated with the evaluation kit source."
+  projectSources: [SupSoftwareProjectEvalKitProjectSourceInput!]!
+}
+
+input SupSoftwareProjectFileInput {
+  fileId: String!
+  fileType: String!
+  fileName: String!
+}
+
+"Input for filtering software projects by additional conditions."
+input SupSoftwareProjectFilterInput {
+  "Filter by a list of software project types if specified."
+  types: [SupSoftwareProjectType!]
+  "Filter by a list of publisher identifiers if specified."
+  publisherIds: [String!]
+  "Filter by recommendation status if specified."
+  isRecommended: Boolean
+}
+
+"Input type for ordering."
+input SupSoftwareProjectOrderInput {
+  "The field to order by."
+  field: SupSoftwareProjectOrderField!
+  "The direction of the order."
+  direction: SupSoftwareProjectOrderDirection!
+}
+
+"Identifies a parameter by its title."
+input SupSoftwareProjectParameterInfoInput {
+  "The title of the parameter (case-sensitive)."
+  title: String!
+}
+
+"A parameter and its values."
+input SupSoftwareProjectParameterInput {
+  "Identifies the parameter by its title (case-sensitive)."
+  parameter: SupSoftwareProjectParameterInfoInput!
+  "The values for this parameter."
+  values: [String!]!
+}
+
+"Input for patching parameters on a software project."
+input SupSoftwareProjectPatchParametersInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "Parameters to add or update. Creates the parameter if new, replaces its values if it already exists."
+  addParameters: [SupSoftwareProjectParameterInput!]
+  "Titles of parameters to remove entirely from this software project."
+  removeParameters: [SupSoftwareProjectParameterInfoInput!]
+}
+
+"Input for patching preview images on a software project."
+input SupSoftwareProjectPatchPreviewImagesInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "Preview images to add."
+  addPreviewImages: [SupSoftwareProjectFileInput!]
+  "Preview image URLs to delete."
+  deletePreviewImageUrls: [String!]
+  "Preview image URLs in the desired sort order. Must cover all remaining images after deletes."
+  reorderPreviewImageUrls: [String!]
+}
+
+"Input for patching software project associations on a solution template."
+input SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "Software project IDs to associate with the solution template. Ignored if already associated."
+  addSoftwareProjectIds: [ID!]
+  "Software project IDs to remove from the solution template."
+  removeSoftwareProjectIds: [ID!]
+}
+
+input SupSoftwareProjectRemoveEvalKitSourceInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+}
+
+"Represents the filter for searching software projects."
+input SupSoftwareProjectSearchFilterInput {
+  "Searches by software project identifiers."
+  ids: [ID!]
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by type."
+  types: [SupSoftwareProjectType!]
+  "Searches by recommendation status."
+  isRecommended: Boolean
+}
+
+"Input for replacing all parameters on a software project."
+input SupSoftwareProjectSetParametersInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "The complete new set of parameters. Deletes all existing parameters and values, then inserts these."
+  parameters: [SupSoftwareProjectParameterInput!]
+}
+
+"Input for replacing all preview images on a software project."
+input SupSoftwareProjectSetPreviewImagesInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "The new set of preview images. Replaces all existing preview images."
+  previewImages: [SupSoftwareProjectFileInput!]
+}
+
+"Input for replacing all software project associations on a solution template."
+input SupSoftwareProjectSetSoftwareProjectSolutionTemplatesInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The complete new set of software project IDs. Removes all existing associations and inserts these."
+  softwareProjectIds: [ID!]
+}
+
+"Input type for sorting."
+input SupSoftwareProjectSortInput {
+  "Sorting by title."
+  title: SortEnumType
+  "Sorting by recommendation score."
+  recommendScore: SortEnumType
+  "Sorting by recommendation status."
+  isRecommended: SortEnumType
+  "Sorting by creation date."
+  createdAt: SortEnumType
+  "Sorting by last update date."
+  updatedAt: SortEnumType
+}
+
+"Input for evaluation kit compatible software project update."
+input SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectInput {
+  "The evaluation kit identifier."
+  id: ID!
+  "Add a new list of compatible software projects to evaluation kit."
+  addCompatibleSoftwareProjectIds: [ID!]
+  "Remove a list of compatible software projects from evaluation kit."
+  removeCompatibleSoftwareProjectIds: [ID!]
+}
+
+input SupSoftwareProjectUpdateEvalKitSourceInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "Replace the current software project evaluation kit project sources with these ones."
+  newProjectSources: [SupSoftwareProjectEvalKitProjectSourceInput!]
+}
+
+"Input for software project update."
+input SupSoftwareProjectUpdateSoftwareProjectInput {
+  "The software project identifier."
+  id: ID!
+  "The software project title."
+  title: String
+  "The publisher identifier."
+  publisherId: String
+  "The software project description."
+  description: String
+  "The software project type."
+  type: SupSoftwareProjectType
+  "The recommendation score. Range is 0 to 65535."
+  recommendScore: Int
+  "Replace the current software project evaluation kit sources with these ones."
+  newCompatibleEvalKits: [SupSoftwareProjectEvalKitSourceInput!] @deprecated(reason: "Use 'AddCompatibleEvalKits', 'UpdateCompatibleEvalKits', 'RemoveCompatibleEvalKits' instead.")
+  "Add a new software project evaluation kit project sources."
+  addCompatibleEvalKits: [SupSoftwareProjectCreateEvalKitSourceInput!] @deprecated(reason: "AddCompatibleEvalKits is deprecated and no longer accepted.")
+  "Update current existing evaluation kit project sources."
+  updateCompatibleEvalKits: [SupSoftwareProjectUpdateEvalKitSourceInput!] @deprecated(reason: "UpdateCompatibleEvalKits is deprecated and no longer accepted.")
+  "Remove current existing evaluation kit project sources."
+  removeCompatibleEvalKits: [SupSoftwareProjectRemoveEvalKitSourceInput!] @deprecated(reason: "RemoveCompatibleEvalKits is deprecated and no longer accepted.")
+}
+
+input SupSolutionTemplateApplicationCreateParameterBundleInput {
+  "The display order of the parameter bundle."
+  order: Int!
+  "Indicates whether the parameter bundle is required."
+  required: Boolean!
+  "The parameter associated with the bundle."
+  parameter: SupSolutionTemplateCreateParameterInput!
+  "The list of values for the parameter."
+  values: [SupSolutionTemplateCreateParameterValueInput!]!
+  question: String!
+}
+
+input SupSolutionTemplateApplicationRemoveParameterBundleInput {
+  "The unique title of the parameter bundle to remove."
+  parameterTitle: String!
+}
+
+"Represents the filter for searching solution template applications."
+input SupSolutionTemplateApplicationSearchFilterInput {
+  "Searches by solution template application identifiers."
+  ids: [ID!]
+  "Searches by text data."
+  q: String
+}
+
+"Input type for solution template application sorting."
+input SupSolutionTemplateApplicationSortInput {
+  "Sort by creation date."
+  createdAt: SortEnumType
+  "Sort by last update date."
+  updatedAt: SortEnumType
+}
+
+input SupSolutionTemplateApplicationUpdateParameterBundleInput {
+  "The order of the parameter in the bundle."
+  order: Int
+  "Indicates whether the parameter bundle is required."
+  required: Boolean
+  "The parameter info identifier by parameter's title."
+  parameter: SupSolutionTemplateUpdateParameterInput!
+  "Replace the parameter values with these ones."
+  newValues: [SupSolutionTemplateCreateParameterValueInput!]
+  question: String!
+}
+
+input SupSolutionTemplateCompatibleEvalKitInput {
+  "The evaluation kit identifier. Can be duplicated."
+  evalKitId: ID!
+  "The list of parameters associated with the compatible evaluation kit."
+  parameters: [SupSolutionTemplateParameterBundleInput!]
+}
+
+"Input for updating an existing compatible eval kit on a solution template."
+input SupSolutionTemplateCompatibleEvalKitUpdateInput {
+  "The identifier of the existing compatible eval kit to update."
+  compatibleEvalKitId: String!
+  "The new evaluation kit identifier, if changing which eval kit this row points to."
+  evalKitId: ID
+  "Parameters to add to this compatible eval kit. Fails if a title already exists on it."
+  addParameters: [SupSolutionTemplateParameterBundleInput!]
+  "Parameters to update on this compatible eval kit. Fails if a title does not already exist on it."
+  updateParameters: [SupSolutionTemplateParameterBundleInput!]
+  "Parameter titles to remove from this compatible eval kit."
+  removeParameterTitles: [String!]
+}
+
+input SupSolutionTemplateCreateParameterInfoInput {
+  "A detailed explanation of the parameter."
+  description: String!
+  "The URL of the image associated with this parameter."
+  imageUrl: String
+  "A brief summary of the parameter."
+  summary: String
+}
+
+input SupSolutionTemplateCreateParameterInput {
+  "The parameter info identifier by parameter's title."
+  info: SupSolutionTemplateCreateParameterInfoInput
+  "The parameter title."
+  title: String!
+}
+
+input SupSolutionTemplateCreateParameterValueInput {
+  "The parameter info identifier by parameter's title."
+  info: SupSolutionTemplateCreateParameterInfoInput
+  "The value of this parameter value."
+  value: String!
+  "The name of this parameter value."
+  name: String!
+}
+
+input SupSolutionTemplateCreateSolutionTemplateApplicationInput {
+  "The solution template application identifier."
+  applicationId: String!
+  "The solution template application description."
+  description: String
+  "The list of application parameters associated with the solution template application."
+  parameters: [SupSolutionTemplateApplicationCreateParameterBundleInput!]!
+}
+
+"Input for solution template creation."
+input SupSolutionTemplateCreateSolutionTemplateInput {
+  "The solution template title."
+  title: String!
+  "The solution template stable name identifier."
+  stableName: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The solution template description."
+  description: String
+  "The source URL where the solution template is published."
+  sourceUrl: String
+  "The source URL where the solution template is published."
+  solutionSourceUrl: String @deprecated(reason: "Use 'sourceUrl' instead.")
+  "The default requirement string used when a user first clones the solution template."
+  requirementTemplate: String
+  "The optional release date of the solution template."
+  releaseDate: DateTime
+  "The ESD source."
+  esdSource: SupSolutionTemplateEsdSourceInput!
+  "The list of application identifiers associated with the solution template."
+  applicationIds: [String!]
+  "The list of software project identifiers associated with the solution template."
+  softwareProjectIds: [ID!] @deprecated(reason: "Use the SoftwareProject service to manage software project associations.")
+  "The list of solution template images input. The first image will be the best preview image."
+  previewImages: [SupSolutionTemplateFileInput!]!
+  "The list of parameters associated with the solution template application."
+  parameters: [SupSolutionTemplateParameterBundleInput!]
+  "The list of evaluation kit associated with the solution template."
+  compatibleEvalKits: [SupSolutionTemplateCompatibleEvalKitInput!]
+}
+
+"Input for solution template application delete."
+input SupSolutionTemplateDeleteSolutionTemplateApplicationInput {
+  "The solution template application identifier."
+  id: ID!
+}
+
+"Input for solution template delete."
+input SupSolutionTemplateDeleteSolutionTemplateInput {
+  "The solution template identifier."
+  id: ID!
+}
+
+input SupSolutionTemplateEsdSourceInput {
+  "The ESD document file."
+  documentFile: SupSolutionTemplateFileInput!
+  "The ESD compile model file."
+  compileModel: SupSolutionTemplateFileInput
+  "The ESD preview resource file."
+  previewImageFile: SupSolutionTemplateFileInput
+}
+
+"Input for patching the ESD source of a solution template."
+input SupSolutionTemplateEsdSourcePatchInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The ESD document file to upload and replace, if specified. There is no way to clear the document file once set."
+  documentFile: SupSolutionTemplateFileInput
+  "The ESD compile model file to upload and replace, if specified."
+  compileModel: SupSolutionTemplateFileInput
+  "The ESD preview image file to upload and replace, if specified."
+  previewImageFile: SupSolutionTemplateFileInput
+  "Clear the existing ESD compile model file when true."
+  clearCompileModel: Boolean
+  "Clear the existing ESD preview image file when true."
+  clearPreviewImage: Boolean
+}
+
+input SupSolutionTemplateFileInput {
+  "The nexar file service identifier of the file."
+  fileId: String!
+  "The type of the file."
+  fileType: String!
+  "The file's name with extension included (e.g., example.json, image.jpg)."
+  fileName: String!
+}
+
+"Input for filtering solution templates by additional conditions."
+input SupSolutionTemplateFilterInput {
+  "Filter by a list of solution template statuses if specified."
+  statuses: [SupSolutionTemplateStatus!]
+  "Filter by a list of publisher (company) identifiers if specified."
+  publisherIds: [String!]
+  "Filter by a list of AI model identifiers if specified."
+  aiModelIds: [String!]
+  "Indicates whether the solution template has AI models; null applies no filtering."
+  hasAIModels: Boolean
+  "Filter by a list of tag values (case-insensitive) if specified; matches solution templates having any of the tags."
+  tags: [String!]
+}
+
+input SupSolutionTemplateIndexSolutionTemplateInput {
+  "List of solution template IDs to index."
+  solutionTemplateIds: [ID!]!
+}
+
+input SupSolutionTemplateKeyFeatureGroupAttributeInput {
+  "The attribute name."
+  name: String!
+  "The tag attribute value."
+  value: String
+}
+
+input SupSolutionTemplateKeyFeatureGroupInput {
+  "The key feature group title."
+  title: String!
+  "The display order of the key feature group."
+  order: Int!
+  "The list of attributes associated with the key feature group."
+  attributes: [SupSolutionTemplateKeyFeatureGroupAttributeInput!]!
+}
+
+input SupSolutionTemplateParameterBundleInput {
+  "The parameter to be bundled."
+  parameter: SupSolutionTemplateParameterInput!
+  "The list of parameter values associated with the parameter bundle."
+  values: [SupSolutionTemplateParameterValueInput!]!
+}
+
+input SupSolutionTemplateParameterInput {
+  "The identifier used to look up the parameter by its title."
+  title: String!
+}
+
+input SupSolutionTemplateParameterValueInput {
+  "The identifier used to look up the parameter value by its pair of name and value."
+  name: String!
+  "The identifier used to look up the parameter value by its pair of name and value."
+  value: String!
+}
+
+"Input for adding or removing individual compatible eval kits on a solution template."
+input SupSolutionTemplatePatchCompatibleEvalKitsInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "Compatible eval kits to add, each with its own optional parameters."
+  addCompatibleEvalKits: [SupSolutionTemplateCompatibleEvalKitInput!]
+  "Compatible eval kits to update, targeted by their identifier."
+  updateCompatibleEvalKits: [SupSolutionTemplateCompatibleEvalKitUpdateInput!]
+  "The identifier(s) of the compatible eval kits to remove."
+  removeCompatibleEvalKitIds: [String!]
+}
+
+input SupSolutionTemplatePatchEsdSourceInput {
+  "The ESD document file to update if specified."
+  documentFile: SupSolutionTemplateFileInput
+  "The ESD compile model file to update if specified."
+  compileModel: SupSolutionTemplateFileInput
+  "The ESD preview image file to update if specified."
+  previewImageFile: SupSolutionTemplateFileInput
+  "Clear the existing ESD compile model file when true."
+  clearCompileModel: Boolean
+  "Clear the existing ESD preview image file when true."
+  clearPreviewImage: Boolean
+}
+
+input SupSolutionTemplatePatchKeyFeatureGroupInput {
+  "The solution template identifier."
+  solutionTemplateId: ID!
+  "List of new key feature groups associated with a solution template."
+  addKeyFeatureGroups: [SupSolutionTemplateKeyFeatureGroupInput!]
+  "List of existing key feature groups will be removed from a solution template."
+  removeKeyFeatureGroupAttributes: [SupSolutionTemplateRemoveKeyFeatureGroupAttributeInput!]
+}
+
+input SupSolutionTemplatePatchKeyFeatureGroupsInput {
+  input: SupSolutionTemplatePatchKeyFeatureGroupInput!
+}
+
+"Input for adding or removing individual parameters on a solution template."
+input SupSolutionTemplatePatchParametersInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "Parameters to add. Fails if a title already exists on this solution template."
+  addParameters: [SupSolutionTemplateParameterBundleInput!]
+  "Parameters to update. Fails if a title does not already exist on this solution template."
+  updateParameters: [SupSolutionTemplateParameterBundleInput!]
+  "Parameter titles to remove."
+  removeParameterTitles: [String!]
+}
+
+"Input for patching preview images on a solution template."
+input SupSolutionTemplatePatchPreviewImagesInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "Preview images to add."
+  addPreviewImages: [SupSolutionTemplateFileInput!]
+  "Preview image URLs to delete."
+  deletePreviewImageUrls: [String!]
+  "Preview image URLs in the desired sort order. Must cover all remaining images after deletes."
+  reorderPreviewImageUrls: [String!]
+}
+
+"Input for adding or removing individual reference designs on a solution template."
+input SupSolutionTemplatePatchRefDesignsInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The identifier(s) of the reference designs to add."
+  addRefDesignIds: [ID!]
+  "The identifier(s) of the reference designs to remove."
+  removeRefDesignIds: [ID!]
+}
+
+input SupSolutionTemplatePatchTagsInput {
+  "The solution template identifier."
+  solutionTemplateId: ID!
+  "List of new tags for categorizing a solution template."
+  addTags: [SupSolutionTemplateTagInput!]
+  "List of existing tags will be removed from a solution template."
+  removeTags: [SupSolutionTemplateTagInput!]
+}
+
+"Input for filtering reference designs by additional conditions."
+input SupSolutionTemplateRefDesignFilterInput {
+  "Filter by verification status if specified."
+  isVerified: Boolean
+  "Filter to only include designs that have evaluation boards."
+  hasEvalBoard: Boolean
+  "Filter by a list of application identifiers if specified."
+  applicationIds: [String]
+  "Filter by a list of category identifiers if specified."
+  categoryIds: [String]
+  "Filter by a list of publisher (company) identifiers if specified."
+  publisherIds: [String]
+  "Filter by a list of tags if specified."
+  tags: [String]
+  "Filter by a list of solution template or reference design statuses if specified."
+  statuses: [SupSolutionTemplateStatus]
+}
+
+"Input for ordering solution templates or reference designs by one or more fields."
+input SupSolutionTemplateRefDesignOrderInput {
+  "Sort by title in the specified direction."
+  title: SupSolutionTemplateRefDesignSortDirection
+  "Sort by type in the specified direction."
+  type: SupSolutionTemplateRefDesignSortDirection
+  "Sort by creation date in the specified direction."
+  createdAt: SupSolutionTemplateRefDesignSortDirection
+  "Sort by last update date in the specified direction."
+  updatedAt: SupSolutionTemplateRefDesignSortDirection
+  "Sort by stable name in the specified direction."
+  stableName: SupSolutionTemplateRefDesignSortDirection
+  "Sort by release date in the specified direction."
+  releaseDate: SupSolutionTemplateRefDesignSortDirection
+}
+
+input SupSolutionTemplateRemoveKeyFeatureGroupAttributeInput {
+  "The title of key feature group need to remove of out a solution template."
+  keyFeatureGroupTitle: String!
+  "The list of attributes need to remove out of key feature group. If list is empty, all attributes in key feature group wil be removed."
+  attributeNames: [String!]
+}
+
+"Represents the filter for searching solution templates."
+input SupSolutionTemplateSearchFilterInput {
+  "Searches by solution template identifiers."
+  ids: [ID!]
+  "Searches by text data (title, stable name, description)."
+  q: String
+  "Searches by solution template title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by stable name identifier."
+  stableNames: [String!]
+  "Searches by solution template status."
+  statuses: [SupSolutionTemplateStatus!]
+  "Searches by a list of publisher (company) identifiers if specified."
+  publisherIds: [String!]
+  "Searches by a list of user identifiers who last modified the solution template."
+  updatedByIds: [String!]
+  "Searches by AI model identifiers."
+  aiModelIds: [String!]
+  "Indicates whether the solution template has AI models; null applies no filtering."
+  hasAIModels: Boolean
+  "Searches by tag values (case-insensitive); matches solution templates having any of the specified tags."
+  tags: [String!]
+}
+
+"Input for replacing all compatible eval kits on a solution template."
+input SupSolutionTemplateSetCompatibleEvalKitsInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The new set of compatible eval kits. Replaces all existing compatible eval kits."
+  compatibleEvalKits: [SupSolutionTemplateCompatibleEvalKitInput!]
+}
+
+input SupSolutionTemplateSetKeyFeatureGroupInput {
+  "The solution template identifier."
+  solutionTemplateId: ID!
+  "List of new key feature groups associated with a solution template."
+  keyFeatureGroups: [SupSolutionTemplateKeyFeatureGroupInput!]
+}
+
+input SupSolutionTemplateSetKeyFeatureGroupsInput {
+  input: SupSolutionTemplateSetKeyFeatureGroupInput!
+}
+
+"Input for replacing all parameters on a solution template."
+input SupSolutionTemplateSetParametersInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The new set of parameters. Replaces all existing top-level parameters."
+  parameters: [SupSolutionTemplateParameterBundleInput!]
+}
+
+"Input for replacing all preview images on a solution template."
+input SupSolutionTemplateSetPreviewImagesInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The new set of preview images. Replaces all existing preview images."
+  previewImages: [SupSolutionTemplateFileInput!]
+}
+
+"Input for replacing all reference designs on a solution template."
+input SupSolutionTemplateSetRefDesignsInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The identifier(s) of the reference designs. An empty list removes all reference designs."
+  refDesignIds: [ID!]!
+}
+
+input SupSolutionTemplateSetTagsInput {
+  "The solution template identifier."
+  solutionTemplateId: ID!
+  "List of new tags for categorizing a solution template."
+  tags: [SupSolutionTemplateTagInput!]!
+}
+
+"Input type for solution template sorting."
+input SupSolutionTemplateSortInput {
+  "Sort by the solution template title."
+  title: SortEnumType
+  "Sort by the stable name identifier."
+  stableName: SortEnumType
+  "Sort by creation date."
+  createdAt: SortEnumType
+  "Sort by last update date."
+  updatedAt: SortEnumType
+  "Sort by release date."
+  releaseDate: SortEnumType
+}
+
+input SupSolutionTemplateTagInput {
+  "The tag value."
+  value: String!
+  "The tag category name."
+  category: String!
+}
+
+input SupSolutionTemplateUpdateParameterInfoInput {
+  "A detailed explanation of the parameter."
+  description: String!
+  "The URL of the image associated with this parameter."
+  imageUrl: String
+  "A brief summary of the parameter."
+  summary: String
+}
+
+input SupSolutionTemplateUpdateParameterInput {
+  "The information to update the parameter."
+  info: SupSolutionTemplateUpdateParameterInfoInput
+  "The parameter title."
+  title: String!
+}
+
+input SupSolutionTemplateUpdateSolutionTemplateApplicationInput {
+  "The solution template application GRID identifier."
+  id: ID!
+  "The solution template application description."
+  description: String
+  "The update list of application parameters associated with the solution template application."
+  updateParameters: [SupSolutionTemplateApplicationUpdateParameterBundleInput!]
+  "The add list of application parameters associated with the solution template application."
+  addParameters: [SupSolutionTemplateApplicationCreateParameterBundleInput!]
+  "The remove list of application parameters associated with the solution template application."
+  removeParameters: [SupSolutionTemplateApplicationRemoveParameterBundleInput!]
+}
+
+"Input for solution template update."
+input SupSolutionTemplateUpdateSolutionTemplateInput {
+  id: ID!
+  "The ESD source."
+  newEsdSource: SupSolutionTemplatePatchEsdSourceInput @deprecated(reason: "Use the SupSolutionTemplatePatchEsdSource mutation instead.")
+  "The solution template title."
+  title: String
+  "The solution template stable name identifier."
+  stableName: String
+  "The publisher identifier."
+  publisherId: String
+  "The solution template status."
+  status: SupSolutionTemplateStatus
+  "The solution template description."
+  description: String
+  "The source URL where the solution template is published."
+  sourceUrl: String
+  "The source URL where the solution template is published."
+  solutionSourceUrl: String @deprecated(reason: "Use 'sourceUrl' instead.")
+  "The default requirement string used when a user first clones the solution template."
+  requirementTemplate: String
+  "The optional release date of the solution template."
+  releaseDate: DateTime
+  "Remove list of application identifiers associated with the solution template."
+  removeApplicationIds: [String!]
+  "Remove list of application identifiers associated with the solution template."
+  addApplicationIds: [String!]
+  "Add list of software project identifiers associated with the solution template."
+  addSoftwareProjectIds: [ID!] @deprecated(reason: "Use the SoftwareProject service to manage software project associations.")
+  "Remove list of software project identifiers associated with the solution template."
+  removeSoftwareProjectIds: [ID!] @deprecated(reason: "Use the SoftwareProject service to manage software project associations.")
+  "Replace the current solution template preview images with these ones. The first image will be used as a best preview image."
+  newPreviewImages: [SupSolutionTemplateFileInput!] @deprecated(reason: "Use the SupSolutionTemplateSetPreviewImages/SupSolutionTemplatePatchPreviewImages mutations instead.")
+  "Replace the current solution template parameters with these ones."
+  newParameters: [SupSolutionTemplateParameterBundleInput!] @deprecated(reason: "Use the SupSolutionTemplateSetParameters/SupSolutionTemplatePatchParameters mutations instead.")
+  "Replace the current solution template compatible eval kits with these ones."
+  newCompatibleEvalKits: [SupSolutionTemplateCompatibleEvalKitInput!] @deprecated(reason: "Use the SupSolutionTemplateSetCompatibleEvalKits/SupSolutionTemplatePatchCompatibleEvalKits mutations instead.")
+}
+
+"Input for solution template status update."
+input SupSolutionTemplateUpdateSolutionTemplateStatusInput {
+  "Solution template id."
+  id: ID!
+  "The status of a solution template to update."
+  status: SupSolutionTemplateStatus!
+}
+
+enum DatBomAnalysisLevel {
+  ERROR
+  WARNING
+  SUGGESTION
+}
+
+enum DatBomPartSearchStrategy {
+  EXACT
+  EXACT_MPN_ONLY
+  PARTIAL
+  FUZZY
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+enum SupAllFiltersSort {
+  default
+  "Relevance is determined by the number of parts in the result set that have the attribute"
+  relevance
+}
+
+"Specify root to include in categories query.\nDefaults to Electronic parts root only"
+enum SupCategoryRoot {
+  "Electronic parts root"
+  ElectronicParts
+  "Application root"
+  Application
+}
+
+enum SupCorrectionType {
+  DROPPED_FILTER
+  DROPPED_TERM
+  SPELLING
+  OTHER
+}
+
+enum SupCustomPricingAuthType {
+  CLIENT_CREDENTIALS
+  USERNAME_PASSWORD
+  API_KEY
+}
+
+enum SupEvalKitErrorCode {
+  "The operation failed."
+  OPERATION_FAILED
+  "The evaluation kit was not found."
+  SUP_EVAL_KIT_NOT_FOUND
+}
+
+enum SupEvalKitOrderDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}
+
+enum SupEvalKitOrderField {
+  "Order by title."
+  TITLE
+  "Order by description."
+  DESCRIPTION
+  "Order by creation date."
+  CREATED_AT
+  "Order by last update date."
+  UPDATED_AT
+}
+
+"Valid document types for Part Family documentation."
+enum SupPartFamilyDocumentType {
+  DATASHEET
+  MANUAL
+  APPLICATION_NOTE
+  REPORT
+  BROCHURE
+  FLYER
+  GUIDE
+  OTHER
+}
+
+"Valid types a features value can take."
+enum SupPartFamilyFeatureValueType {
+  STRING
+  SCALAR
+  RANGE
+  ENUMERATION
+}
+
+"Valid types for a parameter filter. These describe how this parameter can be used in filtering.\n`VALUES` indicates the parameter can be filtered based on a provided set of terms.\n`RANGE` indicates the parameter can be filtered based on a range of values, provided a min and max value."
+enum SupPartFamilyFilterType {
+  VALUES
+  RANGE
+}
+
+enum SupPartFamilyLifecycleStatus {
+  NEW
+  PRODUCTION
+  EOL
+  NRND
+  OBSOLETE
+  UNKNOWN
+}
+
+"Lifecycle state for a supplier part."
+enum SupPartLifeCycle {
+  UNKNOWN
+  NEW
+  ACTIVE
+  NRFND
+  EOL
+  DISCONTINUED
+  ACTIVE_UNCONFIRMED
+  DISCONTINUED_UNCONFIRMED
+  CONTACT_MFR
+  TRANSFERRED
+}
+
+enum SupRefDesignStatus {
+  "Work in progress, not yet submitted for review."
+  DRAFT
+  "Design data has been submitted and awaits review."
+  SUBMITTED
+  "Review or progress is paused pending further action."
+  ON_HOLD
+  "The design is currently under review."
+  REVIEWING
+  "The design was reviewed and rejected."
+  REJECTED
+  "The design is approved and published and it has active status."
+  ACTIVE
+  "The design is not active."
+  INACTIVE
+}
+
+enum SupRefDesignType {
+  "Highlights a component feature, often for marketing or sales purposes."
+  DEMONSTRATION
+  "Intended to test specific electrical/mechanical characteristics."
+  EVALUATION
+  "Enables code/hardware development and prototyping."
+  DEVELOPMENT
+  "Bundled offering to help users ramp up quickly."
+  STARTER
+  "Complete application or subsystem design with documentation."
+  REFERENCE_DESIGN
+  "Extends capabilities of a dev board. Often optional."
+  EXPANSION
+  "Combines multiple board types, sensors, or modules into a full system."
+  SYSTEM
+  "Example project demonstrating specific use cases or implementations."
+  EXAMPLE
+}
+
+enum SupRefPartType {
+  "Main parts that the reference design demonstrate."
+  PRIMARY
+  "Important supporting parts essential to the function of the reference design."
+  KEY
+  "Other supporting parts."
+  OTHER
+}
+
+"Specifies the sort direction for ordering results."
+enum SupRefSortDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}
+
+"Specify method on ranking search results."
+enum SupSearchRankingMethod {
+  "Default Ranking for all searches."
+  DEFAULT
+  "Ranking the result for Supply purpose."
+  SUPPLY
+  "Ranking the result for Design purpose."
+  DESIGN
+}
+
+enum SupSoftwareProjectErrorCode {
+  "The operation failed."
+  OPERATION_FAILED
+  "The software project was not found."
+  SUP_SOFTWARE_PROJECT_NOT_FOUND
+}
+
+enum SupSoftwareProjectEvalKitProjectSourceDeviceFamily {
+  "RA device family."
+  RA
+  "RAFW device family."
+  RAFW
+  "RX device family."
+  RX
+  "RZ device family."
+  RZ
+  "R-Car device family."
+  R_CAR
+}
+
+enum SupSoftwareProjectEvalKitProjectSourceFramework {
+  "Flexible Software Package driver framework."
+  FSP
+  "Firmware Integration Technology driver framework."
+  FIT
+}
+
+enum SupSoftwareProjectEvalKitProjectSourceType {
+  "CMAKE project."
+  CMAKE
+  "E2STUDIO project."
+  E2STUDIO
+  "RASC CMAKE project."
+  RASC_CMAKE
+}
+
+enum SupSoftwareProjectOrderDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}
+
+enum SupSoftwareProjectOrderField {
+  "Order by title."
+  TITLE
+  "Order by description."
+  DESCRIPTION
+  "Order by type."
+  TYPE
+  "Order by recommendation score."
+  IS_RECOMMENDED
+  "Order by recommend score."
+  RECOMMEND_SCORE
+  "Order by creation date."
+  CREATED_AT
+  "Order by last update date."
+  UPDATED_AT
+}
+
+enum SupSoftwareProjectType {
+  "Defines the Application type used to classify software projects."
+  APPLICATION
+  "Defines the Example type used to classify software projects."
+  EXAMPLE
+}
+
+enum SupSolutionTemplateErrorCode {
+  "The operation failed."
+  OPERATION_FAILED
+  "The solution template was not found."
+  SUP_SOLUTION_TEMPLATE_NOT_FOUND
+  "The solution template already exists."
+  SUP_SOLUTION_TEMPLATE_APPLICATION_IS_EXISTED
+  "The solution template application was not found."
+  SUP_SOLUTION_TEMPLATE_APPLICATION_NOT_FOUND
+  "The stable name is already in use."
+  SUP_SOLUTION_TEMPLATE_STABLE_NAME_IS_EXISTED
+  "Item conflict."
+  SUP_SOLUTION_TEMPLATE_ITEM_CONFLICT
+  "Data input invalid."
+  INVALID_DATA_INPUT
+}
+
+"Specifies the sort direction for ordering results."
+enum SupSolutionTemplateRefDesignSortDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}
+
+enum SupSolutionTemplateRefDesignType {
+  "Highlights a component feature, often for marketing or sales purposes."
+  DEMONSTRATION
+  "Intended to test specific electrical/mechanical characteristics."
+  EVALUATION
+  "Enables code/hardware development and prototyping."
+  DEVELOPMENT
+  "Bundled offering to help users ramp up quickly."
+  STARTER
+  "Complete application or subsystem design with documentation."
+  REFERENCE_DESIGN
+  "Extends capabilities of a dev board. Often optional."
+  EXPANSION
+  "Combines multiple board types, sensors, or modules into a full system."
+  SYSTEM
+  "Example project demonstrating specific use cases or implementations."
+  EXAMPLE
+  "Complete solution template with documentation."
+  SOLUTION_TEMPLATE
+}
+
+enum SupSolutionTemplateStatus {
+  "Work in progress, not yet submitted for review."
+  DRAFT
+  "Solution Template data has been submitted and awaits review."
+  SUBMITTED
+  "Review or progress is paused pending further action."
+  ON_HOLD
+  "The solution template is currently under review."
+  REVIEWING
+  "The solution template was reviewed and rejected."
+  REJECTED
+  "The solution template is approved and published and it has active status."
+  ACTIVE
+  "The solution template is not active."
+  INACTIVE
+}
+
+enum SupSortDirection {
+  asc
+  desc
+}
+
+enum SupSpecAggsSelection {
+  EXPLICIT
+  WITH_SUGGESTED
+  ALL
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https://www.graphql-scalars.com/date-time")
+
+"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+scalar Map

@@ -1,0 +1,923 @@
+# Octopart API — Supply schema slice (~8076 tokens)
+# Not a complete schema: types from other contexts are referenced, not defined.
+# Full schema for code generation: https://altiumdeveloper.github.io/octopart-api-docs/schema.graphql
+# Referenced from other contexts:
+#   DateTime → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   Map → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+
+type Query {
+  "Get all attributes"
+  supAttributes: [SupAttribute!]!
+  "Get manufacturer companies"
+  supManufacturers(
+    "list of company IDs.  Omit to fetch all manufacturers."
+    ids: [String!]
+    "list of URL slugs for /manufacturers paths"
+    slugs: [String!]
+    "Include temporarily suspended manufacturers in results. Intended for manufacturer taxonomy pages."
+    includeSuspended: Boolean! = false
+  ): [SupCompany!]!
+  "Get seller companies (distributors)"
+  supSellers(
+    "list of company IDs.  Omit to fetch all sellers."
+    ids: [String!]
+    "Include only companies that support custom pricing."
+    customPricingOnly: Boolean! = false
+    "Include temporarily suspended distributors in results. Intended for distributor taxonomy pages."
+    includeSuspended: Boolean! = false
+    "list of URL slugs for /distributors paths"
+    slugs: [String!]
+  ): [SupCompany!]!
+  "Get categories"
+  supCategories(
+    "list of category IDs. Omit to fetch all categories. Where id can be either an Octopart internal id or an Altium Global Resource ID (GRID)."
+    ids: [String!]
+    "list of SEO page paths for categories to include."
+    paths: [String!]
+    "Root of categories to include, defaults to ElectronicParts."
+    root: SupCategoryRoot! = ElectronicParts
+  ): [SupCategory!]!
+  "Get a single category by id. Where id can be either an Octopart internal id or an Altium Global Resource ID (GRID)."
+  supCategoryById(id: ID!): SupCategory
+  "Get a list of categories by ids. Where id can be either an Octopart internal id or an Altium Global Resource ID (GRID)."
+  supCategoriesByIds(ids: [ID!]!): [SupCategory]!
+  "Get parts by ID."
+  supParts(
+    "list of part IDs. APIv3 UIDs are also supported."
+    ids: [String!]!
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`) up to a max 10s"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+  ): [SupPart]!
+  """
+  Attempt to complete a partial query string.  Used for autosuggest / typeahead text inputs.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  supSuggest(
+    """
+    partial query string
+    
+    Constraint: `max=1000`.
+    """
+    q: String!
+    "categoryId to scope suggestions to"
+    categoryId: String
+    "only return part number suggestions"
+    partNumbersOnly: Boolean
+  ): [SupSuggestion!]!
+  "Search parts, including filters, pagination, aggregation, sorting"
+  supSearch(
+    """
+    the query to search
+    
+    Constraint: `max=2000`.
+    """
+    q: String
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "offset in the result set"
+    start: Int
+    "page size of results"
+    limit: Int
+    "field to sort by.  See [sort values](https://octopart.com/api/v4/values#sort)"
+    sort: String
+    "direction of sort: `asc` or `desc`"
+    sortDir: SupSortDirection
+    "filter to remove parts with no stocking distributors"
+    inStockOnly: Boolean
+    "a key: value map of filters. See [filter values](https://octopart.com/api/v4/values#attributes)"
+    filters: Map
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`)"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+    "Specifying a ranking method."
+    rankingMethod: SupSearchRankingMethod! = DEFAULT
+  ): SupPartResultSet!
+  "Search parts by mpn only, including filters, pagination, aggregation, sorting"
+  supSearchMpn(
+    """
+    the query to search on mpn
+    
+    Constraint: `max=2000`.
+    """
+    q: String
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "offset in the result set"
+    start: Int
+    "page size of results"
+    limit: Int
+    "field to sort by.  See [sort values](https://octopart.com/api/v4/values#sort)"
+    sort: String
+    "direction of sort: `asc` or `desc`"
+    sortDir: SupSortDirection
+    "filter to remove parts with no stocking distributors"
+    inStockOnly: Boolean
+    "a key: value map of filters. See [filter values](https://octopart.com/api/v4/values#attributes)"
+    filters: Map
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`)"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+    "Specifying a ranking method."
+    rankingMethod: SupSearchRankingMethod! = DEFAULT
+  ): SupPartResultSet!
+  """
+  Suggest alternate queries when no results are found.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  supSearchCorrection(
+    """Constraint: `max=2000`."""
+    q: String!
+    filters: Map
+    "Fixed filters that should always be applied i.e. don't suggest corrections that would drop these filters."
+    fixedFilters: Map
+  ): [SupSearchCorrection!]!
+  """
+  Suggest an alternate `q` when no results are found. This treats the query as an MPN search so will return suggestions based on MPNs.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  supSpellingCorrection(
+    """
+    query string to correct
+    
+    Constraint: `max=2000`.
+    """
+    q: String!
+  ): [SupSpellingCorrection!]!
+  "Match multiple manufacturer + mpn pairs at once.  Useful for when you have a list of parts, as with a BOM (Bill of Materials)"
+  supMultiMatch(
+    "list of inputs to attempt to match"
+    queries: [SupPartMatchQuery!]!
+    "options when matching such as applying filters or only including authorized or in-stock parts"
+    options: SupPartMatchOptions
+    "user's country"
+    country: String! = "US"
+    "user's currency"
+    currency: String! = "USD"
+    "fetch latest pricing and stock data from distributor API. Company.isDistributorApi indicates if a distributor supports this feature."
+    distributorApi: Boolean
+    "how long to wait for distributor API to respond as a duration string (e.g. `3s` or `500ms`)"
+    distributorApiTimeout: String! = "3s"
+    """
+    if needed, pass along credentials for API integrations
+    
+    Requires plan tier: `ENTERPRISE`.
+    """
+    customPricingCredentials: [SupApiCredentials!]
+    "Specifying a ranking method."
+    rankingMethod: SupSearchRankingMethod! = DEFAULT
+  ): [SupPartMatch!]!
+}
+
+"Used to show the filters that are applied to current search."
+type SupAppliedFilter {
+  "shortname is the key in the filters Map.  Usually an attribute shortname, or `manufacturerId`, `distributorId`, etc."
+  shortname: String!
+  "human readable name to display in the UI"
+  name: String!
+  "values in the filter Map."
+  values: [String!]!
+  "human readable values to display in the UI"
+  displayValues: [String!]!
+  "The symbol of the units"
+  unitsSymbol: String
+}
+
+"Defines an attribute like Capacitance or Resistance."
+type SupAttribute {
+  "Internal Octopart ID"
+  id: ID!
+  "display name"
+  name: String!
+  "use as key for `sort` or `filter` in part search"
+  shortname: String!
+  "use to group together similar attributes, e.g. Technical, Physical, Compliance"
+  group: String!
+  "The type of the value"
+  valueType: String!
+  "The short name of the units"
+  unitsName: String!
+  "The symbol of the units"
+  unitsSymbol: String!
+  "Shortened display name"
+  shortDisplayname: String!
+}
+
+"Groups similar attributes together, as can be seen with column groups in specs view"
+type SupAttributeGroup {
+  "Name of group, e.g. Technical, Physical, Compliance"
+  name: String!
+  "Attributes in group"
+  attributes: [SupAttribute!]!
+}
+
+"Information for use on /electronic-parts Category pages."
+type SupBlurb {
+  "Category name."
+  name: String!
+  "Path to /electronic-parts Category page."
+  pathName: String!
+  "Short description of Category."
+  description: String!
+  "Longer description of Category."
+  content: String!
+  "Description used in webpage metadata - SEO optimised"
+  metaDescription: String!
+  "Title used in webpage metadata - SEO optimised"
+  metaTitle: String!
+}
+
+"cadAgg produces a CadBucket with the count of parts that have CAD Symbol + Footprint and 3D model"
+type SupCadBucket {
+  cadState: String!
+  count: Int
+}
+
+"A Category exists in a Category tree.  Examples include Passive Components or Capacitors.  The `path` field is helpful to see where a category is in the tree."
+type SupCategory {
+  "Octopart internal id."
+  id: ID!
+  "ID of parent category."
+  parentId: ID!
+  "Display name"
+  name: String!
+  "List of all ancestor in category tree."
+  ancestors: [SupCategory!]!
+  "List of direct children in category tree."
+  children: [SupCategory!]!
+  "Slash separated path.  Can be used to visit URL for category page.  (e.g. `/electronic-parts/circuit-protection/esd-and-circuit-protection-ics`)"
+  path: String!
+  "List of Attributes deemed to be relevant to this category.  (e.g. Resistance for Resistor category).  Useful for showing contextual filters in UI."
+  relevantAttributes: [SupAttribute!]!
+  "Blurb for Category, used on /electronic-parts pages."
+  blurb: SupBlurb
+  "Number of parts in Category."
+  numParts: Int!
+}
+
+"categoryAgg produces a CategoryBucket with category + counts"
+type SupCategoryBucket {
+  category: SupCategory!
+  count: Int
+}
+
+"A company record represents a manufacturer or distributor, depending on context."
+type SupCompany {
+  "Octopart internal id"
+  id: ID!
+  "Display name of company"
+  name: String!
+  "Aliases of company"
+  aliases: [String!]!
+  "The country code for the display flag"
+  displayFlag: String
+  "Homepage URL of company"
+  homepageUrl: String
+  "Used for URLs like `/manufacturers/aimtec` or `/distributors/digi-key`"
+  slug: String!
+  "True if a manufacturer participates in Octopart's Verified Manufacturer program.  See [verified](https://octopart.com/verified) for more information."
+  isVerified: Boolean!
+  "True if a distributor is a broker.  See [authorized](https://octopart.com/authorized) for more information."
+  isBroker: Boolean! @deprecated(reason: "use `PartSeller.is_broker` instead")
+  "True if a distributor has an API integration with Octopart to provide latest pricing and stock data."
+  isDistributorApi: Boolean!
+  "True if Octocart is supported for this distributor"
+  isOctocartSupported: Boolean!
+  "True if the company is temporarily suspended and excluded from normal results."
+  isSuspended: Boolean!
+  "Custom Pricing details."
+  customPricingDetails: SupCustomPricingDetails
+}
+
+"manufacturerAgg and distributorAgg produce a CompanyBucket with company + counts"
+type SupCompanyBucket {
+  company: SupCompany!
+  count: Int
+}
+
+"A country's name, country code, and continent code."
+type SupCountry {
+  name: String!
+  countryCode: String!
+  continentCode: String!
+}
+
+type SupCustomPricingDetails {
+  authType: SupCustomPricingAuthType!
+}
+
+"Textual description of a part"
+type SupDescription {
+  "Description text"
+  text: String!
+  "Source of description.  Used for attribution."
+  creditString: String!
+  "Source URL of description.  Used for attribution."
+  creditUrl: String!
+}
+
+"Document represents a PDF file and can be a Datasheet, Compliance Document, PCN, etc."
+type SupDocument {
+  name: String!
+  pageCount: Int
+  createdAt: DateTime
+  url: String!
+  creditString: String!
+  creditUrl: String!
+  mimeType: String!
+}
+
+"DocumentCollection groups documents together by type: Datasheets, Compliance Statements."
+type SupDocumentCollection {
+  "Name of group, e.g. Datasheets"
+  name: String!
+  "List of Documents in group"
+  documents: [SupDocument!]!
+}
+
+type SupDroppedFilter {
+  key: String!
+  value: String!
+}
+
+"Image of a part.  In the case of some symbol and footprint images, the scaled version may not actually be scaled and cropped, and may need to be scaled using CSS or other techniques."
+type SupImage {
+  urlLargest: String! @deprecated(reason: "use `url` instead")
+  url55px: String! @deprecated(reason: "use `url` instead")
+  url75px: String! @deprecated(reason: "use `url` instead")
+  url90px: String! @deprecated(reason: "use `url` instead")
+  "Image URL"
+  url: String!
+  "Source of description.  Used for attribution."
+  creditString: String!
+  "Source URL of description.  Used for attribution."
+  creditUrl: String!
+}
+
+"cadLevelAgg and contentVaultLevelAgg produce a LevelBucket with level + displayName"
+type SupLevelBucket {
+  level: Int
+  displayName: String!
+  count: Int
+}
+
+"An offer is a specific buyable part from a distributor, with specific packaging, pricing, stock, moq."
+type SupOffer {
+  "Cache ID"
+  _cacheId: String!
+  "Octopart internal ID for this offer"
+  id: ID!
+  "Stock Keeping Unit used by internally by distributor"
+  sku: String!
+  "The code indicating the region(s) for which offer is valid"
+  eligibleRegion: String
+  "Number of units available to be shipped.  (aka Stock, Quantity)"
+  inventoryLevel: Int!
+  "Packaging of parts (eg Tape, Reel)"
+  packaging: String
+  "Minimum Order Quantity: smallest number of parts that can be purchased"
+  moq: Int
+  "The price points of the offer, sorted by minimum order quantity"
+  prices: [SupPricePoint!]!
+  "The URL to view offer on distributor website.  This will redirect via Octopart's server."
+  clickUrl: String!
+  "The last time data was received from distributor feed or API for this offer."
+  updated: DateTime!
+  """
+  Number of days to acquire parts from factory.
+  
+  Requires plan feature: `LEAD_TIME`.
+  """
+  factoryLeadDays: Int
+  "Number of parts on order from factory."
+  onOrderQuantity: Int
+  "Order multiple for factory orders."
+  factoryPackQuantity: Int
+  "Number of items which must be ordered together."
+  orderMultiple: Int
+  "The quantity of parts as packaged by the seller."
+  multipackQuantity: Int
+  "Whether this offer is specific to the customer making the request."
+  isCustomPricing: Boolean!
+}
+
+"Part model contains the relevant data around a part, including: datasheets, specs, sellers + offers, images, etc."
+type SupPart {
+  "Cache ID"
+  _cacheId: String!
+  "Octopart internal ID for this part.  Appears at the end of PDP URL / `slug` field."
+  id: ID!
+  "manufacturer + mpn for easy display"
+  name: String!
+  "Manufacturer Part Number"
+  mpn: String!
+  "Best guess at a generic MPN"
+  genericMpn: String!
+  "Company that manufactures this part"
+  manufacturer: SupCompany!
+  "A link to the manufacturer detail page for this part or series."
+  manufacturerUrl: String
+  "A link to a manufacturer page to request free sample kits for this part."
+  freeSampleUrl: String
+  """
+  Documents including Datasheets, Compliance Documents, PCNs
+  
+  Requires plan tier: `PRO`. Requires plan feature: `DATASHEETS`.
+  """
+  documentCollections: [SupDocumentCollection!]!
+  "Best description around 110 characters long, as can be seen on SERP or PDP.  May need truncation if all descriptions are long."
+  shortDescription: String!
+  "All part descriptions from sources"
+  descriptions: [SupDescription!]!
+  "All part images"
+  images: [SupImage!]!
+  """
+  Attribute values for this part
+  
+  Requires plan tier: `PRO`. Requires plan feature: `TECH_SPECS`.
+  """
+  specs: [SupSpec!]!
+  "Path component of PDP URL (e.g. `/ad7792bruz-analog+devices-402798`)"
+  slug: String!
+  "A link to the part page on Octopart. Do not include `rel=\"nofollow\"` when linking to this URL."
+  octopartUrl: String!
+  """
+  Parts identified by Octopart to be similar in specs and functionality.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  similarParts: [SupPart!]!
+  """
+  Parts identified by the manufacturer as companion products.
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  companionProducts: [SupSponsoredPart!]!
+  category: SupCategory
+  series: SupPartSeries
+  bestImage: SupImage
+  """Requires plan tier: `PRO`. Requires plan feature: `DATASHEETS`."""
+  bestDatasheet: SupDocument
+  """Requires plan tier: `PRO`. Requires plan feature: `DATASHEETS`."""
+  referenceDesigns: [SupReferenceDesign!]!
+  "Data about part's CAD model.  If null `cadRequestUrl` can be used to request a CAD model be made."
+  cad: SupPartCad
+  "URL to request a CAD model from eeconcierge if a part doesn't already have a CAD model.  Will be null part is not eligible, e.g. a multimeter"
+  cadRequestUrl: String
+  "The UID from Octopart APIv3.  Provided for backwards compatibility, in general ID should be used."
+  v3uid: ID!
+  "A Map of number of related objects.  Can be used to know the number of `images` or `descriptions` without having to request those related objects."
+  counts: Map!
+  "The median USD price at quantity 1,000, discarding outliers.  A reasonable estimate of average price for a part."
+  medianPrice1000: SupPricePoint
+  "Sum of stock available across all distributors"
+  totalAvail: Int!
+  "The average stock level at each distributor"
+  avgAvail: Float!
+  "Companies with Offers for this part"
+  sellers(includeBrokers: Boolean! = false, authorizedOnly: Boolean! = false, customPricingOnly: Boolean! = false): [SupPartSeller!]!
+  """
+  The estimated factory lead time in days derived from trusted distributor offers.
+  
+  Requires plan tier: `PRO`. Requires plan feature: `LEAD_TIME`.
+  """
+  estimatedFactoryLeadDays: Int
+  "This part might be known by these alternate MPNs"
+  akaMpns: [String!]!
+  "Nexar supply part data for internal use only."
+  extras: SupPartExtras
+}
+
+type SupPartCad {
+  "URL to add this part to your Upverter library. Requires an Upverter account."
+  addToLibraryUrl: String
+  "If true, a STEP model will be included with the tool-specific downloads."
+  has3dModel: Boolean!
+  hasAltium: Boolean!
+  hasEagle: Boolean!
+  hasOrcad: Boolean!
+  hasKicad: Boolean!
+  downloadUrlAltium: String!
+  downloadUrlEagle: String!
+  downloadUrlOrcad: String!
+  downloadUrlKicad: String!
+  footprintImageUrl: String
+  symbolImageUrl: String
+}
+
+"Nexar supply part data for internal use only."
+type SupPartExtras {
+  "Alternative manufacturer components."
+  alternatives(
+    "Limits the number returned."
+    first: Int! = 100
+  ): [SupPartExtras!]!
+  "Part identifier."
+  partId: String!
+  "Part description."
+  description: String
+  "Indicates whether the part is *RoHS* compliant."
+  isRohsCompliant: Boolean
+  "Confidence score for the data from the source."
+  confidence: Float
+  "List of datasheet URLs associated with the part."
+  datasheetUrls: [String!]
+  "Lifecycle state of the supplier part."
+  lifeCycle: SupPartLifeCycle!
+  "Part parameters."
+  parameters: [SupPartExtrasParameter!]
+  technicalDetails: [SupPartExtrasTechnicalDetail!] @deprecated(reason: "Use `parameters`.")
+}
+
+"Nexar supply part data for internal use only."
+type SupPartExtrasParameter {
+  "Parameter name."
+  name: String!
+  "Parameter unit."
+  unit: String
+  "Parameter value."
+  value: [String!]
+}
+
+"Nexar supply part data for internal use only."
+type SupPartExtrasTechnicalDetail {
+  "Technical detail name."
+  name: String!
+  "Technical detail value."
+  value: String!
+}
+
+type SupPartMatch {
+  "Will match `reference` supplied in PartMatchQuery."
+  reference: String
+  "Number of parts matched"
+  hits: Int!
+  "Matched parts (may be subset, based on start + limit)"
+  parts: [SupPart!]!
+  "Possible error message"
+  error: String
+}
+
+type SupPartResult {
+  "Cache ID"
+  _cacheId: String!
+  "The part object"
+  part: SupPart!
+  explain: String! @deprecated(reason: "always empty")
+  "If the search `q` is an alternate MPN for this part, the `akaMpn` will be populated with this alternate MPN."
+  akaMpn: String
+  "Description with query terms highlighted.  Often this is the same as part.shortDescription,\nbut if the search `q` matched on a different description it may be longer than part.shortDescription and require truncation."
+  description: String!
+}
+
+"Result of part search."
+type SupPartResultSet {
+  total: Int! @deprecated(reason: "use `hits` instead")
+  "Number of parts in result set"
+  hits: Int!
+  "Contains nested part along side some fields specific to the query that explain reason for match."
+  results: [SupPartResult!]
+  """
+  Grouped attributes used to render the columns in specs view.
+  
+  Requires plan tier: `PRO`. Requires plan feature: `TECH_SPECS`.
+  """
+  specsViewAttributeGroups: [SupAttributeGroup!]!
+  "If an invalid query was modified or rejected, warnings indicate this fact to the user.  For example if query contained too many tokens, some tokens may be ignored."
+  warnings: [String!]
+  """
+  Perform aggregations on Spec values across multiple Attributes.
+  You *must* specify `attributeNames` for this field to be populated.
+  `attributeNames` should be a list of Attribute.shortname values (e.g. `capacitance` or `voltageRatingDc`)
+  - You can set `attributeSelection=WITHSUGGESTED` to additionally include suggested attributes for aggregation
+  - Alternatively, set `attributeSelection=ALL` to include all attributes for aggregation
+  - To rely solely on suggested attributes, set `attributeSelection=WITHSUGGESTED` and `attributeNames=[]`
+  
+  Requires plan tier: `PRO`. Requires plan feature: `TECH_SPECS`.
+  """
+  specAggs(
+    "a list of Attribute.shortname values to aggregate on (e.g. `capacitance` or `voltageRatingDc`)"
+    attributeNames: [String!]!
+    "defines how attributes are selected for aggregation (default EXPLICIT)"
+    attributeSelection: SupSpecAggsSelection! = EXPLICIT
+    "number of spec value buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupSpecAgg!]!
+  "Aggregate on manufacturers for this result set"
+  manufacturerAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCompanyBucket!]!
+  "Aggregate on distributors for this result set"
+  distributorAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCompanyBucket!]!
+  "Aggregate on categories for this result set"
+  categoryAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCategoryBucket!]!
+  "Aggregate on child categories for this result set. Will be empty if appliedCategory is null."
+  childCategoryAgg(
+    "number of buckets to return (default 10, maximum 500). Larger values are clamped to 500 and reported in `warnings`."
+    size: Int! = 10
+  ): [SupCategoryBucket!]!
+  """
+  Aggregate on the availability of CAD models for the result set
+  
+  Requires plan tier: `ENTERPRISE`.
+  """
+  cadAgg: [SupCadBucket!]!
+  "Aggregate on CAD levels for this result set"
+  cadLevelAgg: [SupLevelBucket!]!
+  "Categories that are determined by search algo to be related to the search term.  Useful for suggesting a Category filter in the search UI."
+  suggestedCategories: [SupCategoryBucket!]!
+  "Attributes that are determined by search algo to be related to the search term.  Useful for suggesting most relevant filters in the search UI."
+  suggestedFilters: [SupAttribute!]!
+  "Full list of available Attributes in the result set"
+  allFilters(sort: SupAllFiltersSort! = default, minCoverage: Float! = 0.01): [SupAttribute!]!
+  "If a Category filter is applied, this will be the Category"
+  appliedCategory: SupCategory
+  "If filters are applied, this will contain display information"
+  appliedFilters: [SupAppliedFilter!]!
+}
+
+"A company with offers for a given part"
+type SupPartSeller {
+  "Cache ID"
+  _cacheId: String!
+  "The distributor"
+  company: SupCompany!
+  "Distributor's country"
+  country: String
+  "List of offers.  Multiple offers may exist in different packaging.\nWhile multiple geo-targeted offers may exist, currently the API only exposes one geo-targeted offer at a time based on `country` parameter.\nPlease contact us if you have a need to see all geo-targeted offer variants."
+  offers: [SupOffer!]!
+  "True if the distributor is an authorized distributor for this manufacturer.  See [authorized](https://octopart.com/authorized) for more information."
+  isAuthorized: Boolean!
+  "True if the distributor is a Non-Authorized Dealer.  See [authorized](https://octopart.com/authorized) for more information."
+  isBroker: Boolean!
+  "True if you can request a quote from this seller."
+  isRfq: Boolean!
+  "List of countries the seller ships to. An empty list represents zero shipping restrictions."
+  shipsToCountries: [SupCountry!]!
+}
+
+"A Part can be a member of a PartSeries, which represents a product line or \"family\" of parts from the manufacturer.\n\nSee [series](https://octopart.com/series) page for examples."
+type SupPartSeries {
+  "Octopart internal ID for this series"
+  id: ID!
+  "Name of the part series"
+  name: String!
+  "Octopart URL for this series, specific to the parent part"
+  url: String!
+}
+
+"Price in a specific currency + quantity.  By supplying a `currency` parameter the API will populate an estimated convertedPrice in the user's desired currency."
+type SupPricePoint {
+  "Cache ID"
+  _cacheId: String!
+  "Minimum purchase quantity to get this price (aka price break)"
+  quantity: Int!
+  "Price in currency"
+  price: Float!
+  "Currency for price"
+  currency: String!
+  "Price converted to user's currency using foreign exchange rates.\n\nSince this is an estimate, an indicator should be shown to user if currency != convertedCurrency."
+  convertedPrice: Float!
+  "Currency for `convertedPrice`.  Will match value of `currency` argument."
+  convertedCurrency: String!
+  "The exchange rate used to calculate convertedPrice"
+  conversionRate: Float!
+}
+
+type SupReferenceDesign {
+  name: String!
+  url: String!
+}
+
+type SupSearchCorrection {
+  "The type of suggestion this is. Useful for knowing how the suggestion was generated"
+  correctionType: SupCorrectionType!
+  "The new search string for this suggestion"
+  correctionString: String!
+  "List of any terms from the original search string that have been dropped in this correction. Only populated in `DROPPEDTERM` type corrections"
+  droppedTerms: [String!]!
+  "List of any filters from the original search that have been dropped in this correction. Only populated in `DROPPEDFILTER` type corrections"
+  droppedFilters: SupDroppedFilter!
+  "Estimated number of part hits for this correction"
+  hits: Int!
+}
+
+"Represents a specific value of an Attribute for a given Part"
+type SupSpec {
+  attribute: SupAttribute!
+  "The actual value"
+  value: String!
+  "The value of the spec in SI base units"
+  siValue: String!
+  "The type of the value"
+  valueType: String!
+  "The units of the value"
+  units: String!
+  "The short name of the units"
+  unitsName: String!
+  "The symbol of the units"
+  unitsSymbol: String!
+  "The formatted display value"
+  displayValue: String!
+}
+
+type SupSpecAgg {
+  attribute: SupAttribute!
+  buckets: [SupSpecBucket!]!
+  "min is the lowest spec value in this result set for numerical attributes"
+  min: Float
+  "max is the greatest spec value in this result set for numerical attributes"
+  max: Float
+  "The min value in SI base units"
+  siMin: String
+  "The max value in SI base units"
+  siMax: String
+  "displayMin is the formatted string of min"
+  displayMin: String
+  "displayMax is the formatted string of max"
+  displayMax: String
+  "The type of the value"
+  valueType: String!
+  "The units of the spec"
+  units: String
+  "The short name of the units"
+  unitsName: String
+  "The symbol of the units"
+  unitsSymbol: String
+}
+
+type SupSpecBucket {
+  "displayValue is the string value. For numerical attributes it is the formatted version of floatValue"
+  displayValue: String!
+  "floatValue is populated if the attribute is numeric"
+  floatValue: Float
+  "count will be null if aggregation timed out"
+  count: Int
+}
+
+type SupSpellingCorrection {
+  correctionString: String!
+  hits: Int!
+}
+
+"Part identified by manufacturer as being a companion part, for instance a mated connector pair."
+type SupSponsoredPart {
+  "Cache ID"
+  _cacheId: String!
+  ppid: ID! @deprecated(reason: "use part.id instead")
+  sourceId: ID! @deprecated(reason: "unused")
+  "Related part"
+  part: SupPart!
+  "URL to visit for related part"
+  url: String!
+}
+
+"Suggests a query based on partial query input.  Used for autocomplete / typeahead UIs."
+type SupSuggestion {
+  "Suggested text of longer query"
+  text: String!
+  "If the suggestion should also apply a categoryId filter, this is the category name"
+  inCategoryName: String!
+  "If the suggestion should also apply a categoryId filter, this is the Category ID"
+  inCategoryId: String!
+  "If the suggestion should also apply a manufacturer filter, this is the Manufacturer name"
+  inManufacturerName: String!
+  "If the suggestion should also apply a partId filter, this is the Part ID"
+  inPartId: String!
+}
+
+input SupApiCredentials {
+  "The ID of the company that you are providing credentials for. An Octopart representative will give this value to you if needed."
+  companyId: String!
+  "Authentication details. `clientId` and `clientSecret` should be given together when an API requires them."
+  clientId: String
+  "Authentication details. `clientId` and `clientSecret` should be given together when an API requires them."
+  clientSecret: String
+  "Authentication details. `username` and `password` should be given together when an API requires them."
+  username: String
+  "Authentication details. `username` and `password` should be given together when an API requires them."
+  password: String
+  "Authentication details. `apiKey` should be given when an API requires it."
+  apiKey: String
+}
+
+input SupPartMatchOptions {
+  "If true, only parts with at least one authorized seller will be returned."
+  requireAuthorizedSellers: Boolean = false
+  "If true, only parts with stock available will be returned."
+  requireStockAvailable: Boolean = false
+  "a key: value map of filters. See [filter values](https://octopart.com/api/v4/values#attributes)"
+  filters: Map
+}
+
+input SupPartMatchQuery {
+  mpn: String
+  sku: String
+  mpnOrSku: String
+  manufacturer: String
+  seller: String
+  start: Int! = 0
+  limit: Int! = 3
+  reference: String
+}
+
+enum SupAllFiltersSort {
+  default
+  "Relevance is determined by the number of parts in the result set that have the attribute"
+  relevance
+}
+
+"Specify root to include in categories query.\nDefaults to Electronic parts root only"
+enum SupCategoryRoot {
+  "Electronic parts root"
+  ElectronicParts
+  "Application root"
+  Application
+}
+
+enum SupCorrectionType {
+  DROPPED_FILTER
+  DROPPED_TERM
+  SPELLING
+  OTHER
+}
+
+enum SupCustomPricingAuthType {
+  CLIENT_CREDENTIALS
+  USERNAME_PASSWORD
+  API_KEY
+}
+
+"Lifecycle state for a supplier part."
+enum SupPartLifeCycle {
+  UNKNOWN
+  NEW
+  ACTIVE
+  NRFND
+  EOL
+  DISCONTINUED
+  ACTIVE_UNCONFIRMED
+  DISCONTINUED_UNCONFIRMED
+  CONTACT_MFR
+  TRANSFERRED
+}
+
+"Specify method on ranking search results."
+enum SupSearchRankingMethod {
+  "Default Ranking for all searches."
+  DEFAULT
+  "Ranking the result for Supply purpose."
+  SUPPLY
+  "Ranking the result for Design purpose."
+  DESIGN
+}
+
+enum SupSortDirection {
+  asc
+  desc
+}
+
+enum SupSpecAggsSelection {
+  EXPLICIT
+  WITH_SUGGESTED
+  ALL
+}

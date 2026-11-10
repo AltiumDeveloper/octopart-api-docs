@@ -1,0 +1,28 @@
+---
+title: "supSolutionTemplateIndexSolutionTemplate"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-index-solution-template"
+bounded_context: "Solution Template"
+kind: "mutations"
+experimental: false
+deprecated: false
+---
+
+# supSolutionTemplateIndexSolutionTemplate
+
+Index list of solution templates by identifiers.
+
+### Type
+
+#### [`SupSolutionTemplateIndexSolutionTemplatePayload`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/objects/sup-solution-template-index-solution-template-payload.md) object
+
+Payload associated with indexing a solution template.
+
+```graphql
+supSolutionTemplateIndexSolutionTemplate(
+  input: SupSolutionTemplateIndexSolutionTemplateInput!
+): SupSolutionTemplateIndexSolutionTemplatePayload!
+```
+
+### Arguments
+
+#### `input` · [`SupSolutionTemplateIndexSolutionTemplateInput!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-index-solution-template-input.md) non-null input

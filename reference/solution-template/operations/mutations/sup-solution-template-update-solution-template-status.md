@@ -1,0 +1,28 @@
+---
+title: "supSolutionTemplateUpdateSolutionTemplateStatus"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-update-solution-template-status"
+bounded_context: "Solution Template"
+kind: "mutations"
+experimental: false
+deprecated: false
+---
+
+# supSolutionTemplateUpdateSolutionTemplateStatus
+
+Update the status of a solution template.
+
+### Type
+
+#### [`SupSolutionTemplateUpdateSolutionTemplateStatusPayload`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/objects/sup-solution-template-update-solution-template-status-payload.md) object
+
+Payload associated with updating the status of a solution template.
+
+```graphql
+supSolutionTemplateUpdateSolutionTemplateStatus(
+  input: SupSolutionTemplateUpdateSolutionTemplateStatusInput!
+): SupSolutionTemplateUpdateSolutionTemplateStatusPayload!
+```
+
+### Arguments
+
+#### `input` · [`SupSolutionTemplateUpdateSolutionTemplateStatusInput!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-update-solution-template-status-input.md) non-null input

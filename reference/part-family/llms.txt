@@ -1,0 +1,22 @@
+# Part Family — Octopart API
+> Part families and part groups, their parameters, and search across families and their parts.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/schema.graphql) (~3744 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/overview.md).
+
+## Entities
+- [SupPartFamily](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family.md): Part Family — A manufacturer's grouping of parts in the supply data, where the kind of family is vendor-specific (e.g. Series or Family). GRID `grid:supply::platform:part-family/{id}`. Via: SupPartFamilyBucket.PartFamily, SupPartGroup.parent
+- [SupPartGroup](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-group.md): Part Group — A leaf of the part family hierarchy in the supply data, holding the parts that belong to it together with group-level information such as its manufacturer, overview, key features and documents. GRID `grid:supply::platform:part-group/{id}`. Via: supPartGroupById, supPartGroupsByIds, supPartGroupByName, supPartGroupByPartId, SupPartFamily.partGroups
+
+## Entry points
+- [supPartGroupById](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-group-by-id.md): Get a specific part group by its unique identifier (GRID).
+- [supPartGroupsByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-groups-by-ids.md): Get a set of part groups by their unique identifiers (GRIDs).
+
+## Queries
+- [supPartFamilyParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-family-parameters.md): Get the set of filterable parameters for a part group within the given category.
+- [supPartFamilyPartSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-family-part-search.md): Search for part and group them by Part Group if applicable.
+- [supPartFamilySearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-family-search.md): Search for part families and groups.
+- [supPartGroupByName](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-group-by-name.md): Get a specific part group by its unique name.
+- [supPartGroupByPartId](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/operations/queries/sup-part-group-by-part-id.md): Get a part group by the ID of the part.
+
+## Optional
+- [All types in Part Family](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types.txt): one line per type (~1366 tokens)

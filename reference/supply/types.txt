@@ -1,0 +1,48 @@
+# Supply — types
+> Types of the Supply bounded context that are not entities, one line each; Relay `*Connection` and `*Edge` types are omitted. Entities, entry points and operations: [llms.txt](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/llms.txt).
+
+- [SupAppliedFilter](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-applied-filter.md): Used to show the filters that are applied to current search.
+- [SupAttribute](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-attribute.md): Defines an attribute like Capacitance or Resistance.
+- [SupAttributeGroup](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-attribute-group.md): Groups similar attributes together, as can be seen with column groups in specs view
+- [SupBlurb](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-blurb.md): Information for use on /electronic-parts Category pages.
+- [SupCadBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-cad-bucket.md): cadAgg produces a CadBucket with the count of parts that have CAD Symbol + Footprint and 3D model
+- [SupCategory](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-category.md): A Category exists in a Category tree.
+- [SupCategoryBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-category-bucket.md): categoryAgg produces a CategoryBucket with category + counts
+- [SupCompanyBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-company-bucket.md): manufacturerAgg and distributorAgg produce a CompanyBucket with company + counts
+- [SupCountry](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-country.md): A country's name, country code, and continent code.
+- [SupCustomPricingDetails](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-custom-pricing-details.md)
+- [SupDescription](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-description.md): Textual description of a part
+- [SupDocument](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-document.md): Document represents a PDF file and can be a Datasheet, Compliance Document, PCN, etc.
+- [SupDocumentCollection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-document-collection.md): DocumentCollection groups documents together by type: Datasheets, Compliance Statements.
+- [SupDroppedFilter](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-dropped-filter.md)
+- [SupImage](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-image.md): Image of a part.
+- [SupLevelBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-level-bucket.md): cadLevelAgg and contentVaultLevelAgg produce a LevelBucket with level + displayName
+- [SupPartCad](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-cad.md)
+- [SupPartExtras](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-extras.md): Nexar supply part data for internal use only.
+- [SupPartExtrasParameter](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-extras-parameter.md): Nexar supply part data for internal use only.
+- [SupPartExtrasTechnicalDetail](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-extras-technical-detail.md): Nexar supply part data for internal use only.
+- [SupPartMatch](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-match.md)
+- [SupPartResult](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-result.md)
+- [SupPartResultSet](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-result-set.md): Result of part search.
+- [SupPartSeller](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-seller.md): A company with offers for a given part
+- [SupPartSeries](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part-series.md): A Part can be a member of a PartSeries, which represents a product line or "family" of parts from the manufacturer.
+- [SupPricePoint](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-price-point.md): Price in a specific currency + quantity.
+- [SupReferenceDesign](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-reference-design.md)
+- [SupSearchCorrection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-search-correction.md)
+- [SupSpec](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-spec.md): Represents a specific value of an Attribute for a given Part
+- [SupSpecAgg](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-spec-agg.md)
+- [SupSpecBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-spec-bucket.md)
+- [SupSpellingCorrection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-spelling-correction.md)
+- [SupSponsoredPart](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-sponsored-part.md): Part identified by manufacturer as being a companion part, for instance a mated connector pair.
+- [SupSuggestion](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-suggestion.md): Suggests a query based on partial query input.
+- [SupApiCredentials](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/inputs/sup-api-credentials.md)
+- [SupPartMatchOptions](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/inputs/sup-part-match-options.md)
+- [SupPartMatchQuery](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/inputs/sup-part-match-query.md)
+- [SupAllFiltersSort](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-all-filters-sort.md)
+- [SupCategoryRoot](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-category-root.md): Specify root to include in categories query.
+- [SupCorrectionType](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-correction-type.md)
+- [SupCustomPricingAuthType](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-custom-pricing-auth-type.md)
+- [SupPartLifeCycle](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-part-life-cycle.md): Lifecycle state for a supplier part.
+- [SupSearchRankingMethod](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-search-ranking-method.md): Specify method on ranking search results.
+- [SupSortDirection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-sort-direction.md)
+- [SupSpecAggsSelection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/enums/sup-spec-aggs-selection.md)

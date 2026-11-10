@@ -1,0 +1,24 @@
+---
+title: "SupSolutionTemplatePatchTagsError"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/unions/sup-solution-template-patch-tags-error"
+bounded_context: "Solution Template"
+kind: "unions"
+experimental: false
+deprecated: false
+---
+
+# SupSolutionTemplatePatchTagsError
+
+### Member Of
+
+[`SupSolutionTemplatePatchTagsPayload`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/objects/sup-solution-template-patch-tags-payload.md) object
+
+```graphql
+union SupSolutionTemplatePatchTagsError = SupSolutionTemplateNotFoundError | SupSolutionTemplateOperationFailedError
+```
+
+### Possible types
+
+#### [`SupSolutionTemplateNotFoundError`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/objects/sup-solution-template-not-found-error.md) object
+
+#### [`SupSolutionTemplateOperationFailedError`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/objects/sup-solution-template-operation-failed-error.md) object

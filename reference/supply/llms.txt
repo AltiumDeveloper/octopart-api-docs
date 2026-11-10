@@ -1,0 +1,29 @@
+# Supply — Octopart API
+> Parts, offers, sellers, manufacturers, categories, attributes, part search and part matching.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql) (~8076 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/overview.md).
+
+## Entities
+- [SupCompany](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-company.md): Company — Supply Company represents an organization in the electronics supply chain. GRID `grid:supply::platform:company/{id}`. Via: supManufacturers, supSellers, SupCompanyBucket.company, SupPart.manufacturer, SupPartSeller.company, …
+- [SupOffer](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-offer.md): Offer — Supply Offer represents a specific commercial listing of a Part from a supplier, detailing price breaks, stock availability, lead times, and ordering conditions at a given point in time. GRID `grid:supply::platform:part/{id}/offer/{offerID}`. Via: SupPartSeller.offers
+- [SupPart](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types/objects/sup-part.md): Part — Supply Part represents a market-available instance of a manufactured Part, providing aggregated sourcing data such as pricing, stock levels, and supplier offers. GRID `grid:supply::platform:part/{id}`. Via: supParts, SupPartMatch.parts, SupPartResult.part, SupSponsoredPart.part, …
+
+## Entry points
+- [supCategoriesByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-categories-by-ids.md): Get a list of categories by ids.
+- [supCategoryById](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-category-by-id.md): Get a single category by id.
+- [supManufacturers](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-manufacturers.md) (list): Get manufacturer companies
+- [supParts](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-parts.md) (list): Get parts by ID.
+- [supSellers](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-sellers.md) (list): Get seller companies (distributors)
+
+## Queries
+- [supAttributes](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-attributes.md): Get all attributes
+- [supCategories](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-categories.md): Get categories
+- [supMultiMatch](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-multi-match.md): Match multiple manufacturer + mpn pairs at once.
+- [supSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-search.md): Search parts, including filters, pagination, aggregation, sorting
+- [supSearchCorrection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-search-correction.md): Suggest alternate queries when no results are found.
+- [supSearchMpn](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-search-mpn.md): Search parts by mpn only, including filters, pagination, aggregation, sorting
+- [supSpellingCorrection](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-spelling-correction.md): Suggest an alternate `q` when no results are found.
+- [supSuggest](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/operations/queries/sup-suggest.md): Attempt to complete a partial query string.
+
+## Optional
+- [All types in Supply](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/types.txt): one line per type (~1883 tokens)

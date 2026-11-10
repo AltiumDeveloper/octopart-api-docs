@@ -1,0 +1,24 @@
+---
+title: "SupSoftwareProjectPatchPreviewImagesError"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/unions/sup-software-project-patch-preview-images-error"
+bounded_context: "Supply Software Project"
+kind: "unions"
+experimental: false
+deprecated: false
+---
+
+# SupSoftwareProjectPatchPreviewImagesError
+
+### Member Of
+
+[`SupSoftwareProjectPatchPreviewImagesPayload`](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/objects/sup-software-project-patch-preview-images-payload.md) object
+
+```graphql
+union SupSoftwareProjectPatchPreviewImagesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+```
+
+### Possible types
+
+#### [`SupSoftwareProjectOperationFailedError`](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/objects/sup-software-project-operation-failed-error.md) object
+
+#### [`SupSoftwareProjectNotFoundError`](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/objects/sup-software-project-not-found-error.md) object

@@ -1,0 +1,369 @@
+# Octopart API — Reference Design schema slice (~3247 tokens)
+# Not a complete schema: types from other contexts are referenced, not defined.
+# Full schema for code generation: https://altiumdeveloper.github.io/octopart-api-docs/schema.graphql
+# Referenced from other contexts:
+#   DateTime → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   SupCategory → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupCompany → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupDocument → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupEvalKitByRefDesignFilterInput → Eval Kit: https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql
+#   SupEvalKitConnection → Eval Kit: https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql
+#   SupImage → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupPart → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+
+type Query {
+  "Search a specific reference design by its unique identifier."
+  supRefDesignById(id: ID!): SupRefDesign
+  "Search a specific reference designs by its unique identifiers."
+  supRefDesignByIds(ids: [ID!]!): [SupRefDesign!] @deprecated(reason: "Use 'supRefDesignsByIds' instead.")
+  "Search a specific reference designs by its unique identifiers."
+  supRefDesignsByIds(ids: [ID!]!): [SupRefDesign]!
+  "Search a specific reference design by its unique name."
+  supRefDesignByName(name: String!): SupRefDesign
+  "Search a reference designs."
+  supRefDesigns(
+    "The search query string. Leave empty to query all."
+    q: String!
+    "Optional structured filter input for searching."
+    filter: SupRefDesignFilterInput
+    "Sort order for results. Supports multiple fields."
+    order: [SupRefDesignOrderInput!]
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+  ): SupRefDesignResultSet!
+  "Search a specific parts by reference design unique identifier and part's designators."
+  supRefParts(refDesignId: ID!, designators: [String!], start: Int! = 0, limit: Int! = 50): [SupRefPart!]
+}
+
+"Aggregation bucket for reference design applications with application identifier + counts."
+type SupRefApplicationBucket {
+  "The identifier of application."
+  applicationId: String!
+  "Number of items in the bucket."
+  count: Int!
+  application: [SupCategory!]
+}
+
+"Aggregation bucket for reference design categories with category identifier + counts."
+type SupRefCategoryBucket {
+  "The identifier of category."
+  categoryId: String!
+  "Number of items in the bucket."
+  count: Int!
+  category: [SupCategory!]
+}
+
+"A reference design model aggregates the relevant documents, files and parts."
+type SupRefDesign {
+  "The reference design identifier."
+  id: ID!
+  "The reference design title."
+  title: String!
+  "The stable name identifier."
+  stableName: String!
+  "The subtitle providing context."
+  subtitle: String
+  "The detailed description."
+  description: String!
+  "The type identifier of this reference design."
+  type: SupRefDesignType!
+  "The source URL where the reference design is published."
+  sourceUrl: String
+  "Indicates whether the reference design is verified."
+  isVerified: Boolean!
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "Indicates if an evaluation board is available."
+  hasEvalBoard: Boolean!
+  "The publisher identifier."
+  publisherId: String!
+  "The bill of materials (BOM) identifier."
+  bomId: String
+  "The release date of the reference design."
+  releaseDate: DateTime
+  "The default schematic file associated with the reference design."
+  defaultSchematicFile: String
+  "The status name."
+  status: SupRefDesignStatus
+  "Part identifiers of the reference design, including their designators."
+  parts(designators: [String!], type: SupRefPartType @deprecated(reason: "Use 'types' instead"), types: [SupRefPartType], start: Int! = 0, limit: Int! = 50): [SupRefPart]!
+  "The list of application identifiers related to the reference design."
+  applicationIds: [String!]!
+  "The list of evaluation kit identifiers associated with the reference design."
+  evaluationKitIds: [String!]! @deprecated(reason: "Use 'evaluationKits' instead.")
+  "Preview images that provide a visual overview of the reference design."
+  previewImages: [SupImage]
+  "Frequently asked questions about the reference design."
+  faqs: [SupRefFaq!]!
+  "Key features highlighting the capabilities of the reference design."
+  keyFeatures: [SupRefKeyFeature]!
+  "Design files, such as schematics and layouts, for the reference design."
+  designFiles(type: String, extensions: [String!]): [SupRefDesignFile]!
+  "Documentation resources related to the reference design."
+  documentations: [SupDocument]!
+  "Tags categorizing the reference design for search and organization."
+  tags: [SupRefTag]
+  "Software packages and resources associated with the reference design."
+  softwares: [SupRefResource]!
+  "The list of evaluation kits associated with the reference design."
+  evaluationKits: [SupRefEvaluationKit!]
+  publisher: [SupCompany!]
+  applications: [SupCategory!]
+  evalKitDetails(
+    where: SupEvalKitByRefDesignFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+  ): SupEvalKitConnection
+  "The reference design entity for Nexar schema stitching purposes."
+  self: SupRefDesign
+}
+
+"Represents a design file belonging to a reference design."
+type SupRefDesignFile {
+  "The design file identifier."
+  refDesignFileId: String!
+  "The design file name."
+  name: String!
+  "The design file download URL."
+  url: String!
+  "The design file type."
+  type: String!
+  "The design file extension."
+  extension: String!
+  "Notes attached to the design file."
+  notes: [SupRefDesignNote]!
+}
+
+"Represents a note attached to a reference design file."
+type SupRefDesignNote {
+  "The note title."
+  title: String!
+  "The note description."
+  description: String
+  "The note identifier."
+  objectId: String
+  "The attached resource for the note."
+  attachment: SupDocument
+  "Points representing the position of the note attached on the design file."
+  points: [SupRefPoint2D]!
+}
+
+"Reference designs with pagination, aggregation information."
+type SupRefDesignResultSet {
+  "Total number of reference designs found."
+  hits: Int!
+  "List of reference designs in the current result set."
+  results: [SupRefDesign!]!
+  "Aggregate on publishers for this result set."
+  publisherAgg(size: Int = 10): [SupRefPublisherBucket!]
+  "Aggregate on applications for this result set."
+  applicationAgg(size: Int = 10): [SupRefApplicationBucket!]
+  "Aggregate on tags for this result set."
+  tagAgg(size: Int = 10): [SupRefTagBucket!]
+  "Aggregate on categories for this result set."
+  categoryAgg(size: Int = 10): [SupRefCategoryBucket!]
+  "Aggregate on reference design types for this result set."
+  typeAgg(size: Int = 10): [SupRefDesignTypeBucket!]
+}
+
+"Aggregation bucket for reference design types with type + counts."
+type SupRefDesignTypeBucket {
+  "Reference design type."
+  type: SupRefDesignType!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+type SupRefEvaluationKit {
+  "The part identifier."
+  partId: String!
+  "The evaluation kit title."
+  title: String!
+  "Preview images that provide a visual overview of the evaluation kit."
+  previewImages: [SupImage!]!
+  "Nexar supply part data for internal use only. Array of size 1."
+  evalKit(country: String! = "US", currency: String! = "USD"): [SupPart]!
+}
+
+"Represents a frequently asked question for a reference design."
+type SupRefFaq {
+  "The question text."
+  question: String!
+  "The answer text."
+  answer: String!
+}
+
+"Represents a key feature of a reference design."
+type SupRefKeyFeature {
+  "The feature name."
+  name: String!
+  "The feature description."
+  description: String!
+  "The feature description in HTML format."
+  html: String
+}
+
+type SupRefPart {
+  "The part identifier."
+  partId: String!
+  "The type identifier of this component, indicating its role in the reference design."
+  type: SupRefPartType!
+  "The global identifier linked to the reference design components."
+  designators: [String!]!
+  "Nexar supply part data for internal use only. Array of size 1."
+  part(country: String! = "US", currency: String! = "USD"): [SupPart]!
+}
+
+"Represents a 2D point for a file note."
+type SupRefPoint2D {
+  "The point type."
+  type: String!
+  "The X coordinate."
+  x: Float!
+  "The Y coordinate."
+  y: Float!
+}
+
+"Aggregation bucket for reference design publishers with company identifier + counts."
+type SupRefPublisherBucket {
+  "The identifier of the company that publish the reference design."
+  publisherId: String!
+  "Number of items in the bucket."
+  count: Int!
+  publisher: [SupCompany!]
+}
+
+"Represents a resource related to a reference design."
+type SupRefResource {
+  "The resource title."
+  title: String!
+  "The resource description."
+  description: String!
+  "An optional note for the resource."
+  note: String
+  "The information of the download URL."
+  downloadText: String!
+  "The download URL for the resource."
+  downloadUrl: String!
+  "The revision date for the resource."
+  revisionDate: DateTime!
+  "Other related resources."
+  otherResources: [SupRefResource]!
+}
+
+"Represents a tag for categorizing a reference design."
+type SupRefTag {
+  "The tag value."
+  value: String!
+  "The tag category name."
+  category: String!
+}
+
+"Aggregation bucket for reference design tags with name + counts."
+type SupRefTagBucket {
+  "Tag name associated with reference design."
+  name: String!
+  "Number of items in the bucket."
+  count: Int!
+}
+
+"Input for filtering reference designs by additional conditions."
+input SupRefDesignFilterInput {
+  "Filter by verification status if specified."
+  isVerified: Boolean
+  "Filter to only include designs that have evaluation boards."
+  hasEvalBoard: Boolean
+  "Filter by a list of application identifiers if specified."
+  applicationIds: [String!]
+  "Filter by a list of category identifiers if specified."
+  categoryIds: [String!]
+  "Filter by a list of publisher (company) identifiers if specified."
+  publisherIds: [String!]
+  "Filter by a list of tags if specified."
+  tags: [String!]
+  "Filter by a list of reference design types if specified."
+  types: [SupRefDesignType!]
+  "Filter by a list of reference design statuses if specified."
+  statuses: [SupRefDesignStatus!]
+}
+
+"Input for ordering reference designs by one or more fields."
+input SupRefDesignOrderInput {
+  "Sort by title in the specified direction."
+  title: SupRefSortDirection
+  "Sort by type in the specified direction."
+  type: SupRefSortDirection
+  "Sort by creation date in the specified direction."
+  createdAt: SupRefSortDirection
+  "Sort by last update date in the specified direction."
+  updatedAt: SupRefSortDirection
+  "Sort by release date in the specified direction."
+  releaseDate: SupRefSortDirection
+  "Sort by stable name in the specified direction."
+  stableName: SupRefSortDirection
+  "Sort by subtitle in the specified direction."
+  subtitle: SupRefSortDirection
+}
+
+enum SupRefDesignStatus {
+  "Work in progress, not yet submitted for review."
+  DRAFT
+  "Design data has been submitted and awaits review."
+  SUBMITTED
+  "Review or progress is paused pending further action."
+  ON_HOLD
+  "The design is currently under review."
+  REVIEWING
+  "The design was reviewed and rejected."
+  REJECTED
+  "The design is approved and published and it has active status."
+  ACTIVE
+  "The design is not active."
+  INACTIVE
+}
+
+enum SupRefDesignType {
+  "Highlights a component feature, often for marketing or sales purposes."
+  DEMONSTRATION
+  "Intended to test specific electrical/mechanical characteristics."
+  EVALUATION
+  "Enables code/hardware development and prototyping."
+  DEVELOPMENT
+  "Bundled offering to help users ramp up quickly."
+  STARTER
+  "Complete application or subsystem design with documentation."
+  REFERENCE_DESIGN
+  "Extends capabilities of a dev board. Often optional."
+  EXPANSION
+  "Combines multiple board types, sensors, or modules into a full system."
+  SYSTEM
+  "Example project demonstrating specific use cases or implementations."
+  EXAMPLE
+}
+
+enum SupRefPartType {
+  "Main parts that the reference design demonstrate."
+  PRIMARY
+  "Important supporting parts essential to the function of the reference design."
+  KEY
+  "Other supporting parts."
+  OTHER
+}
+
+"Specifies the sort direction for ordering results."
+enum SupRefSortDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}

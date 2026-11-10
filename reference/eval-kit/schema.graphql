@@ -1,0 +1,847 @@
+# Octopart API — Eval Kit schema slice (~8152 tokens)
+# Not a complete schema: types from other contexts are referenced, not defined.
+# Full schema for code generation: https://altiumdeveloper.github.io/octopart-api-docs/schema.graphql
+# Referenced from other contexts:
+#   DateTime → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   Error → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   Long → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   PageInfo → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   SortEnumType → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   SupCompany → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupEvalKitCompatibleSoftwareProjectConnection → Supply Software Project: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/schema.graphql
+#   SupEvalKitCompatibleSoftwareProjectFilterInput → Supply Software Project: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/schema.graphql
+#   SupImage → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupPart → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupRefDesign → Reference Design: https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/schema.graphql
+#   SupSoftwareProject → Supply Software Project: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/schema.graphql
+#   SupSoftwareProjectEvalKitProjectSourceType → Supply Software Project: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/schema.graphql
+#   SupSoftwareProjectSortInput → Supply Software Project: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/schema.graphql
+
+type Query {
+  "Search a specific evaluation kit by its unique identifier."
+  supEvalKitById(id: ID!): SupEvalKit
+  "Search a specific evaluation kit by its unique identifier."
+  supEvalKitsByIds(ids: [ID!]!): [SupEvalKit]!
+  "List a evaluation kits."
+  supEvalKits(
+    "The search query string. Leave empty to query all."
+    q: String
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+    "Optional structured filter input for searching."
+    filter: SupEvalKitFilterInput
+    "Order the results by one or more fields. The first input is main order field."
+    order: [SupEvalKitOrderInput!]
+  ): [SupEvalKit]!
+  "Searches evaluation kits."
+  supEvalKitSearch(
+    where: SupEvalKitSearchFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupEvalKitSortInput!]
+  ): SupEvalKitConnection
+  "Searches evauation kit compatible software projects."
+  supEvalKitSoftwareProjectCompatibleEvalKitSearch(
+    softwareProjectId: ID!
+    where: SupSoftwareProjectCompatibleEvalKitFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectCompatibleEvalKitSortInput!]
+  ): SupSoftwareProjectEvalKitSourceConnection
+  "The list of evaluation kit sources associated with the software project."
+  supEvalKitSoftwareProjectCompatibleEvalKitsBySoftwareProjectId(softwareProjectId: ID!): [SupSoftwareProjectEvalKitSource!]
+  "The evaluation kit source associated with the software project."
+  supEvalKitSoftwareProjectCompatibleEvalKitBySoftwareProjectIdAndEvalKitId(softwareProjectId: ID!, id: ID!): SupSoftwareProjectEvalKitSource
+  "The evaluation kits of reference design."
+  supEvalKitDetailsByRefDesignId(
+    refDesignId: ID!
+    where: SupEvalKitByRefDesignFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupEvalKitSortInput!]
+  ): SupEvalKitConnection
+  "List all available evaluation kit parameter definitions."
+  supEvalKitParameterInfos: [SupEvalKitParameterInfo!]!
+  "Search project source toolchains by querying in the database."
+  supEvalKitSoftwareProjectToolchains(
+    where: SupEvalKitSoftwareProjectToolchainFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupEvalKitSoftwareProjectToolchainSortInput!]
+  ): SupEvalKitSoftwareProjectToolchainConnection
+}
+
+type Mutation {
+  "Add devices to an evaluation kit."
+  supEvalKitAddDevices(input: SupEvalKitAddDevicesInput!): SupEvalKitAddDevicesPayload!
+  "Delete devices from an evaluation kit."
+  supEvalKitDeleteDevices(input: SupEvalKitDeleteDevicesInput!): SupEvalKitDeleteDevicesPayload!
+  "Create a new evaluation kit."
+  supEvalKitCreateEvalKit(input: SupEvalKitCreateEvalKitInput!): SupEvalKitCreateEvalKitPayload!
+  "Update a evaluation kit."
+  supEvalKitUpdateEvalKit(input: SupEvalKitUpdateEvalKitInput!): SupEvalKitUpdateEvalKitPayload!
+  "Delete a evaluation kit."
+  supEvalKitDeleteEvalKit(input: SupEvalKitDeleteEvalKitInput!): SupEvalKitDeleteEvalKitPayload!
+  "Modify a software project compatible evaluation kit."
+  supEvalKitSoftwareProjectCompatibleEvalKit(input: SupEvalKitSoftwareProjectCompatibleEvalKitInput!): SupEvalKitSoftwareProjectCompatibleEvalKitPayload!
+  "Add evaluation kits to a reference design."
+  supEvalKitAddRefDesignCompatibleEvalKit(input: SupEvalKitAddRefDesignCompatibleEvalKitInput!): SupEvalKitAddRefDesignCompatibleEvalKitPayload!
+  "Delete evaluation kits from a reference design."
+  supEvalKitDeleteRefDesignCompatibleEvalKit(input: SupEvalKitDeleteRefDesignCompatibleEvalKitInput!): SupEvalKitDeleteRefDesignCompatibleEvalKitPayload!
+  "Add or remove parameters on an evaluation kit. Replaces values of existing parameters."
+  supEvalKitPatchParameters(input: SupEvalKitPatchParametersInput!): SupEvalKitPatchParametersPayload!
+  "Replace all parameters on an evaluation kit. Deletes all existing parameters and values, then inserts the new ones."
+  supEvalKitSetParameters(input: SupEvalKitSetParametersInput!): SupEvalKitSetParametersPayload!
+  "Add preview images to an evaluation kit."
+  supEvalKitAddPreviewImages(input: SupEvalKitAddPreviewImagesInput!): SupEvalKitAddPreviewImagesPayload!
+  "Delete preview images from an evaluation kit."
+  supEvalKitDeletePreviewImages(input: SupEvalKitDeletePreviewImagesInput!): SupEvalKitDeletePreviewImagesPayload!
+  "Sort preview images of an evaluation kit."
+  supEvalKitSortPreviewImages(input: SupEvalKitSortPreviewImagesInput!): SupEvalKitSortPreviewImagesPayload!
+  "Set the main reference design for an evaluation kit."
+  supEvalKitSetMainRefDesign(input: SupEvalKitSetMainRefDesignInput!): SupEvalKitSetMainRefDesignPayload!
+  "Unset a specific main reference design for an evaluation kit."
+  supEvalKitUnsetMainRefDesign(input: SupEvalKitUnsetMainRefDesignInput!): SupEvalKitUnsetMainRefDesignPayload!
+}
+
+type SupEvalKit {
+  "The evaluation kit identifier."
+  id: ID!
+  "The evaluation kit title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The detailed description."
+  description: String
+  "The source url."
+  sourceUrl: String
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "The user id who last updated the evaluation kit."
+  updatedById: String
+  "The user name who last updated the evaluation kit."
+  updatedByName: String
+  "The list of evaluation kit images."
+  previewImages: [SupImage!]
+  "The best evaluation kit images."
+  bestPreviewImage: SupImage
+  "The list of part identifiers associated with the evaluation kit."
+  partIds: [String!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The list of reference design identifiers associated with the evaluation kit."
+  refDesignIds: [String!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  refDesigns: [SupRefDesign!]!
+  "The main reference design identifier associated with the evaluation kit."
+  mainRefDesignId: String @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  mainRefDesign: SupRefDesign
+  "The esd source."
+  esdSource: SupEvalKitESDSource
+  "The list of devices associated with the evaluation kit."
+  devices: [SupEvalKitDevice!]!
+  "The list of parameters associated with the evaluation kit."
+  parameters: [SupEvalKitParameter!]
+  parts: [SupPart]!
+  publisher: [SupCompany!]
+  "The list of compatible software project identifiers associated with the evaluation kit."
+  compatibleSoftwareProjectIds(start: Int! = 0, limit: Int! = 100): [ID!]! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The list of compatible software projects associated with the evaluation kit."
+  compatibleSoftwareProjects(start: Int! = 0, limit: Int! = 100): [SupSoftwareProject!]! @deprecated(reason: "Use 'compatibleSoftwareProjectDetails' instead.")
+  "The compatible software projects of evaluation kit."
+  compatibleSoftwareProjectData(
+    where: SupEvalKitCompatibleSoftwareProjectFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupEvalKitCompatibleSoftwareProjectConnection @deprecated(reason: "Use 'compatibleSoftwareProjectDetails' instead.")
+  "The compatible software projects of evaluation kit."
+  compatibleSoftwareProjectDetails(
+    where: SupEvalKitCompatibleSoftwareProjectFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupEvalKitCompatibleSoftwareProjectConnection
+}
+
+"Payload returned after adding devices to the evaluation kit."
+type SupEvalKitAddDevicesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitAddDevicesError!]
+}
+
+type SupEvalKitAddPreviewImagesPayload {
+  errors: [SupEvalKitAddPreviewImagesError!]
+}
+
+type SupEvalKitAddRefDesignCompatibleEvalKitPayload {
+  supEvalKitAddRefDesignCompatibleEvalKitsPayload: SupEvalKitAddRefDesignCompatibleEvalKitsPayload
+  errors: [SupEvalKitAddRefDesignCompatibleEvalKitError!]
+}
+
+type SupEvalKitAddRefDesignCompatibleEvalKitsPayload {
+  "Return true if operation succeeded."
+  success: Boolean!
+}
+
+"A connection to a list of items."
+type SupEvalKitConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupEvalKitEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupEvalKit!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"Payload associated with creating a evaluation kit."
+type SupEvalKitCreateEvalKitPayload {
+  "Evaluation kit identifier."
+  id: ID
+  errors: [SupEvalKitCreateEvalKitError!]
+}
+
+"Payload returned after deleting devices from an evaluation kit."
+type SupEvalKitDeleteDevicesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitDeleteDevicesError!]
+}
+
+"Payload associated with deleting a evaluation kit."
+type SupEvalKitDeleteEvalKitPayload {
+  errors: [SupEvalKitDeleteEvalKitError!]
+}
+
+type SupEvalKitDeletePreviewImagesPayload {
+  errors: [SupEvalKitDeletePreviewImagesError!]
+}
+
+type SupEvalKitDeleteRefDesignCompatibleEvalKitPayload {
+  supEvalKitDeleteRefDesignCompatibleEvalKitsPayload: SupEvalKitDeleteRefDesignCompatibleEvalKitsPayload
+  errors: [SupEvalKitDeleteRefDesignCompatibleEvalKitError!]
+}
+
+type SupEvalKitDeleteRefDesignCompatibleEvalKitsPayload {
+  "Return true if operation succeeded."
+  success: Boolean!
+}
+
+type SupEvalKitDevice {
+  "Device part number."
+  deviceMpn: String!
+  refDesignId: ID! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  designProject: SupRefDesign!
+}
+
+type SupEvalKitESDSource {
+  "The URL of the document file associated with the evaluation kit."
+  documentFileUrl: String
+  "The URL of the compile model associated with the evaluation kit."
+  compileModelUrl: String
+}
+
+"An edge in a connection."
+type SupEvalKitEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupEvalKit!
+}
+
+type SupEvalKitNotFoundError implements Error {
+  message: String!
+  errorCode: SupEvalKitErrorCode!
+}
+
+type SupEvalKitOperationFailedError implements Error {
+  message: String!
+  errorCode: SupEvalKitErrorCode!
+}
+
+"Represents a parameter in the evaluation kit."
+type SupEvalKitParameter {
+  "The parameter definition."
+  parameter: SupEvalKitParameterInfo!
+  "The parameter values."
+  values: [String!]
+}
+
+"Represents the information of a parameter in the evaluation kit."
+type SupEvalKitParameterInfo {
+  "The parameter title."
+  title: String!
+}
+
+"Payload returned after patching parameters on an evaluation kit."
+type SupEvalKitPatchParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitPatchParametersError!]
+}
+
+"Payload returned after setting the main reference design of an evaluation kit."
+type SupEvalKitSetMainRefDesignPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitSetMainRefDesignError!]
+}
+
+"Payload returned after setting parameters on an evaluation kit."
+type SupEvalKitSetParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitSetParametersError!]
+}
+
+"Payload associated with updating a software project compatible evaluation kits."
+type SupEvalKitSoftwareProjectCompatibleEvalKitPayload {
+  errors: [SupEvalKitSoftwareProjectCompatibleEvalKitError!]
+}
+
+type SupEvalKitSoftwareProjectToolchain {
+  toolchainId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  name: String!
+  supportedVersions: [String!]!
+}
+
+"A connection to a list of items."
+type SupEvalKitSoftwareProjectToolchainConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupEvalKitSoftwareProjectToolchainEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupEvalKitSoftwareProjectToolchain!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupEvalKitSoftwareProjectToolchainEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupEvalKitSoftwareProjectToolchain!
+}
+
+type SupEvalKitSortPreviewImagesPayload {
+  errors: [SupEvalKitSortPreviewImagesError!]
+}
+
+"Payload returned after unsetting the main reference design of an evaluation kit."
+type SupEvalKitUnsetMainRefDesignPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupEvalKitUnsetMainRefDesignError!]
+}
+
+"Payload associated with updating a evaluation kit."
+type SupEvalKitUpdateEvalKitPayload {
+  errors: [SupEvalKitUpdateEvalKitError!]
+}
+
+type SupSoftwareProjectEvalKitProjectSource {
+  "The project source identifier."
+  projectSourceId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  "The type of the compatible evaluation kit project source."
+  type: SupSoftwareProjectEvalKitProjectSourceType!
+  "The URL of the source."
+  sourceUrl: String!
+  "The URL of the config XML."
+  configXmlUrl: String!
+  "The artifact version."
+  artifactVersion: String
+  "The selected toolchain version string."
+  toolchainVersion: String
+  "The selected toolchain and its supported versions."
+  toolchain: SupEvalKitSoftwareProjectToolchain
+  "The driver framework of the project source."
+  framework: SupSoftwareProjectEvalKitProjectSourceFramework
+  "The device family of the project source."
+  family: SupSoftwareProjectEvalKitProjectSourceDeviceFamily
+  "The last updated date."
+  updatedAt: DateTime!
+  "The artifact associated with the project source."
+  artifact: SupSoftwareProjectEvalKitProjectSourceArtifact
+}
+
+type SupSoftwareProjectEvalKitProjectSourceArtifact {
+  "The last updated date of the artifact."
+  updatedAt: DateTime!
+  "The download URL of the artifact."
+  downloadUrl: String!
+  "The file name of the artifact."
+  fileName: String!
+  "The size of the artifact file in bytes."
+  fileSizeInBytes: Long!
+  "The URL of the output SDM."
+  outputSdmUrl: String!
+}
+
+type SupSoftwareProjectEvalKitSource {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String! @deprecated(reason: "Fields play a technical role for internal uses.")
+  "The URL of the source associated with the software project."
+  sourceUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the config XML associated with the software project."
+  configXmlUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the config associated with the software project."
+  configUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the readme associated with the software project."
+  readmeUrl: String! @deprecated(reason: "Use 'projectSources' instead.")
+  "The evaluation kit identifier."
+  evalKitId: ID! @deprecated(reason: "Fields play a technical role for schema stitching purposes.")
+  "The evaluation kit associated with the software project."
+  evalKit: SupEvalKit!
+  "The list of evaluation kit project sources."
+  projectSources(types: [SupSoftwareProjectEvalKitProjectSourceType]): [SupSoftwareProjectEvalKitProjectSource!]
+}
+
+"A connection to a list of items."
+type SupSoftwareProjectEvalKitSourceConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupSoftwareProjectEvalKitSourceEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSoftwareProjectEvalKitSource!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupSoftwareProjectEvalKitSourceEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSoftwareProjectEvalKitSource!
+}
+
+union SupEvalKitAddDevicesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitAddPreviewImagesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitAddRefDesignCompatibleEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitCreateEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitDeleteDevicesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitDeleteEvalKitError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitDeletePreviewImagesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitDeleteRefDesignCompatibleEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitPatchParametersError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitSetMainRefDesignError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitSetParametersError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitSoftwareProjectCompatibleEvalKitError = SupEvalKitOperationFailedError
+
+union SupEvalKitSortPreviewImagesError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitUnsetMainRefDesignError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+union SupEvalKitUpdateEvalKitError = SupEvalKitOperationFailedError | SupEvalKitNotFoundError
+
+"Input for adding devices to an evaluation kit."
+input SupEvalKitAddDevicesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The list of devices to add."
+  devices: [SupEvalKitDeviceInput!]!
+}
+
+"Input for adding preview images to an evaluation kit."
+input SupEvalKitAddPreviewImagesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The collection of preview images to add."
+  previewImages: [SupEvalKitFileInput!]!
+}
+
+"Input for adding compatible evaluation kits to a reference design."
+input SupEvalKitAddRefDesignCompatibleEvalKitInput {
+  "The ID of the reference design to which the evaluation kits will be added."
+  refDesignId: ID!
+  "The list of evaluation kit IDs to be added as compatible with the reference design."
+  evalKitIds: [ID!]!
+}
+
+"Represents the filter for searching evaluation kits."
+input SupEvalKitByRefDesignFilterInput {
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by part identifiers."
+  partIds: [String!]
+}
+
+"Input for evaluation kit creation."
+input SupEvalKitCreateEvalKitInput {
+  "The evaluation kit title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The evaluation kit description."
+  description: String
+  "The evaluation kit source url."
+  sourceUrl: String
+  "The evaluation kit source file for building source url."
+  sourceFile: SupEvalKitFileInput
+  "The list of Reference Design identifiers associated with the evaluation kit."
+  refDesignIds: [ID!]
+  "The list of evaluation kit images input. The first image will be the best preview image."
+  previewImages: [SupEvalKitFileInput!]!
+  "The list of Part identifiers associated with the evaluation kit."
+  partIds: [String!]
+  "The list of Compatible Software Project identifiers associated with the evaluation kit."
+  compatibleSoftwareProjectIds: [ID!] @deprecated(reason: "CompatibleSoftwareProjectIds is deprecated and no longer accepted.")
+}
+
+input SupEvalKitCreateSoftwareProjectCompatibleEvalKitInput {
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "The project sources associated with the evaluation kit source."
+  projectSources: [SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput!]!
+}
+
+"Input for deleting devices from an evaluation kit."
+input SupEvalKitDeleteDevicesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The list of devices to remove."
+  devices: [SupEvalKitDeviceInput!]!
+}
+
+"Input for evaluation kit delete."
+input SupEvalKitDeleteEvalKitInput {
+  "The evaluation kit identifier."
+  id: ID!
+}
+
+"Input for deleting preview images from an evaluation kit."
+input SupEvalKitDeletePreviewImagesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The collection of image URLs to delete."
+  imageUrls: [String!]!
+}
+
+"Input for deleting compatible evaluation kits from a reference design."
+input SupEvalKitDeleteRefDesignCompatibleEvalKitInput {
+  "The ID of the reference design from which compatible evaluation kits will be deleted."
+  refDesignId: ID!
+  "The list of evaluation kit IDs to be deleted from the compatible evaluation kits of the reference design."
+  evalKitIds: [ID!]!
+}
+
+"Input type for device mutation."
+input SupEvalKitDeviceInput {
+  "The manufacturer part number of the device."
+  deviceMpn: String!
+  "The unique identifier of the reference design."
+  refDesignId: ID!
+}
+
+input SupEvalKitFileInput {
+  "The nexar file service identifier of the file."
+  fileId: String!
+  "The type of the file."
+  fileType: String!
+  "The file’s name with extension included (e.g., example.json, image.jpg)."
+  fileName: String!
+}
+
+"Input for filtering evaluation kits by additional conditions."
+input SupEvalKitFilterInput {
+  "Filter by a list of publisher (company) identifiers if specified."
+  publisherIds: [String!]
+}
+
+"Input type for ordering."
+input SupEvalKitOrderInput {
+  "The field to order by."
+  field: SupEvalKitOrderField!
+  "The direction of the order."
+  direction: SupEvalKitOrderDirection!
+}
+
+"Identifies a parameter by its title."
+input SupEvalKitParameterInfoInput {
+  "The title of the parameter (case-sensitive)."
+  title: String!
+}
+
+"A parameter and its values."
+input SupEvalKitParameterInput {
+  "Identifies the parameter by its title (case-sensitive)."
+  parameter: SupEvalKitParameterInfoInput!
+  "The values for this parameter."
+  values: [String!]!
+}
+
+"Input for patching parameters on an evaluation kit."
+input SupEvalKitPatchParametersInput {
+  "The unique identifier of the evaluation kit."
+  evaluationKitId: ID!
+  "Parameters to add or update. Creates the parameter if new, replaces its values if it already exists."
+  addParameters: [SupEvalKitParameterInput!]
+  "Titles of parameters to remove entirely from this evaluation kit."
+  removeParameters: [SupEvalKitParameterInfoInput!]
+}
+
+input SupEvalKitRemoveSoftwareProjectCompatibleEvalKitInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+}
+
+"Represents the filter for searching evaluation kits."
+input SupEvalKitSearchFilterInput {
+  "Searches by evaluation kit identifiers."
+  ids: [ID!]
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by part identifiers."
+  partIds: [String!]
+  "Searches by reference design identifiers."
+  refDesignIds: [ID!]
+}
+
+"Input for setting the main reference design of an evaluation kit."
+input SupEvalKitSetMainRefDesignInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The unique identifier of the reference design to set as main."
+  refDesignId: ID!
+}
+
+"Input for replacing all parameters on an evaluation kit."
+input SupEvalKitSetParametersInput {
+  "The unique identifier of the evaluation kit."
+  evaluationKitId: ID!
+  "The complete new set of parameters. Deletes all existing parameters and values, then inserts these."
+  parameters: [SupEvalKitParameterInput!]
+}
+
+"Input for software project update."
+input SupEvalKitSoftwareProjectCompatibleEvalKitInput {
+  "The software project identifier."
+  id: ID!
+  "Add a new software project evaluation kit project sources."
+  addCompatibleEvalKits: [SupEvalKitCreateSoftwareProjectCompatibleEvalKitInput!]
+  "Update current existing evaluation kit project sources."
+  updateCompatibleEvalKits: [SupEvalKitUpdateSoftwareProjectCompatibleEvalKitInput!]
+  "Remove current existing evaluation kit project sources."
+  removeCompatibleEvalKits: [SupEvalKitRemoveSoftwareProjectCompatibleEvalKitInput!]
+}
+
+input SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput {
+  "The URL of the source associated with the evaluation kit source."
+  sourceUrl: String
+  "The upload file of the source associated with the evaluation kit source."
+  sourceFile: SupEvalKitFileInput
+  "The URL of the config XML associated with the evaluation kit source."
+  configXmlUrl: String!
+  "The artifact version associated with the evaluation kit source."
+  artifactVersion: String
+  "The driver framework of the project source."
+  framework: SupSoftwareProjectEvalKitProjectSourceFramework
+  "The device family of the project source."
+  family: SupSoftwareProjectEvalKitProjectSourceDeviceFamily
+  "The toolchain identifier. A toolchain may be selected without a version."
+  toolchainId: String
+  "The supported version string from the toolchain catalog. Must belong to the selected toolchain."
+  toolchainVersion: String
+  "The project source type."
+  type: SupSoftwareProjectEvalKitProjectSourceType!
+}
+
+"Represents the filter for searching project source toolchains."
+input SupEvalKitSoftwareProjectToolchainFilterInput {
+  "Searches by toolchain identifiers."
+  ids: [String!]
+  "Searches by toolchain name."
+  q: String
+}
+
+"Input type for sorting."
+input SupEvalKitSoftwareProjectToolchainSortInput {
+  "Sorting by toolchain name."
+  name: SortEnumType
+}
+
+"Input type for sorting."
+input SupEvalKitSortInput {
+  "Sorting by title."
+  title: SortEnumType
+  "Sorting by creation date."
+  createdAt: SortEnumType
+  "Sorting by last update date."
+  updatedAt: SortEnumType
+}
+
+"Input for reordering preview images of an evaluation kit."
+input SupEvalKitSortPreviewImagesInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The collection of image URLs in the desired sort order."
+  sortedImageUrls: [String!]!
+}
+
+"Input for unsetting the main reference design of an evaluation kit."
+input SupEvalKitUnsetMainRefDesignInput {
+  "The unique identifier of the evaluation kit."
+  evalKitId: ID!
+  "The unique identifier of the reference design to unset as main."
+  refDesignId: ID!
+}
+
+"Input for evaluation kit update."
+input SupEvalKitUpdateEvalKitInput {
+  "The evaluation kit identifier."
+  id: ID!
+  "The evaluation kit title."
+  title: String
+  "The publisher identifier."
+  publisherId: String
+  "The evaluation kit description."
+  description: String
+  "The evaluation kit source url."
+  sourceUrl: String
+  "The evaluation kit source file for building source url."
+  sourceFile: SupEvalKitFileInput
+  "Remove list of Reference Design identifiers associated with the evaluation kit."
+  removeRefDesignIds: [ID!]
+  "Add list of Reference Design identifiers associated with the evaluation kit."
+  addRefDesignIds: [ID!]
+  "Remove list of Part identifiers associated with the evaluation kit."
+  removePartIds: [String!]
+  "Add list of Part identifiers associated with the evaluation kit."
+  addPartIds: [String!]
+  "Replace the current evaluation kit preview images with these ones. The first image will be used as a best preview image."
+  newPreviewImages: [SupEvalKitFileInput!]
+  "Add list of Compatible Software Project identifiers associated with the evaluation kit."
+  addCompatibleSoftwareProjectIds: [ID!] @deprecated(reason: "AddCompatibleSoftwareProjectIds is deprecated and no longer accepted.")
+  "Remove list of Compatible Software Project identifiers associated with the evaluation kit."
+  removeCompatibleSoftwareProjectIds: [ID!] @deprecated(reason: "RemoveCompatibleSoftwareProjectIds is deprecated and no longer accepted.")
+}
+
+input SupEvalKitUpdateSoftwareProjectCompatibleEvalKitInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "Replace the current software project evaluation kit project sources with these ones."
+  newProjectSources: [SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput!]
+}
+
+"Represents the filter for searching compatible software projects."
+input SupSoftwareProjectCompatibleEvalKitFilterInput {
+  "Searches by important fields (evaluation kit title, evaluation kit description)."
+  q: String
+  "Searches by evaluation kit identifiers."
+  evalKitIds: [ID!]
+}
+
+"Input type for sorting."
+input SupSoftwareProjectCompatibleEvalKitSortInput {
+  "Sorting by evaluation kit."
+  evalKit: SupEvalKitSortInput
+}
+
+enum SupEvalKitErrorCode {
+  "The operation failed."
+  OPERATION_FAILED
+  "The evaluation kit was not found."
+  SUP_EVAL_KIT_NOT_FOUND
+}
+
+enum SupEvalKitOrderDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}
+
+enum SupEvalKitOrderField {
+  "Order by title."
+  TITLE
+  "Order by description."
+  DESCRIPTION
+  "Order by creation date."
+  CREATED_AT
+  "Order by last update date."
+  UPDATED_AT
+}
+
+enum SupSoftwareProjectEvalKitProjectSourceDeviceFamily {
+  "RA device family."
+  RA
+  "RAFW device family."
+  RAFW
+  "RX device family."
+  RX
+  "RZ device family."
+  RZ
+  "R-Car device family."
+  R_CAR
+}
+
+enum SupSoftwareProjectEvalKitProjectSourceFramework {
+  "Flexible Software Package driver framework."
+  FSP
+  "Firmware Integration Technology driver framework."
+  FIT
+}

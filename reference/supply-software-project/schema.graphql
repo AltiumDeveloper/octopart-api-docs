@@ -1,0 +1,601 @@
+# Octopart API — Supply Software Project schema slice (~6194 tokens)
+# Not a complete schema: types from other contexts are referenced, not defined.
+# Full schema for code generation: https://altiumdeveloper.github.io/octopart-api-docs/schema.graphql
+# Referenced from other contexts:
+#   DateTime → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   Error → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   PageInfo → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   SortEnumType → Common: https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql
+#   SupCompany → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupImage → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+#   SupSoftwareProjectCompatibleEvalKitFilterInput → Eval Kit: https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql
+#   SupSoftwareProjectCompatibleEvalKitSortInput → Eval Kit: https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql
+#   SupSoftwareProjectEvalKitSource → Eval Kit: https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql
+#   SupSoftwareProjectEvalKitSourceConnection → Eval Kit: https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql
+
+type Query {
+  "Search a specific software project by its unique identifier."
+  supSoftwareProjectById(id: ID!): SupSoftwareProject
+  "Search a specific software project by its unique identifier."
+  supSoftwareProjectsByIds(ids: [ID!]!): [SupSoftwareProject]!
+  "List a reference solutions."
+  supSoftwareProjects(
+    "The search query string. Leave empty to query all."
+    q: String
+    "Offset in the result set."
+    start: Int! = 0
+    "Page size of results."
+    limit: Int! = 10
+    "Optional structured filter input for searching."
+    filter: SupSoftwareProjectFilterInput
+    "Order the results by one or more fields. The first input is main order field."
+    order: [SupSoftwareProjectOrderInput!]
+  ): [SupSoftwareProject]!
+  "Searches software projects."
+  supSoftwareProjectSearch(
+    where: SupSoftwareProjectSearchFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupSoftwareProjectConnection
+  "Searches evauation kit compatible software projects."
+  supSoftwareProjectEvalKitCompatibleSoftwareProjectSearch(
+    evalKitId: ID!
+    where: SupEvalKitCompatibleSoftwareProjectFilterInput
+    "Returns the first N elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last N elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectSortInput!]
+  ): SupEvalKitCompatibleSoftwareProjectConnection
+  "Get evaluation kit compatible software project idenfitiers."
+  supSoftwareProjectEvalKitCompatibleSoftwareProjectIdsByEvalKitId(evalKitId: ID!, start: Int! = 0, limit: Int! = 100): [ID!]!
+  "Get evaluation kit compatible software projects."
+  supSoftwareProjectEvalKitCompatibleSoftwareProjectsByEvalKitId(evalKitId: ID!, start: Int! = 0, limit: Int! = 100): [SupSoftwareProject!]!
+  "List all available software project parameter definitions."
+  supSoftwareProjectParameterInfos: [SupSoftwareProjectParameterInfo!]!
+  "Get software project identifiers associated with a solution template."
+  supSoftwareProjectSolutionTemplateSoftwareProjectIdsBySolutionTemplateId(solutionTemplateId: ID!): [ID!]!
+  "Get software projects associated with a solution template."
+  supSoftwareProjectSolutionTemplateSoftwareProjectsBySolutionTemplateId(solutionTemplateId: ID!): [SupSoftwareProject!]!
+  "Get software projects associated with multiple solution templates, grouped by solution template identifier."
+  supSoftwareProjectSolutionTemplateSoftwareProjectsBySolutionTemplateIds(solutionTemplateIds: [ID!]!): [SupSoftwareProjectSolutionTemplateSoftwareProjectsResult!]!
+}
+
+type Mutation {
+  "Add or remove parameters on a software project. Replaces values of existing parameters."
+  supSoftwareProjectPatchParameters(input: SupSoftwareProjectPatchParametersInput!): SupSoftwareProjectPatchParametersPayload!
+  "Replace all parameters on a software project. Deletes all existing parameters and values, then inserts the new ones."
+  supSoftwareProjectSetParameters(input: SupSoftwareProjectSetParametersInput!): SupSoftwareProjectSetParametersPayload!
+  "Patch preview images on a software project: add, delete, or reorder."
+  supSoftwareProjectPatchPreviewImages(input: SupSoftwareProjectPatchPreviewImagesInput!): SupSoftwareProjectPatchPreviewImagesPayload!
+  "Replace all preview images on a software project."
+  supSoftwareProjectSetPreviewImages(input: SupSoftwareProjectSetPreviewImagesInput!): SupSoftwareProjectSetPreviewImagesPayload!
+  "Create a new software project."
+  supSoftwareProjectCreateSoftwareProject(input: SupSoftwareProjectCreateSoftwareProjectInput!): SupSoftwareProjectCreateSoftwareProjectPayload!
+  "Update a software project."
+  supSoftwareProjectUpdateSoftwareProject(input: SupSoftwareProjectUpdateSoftwareProjectInput!): SupSoftwareProjectUpdateSoftwareProjectPayload!
+  "Delete a software project."
+  supSoftwareProjectDeleteSoftwareProject(input: SupSoftwareProjectDeleteSoftwareProjectInput!): SupSoftwareProjectDeleteSoftwareProjectPayload!
+  "Update evaluation kit's compatible software project."
+  supSoftwareProjectUpdateEvalKitCompatibleSoftwareProject(input: SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectInput!): SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectPayload!
+  "Replace all software project associations on a solution template."
+  supSoftwareProjectSetSoftwareProjectSolutionTemplates(input: SupSoftwareProjectSetSoftwareProjectSolutionTemplatesInput!): SupSoftwareProjectSetSoftwareProjectSolutionTemplatesPayload!
+  "Add or remove software project associations on a solution template."
+  supSoftwareProjectPatchSoftwareProjectSolutionTemplates(input: SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesInput!): SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesPayload!
+}
+
+"A connection to a list of items."
+type SupEvalKitCompatibleSoftwareProjectConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupEvalKitCompatibleSoftwareProjectEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSoftwareProject!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"An edge in a connection."
+type SupEvalKitCompatibleSoftwareProjectEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSoftwareProject!
+}
+
+type SupSoftwareProject {
+  "The software project identifier."
+  id: ID!
+  "The software project title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The recommendation score. Range is 0 to 65535."
+  recommendScore: Int!
+  "Whether the software project is recommended."
+  isRecommended: Boolean!
+  "The detailed description."
+  description: String
+  "The software project type."
+  type: SupSoftwareProjectType!
+  "The creation date."
+  createdAt: DateTime!
+  "The last updated date."
+  updatedAt: DateTime!
+  "The user id who last updated the software project."
+  updatedById: String
+  "The user name who last updated the software project."
+  updatedByName: String
+  "The list of software project images."
+  previewImages: [SupImage!]
+  "The best software project image."
+  bestPreviewImage: SupImage
+  "The list of parameters associated with the software project."
+  parameters: [SupSoftwareProjectParameter!]
+  publisher: [SupCompany!]
+  "The list of evaluation kit sources associated with the software project."
+  compatibleEvalKits: [SupSoftwareProjectEvalKitSource!]
+  "The evaluation kit source associated with the software project."
+  compatibleEvalKit(id: ID!): SupSoftwareProjectEvalKitSource
+  "The compatible evaluation kits of software project."
+  compatibleEvalKitData(
+    where: SupSoftwareProjectCompatibleEvalKitFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectCompatibleEvalKitSortInput!]
+  ): SupSoftwareProjectEvalKitSourceConnection @deprecated(reason: "Use 'compatibleEvalKitDetails' instead.")
+  "The compatible evaluation kits of software project."
+  compatibleEvalKitDetails(
+    where: SupSoftwareProjectCompatibleEvalKitFilterInput
+    "Returns the first _n_ elements from the list."
+    first: Int
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+    "Returns the last _n_ elements from the list."
+    last: Int
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+    order: [SupSoftwareProjectCompatibleEvalKitSortInput!]
+  ): SupSoftwareProjectEvalKitSourceConnection
+}
+
+"A connection to a list of items."
+type SupSoftwareProjectConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SupSoftwareProjectEdge!]
+  "A flattened list of the nodes."
+  nodes: [SupSoftwareProject!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
+}
+
+"Payload associated with creating a software project."
+type SupSoftwareProjectCreateSoftwareProjectPayload {
+  "Software project identifier."
+  id: ID
+  errors: [SupSoftwareProjectCreateSoftwareProjectError!]
+}
+
+"Payload associated with deleting a software project."
+type SupSoftwareProjectDeleteSoftwareProjectPayload {
+  errors: [SupSoftwareProjectDeleteSoftwareProjectError!]
+}
+
+"An edge in a connection."
+type SupSoftwareProjectEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: SupSoftwareProject!
+}
+
+type SupSoftwareProjectNotFoundError implements Error {
+  message: String!
+  errorCode: SupSoftwareProjectErrorCode!
+}
+
+type SupSoftwareProjectOperationFailedError implements Error {
+  message: String!
+  errorCode: SupSoftwareProjectErrorCode!
+}
+
+"Represents a parameter in the software project."
+type SupSoftwareProjectParameter {
+  "The parameter definition."
+  parameter: SupSoftwareProjectParameterInfo!
+  "The parameter values."
+  values: [String!]
+}
+
+"Represents the information of a parameter in the software project."
+type SupSoftwareProjectParameterInfo {
+  "The parameter title."
+  title: String!
+}
+
+"Payload returned after patching parameters on a software project."
+type SupSoftwareProjectPatchParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectPatchParametersError!]
+}
+
+"Payload for patching preview images on a software project."
+type SupSoftwareProjectPatchPreviewImagesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectPatchPreviewImagesError!]
+}
+
+"Payload returned after patching software projects on a solution template."
+type SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesError!]
+}
+
+"Payload returned after setting parameters on a software project."
+type SupSoftwareProjectSetParametersPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectSetParametersError!]
+}
+
+"Payload for replacing all preview images on a software project."
+type SupSoftwareProjectSetPreviewImagesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectSetPreviewImagesError!]
+}
+
+"Payload returned after setting software projects on a solution template."
+type SupSoftwareProjectSetSoftwareProjectSolutionTemplatesPayload {
+  "Return true if operation succeeded."
+  success: Boolean
+  errors: [SupSoftwareProjectSetSoftwareProjectSolutionTemplatesError!]
+}
+
+type SupSoftwareProjectSolutionTemplateSoftwareProjectsResult {
+  "The solution template identifier."
+  solutionTemplateId: ID!
+  "The software projects associated with the solution template."
+  softwareProjects: [SupSoftwareProject!]!
+}
+
+"Payload associated with updating a evaluation kit compatible software projects."
+type SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectPayload {
+  errors: [SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectError!]
+}
+
+"Payload associated with updating a software project."
+type SupSoftwareProjectUpdateSoftwareProjectPayload {
+  errors: [SupSoftwareProjectUpdateSoftwareProjectError!]
+}
+
+union SupSoftwareProjectCreateSoftwareProjectError = SupSoftwareProjectOperationFailedError
+
+union SupSoftwareProjectDeleteSoftwareProjectError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectPatchParametersError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectPatchPreviewImagesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectSetParametersError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectSetPreviewImagesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectSetSoftwareProjectSolutionTemplatesError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+union SupSoftwareProjectUpdateSoftwareProjectError = SupSoftwareProjectOperationFailedError | SupSoftwareProjectNotFoundError
+
+"Represents the filter for searching compatible software projects."
+input SupEvalKitCompatibleSoftwareProjectFilterInput {
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by type."
+  types: [SupSoftwareProjectType!]
+}
+
+input SupSoftwareProjectCreateEvalKitSourceInput {
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "The project sources associated with the evaluation kit source."
+  projectSources: [SupSoftwareProjectEvalKitProjectSourceInput!]!
+}
+
+"Input for software project creation."
+input SupSoftwareProjectCreateSoftwareProjectInput {
+  "The software project title."
+  title: String!
+  "The publisher identifier."
+  publisherId: String!
+  "The software project description."
+  description: String
+  "The software project type."
+  type: SupSoftwareProjectType!
+  "The recommendation score. Range is 0 to 65535."
+  recommendScore: Int
+  "The list of evaluation kit sources associated with the software project."
+  compatibleEvalKits: [SupSoftwareProjectEvalKitSourceInput!] @deprecated(reason: "CompatibleEvalKits is deprecated and no longer accepted.")
+}
+
+"Input for software project delete."
+input SupSoftwareProjectDeleteSoftwareProjectInput {
+  "The software project identifier."
+  id: ID!
+}
+
+input SupSoftwareProjectEvalKitProjectSourceInput {
+  "The URL of the source associated with the evaluation kit source."
+  sourceUrl: String
+  "The upload file of the source associated with the evaluation kit source."
+  sourceFile: SupSoftwareProjectFileInput
+  "The URL of the config XML associated with the evaluation kit source."
+  configXmlUrl: String!
+  "The project source type."
+  type: SupSoftwareProjectEvalKitProjectSourceType!
+}
+
+input SupSoftwareProjectEvalKitSourceInput {
+  "The URL of the source associated with the evaluation kit source."
+  sourceUrl: String @deprecated(reason: "Use 'projectSources.sourceUrl' instead.")
+  "The upload file of the source associated with the evaluation kit source."
+  sourceFile: SupSoftwareProjectFileInput @deprecated(reason: "Use 'projectSources.sourceFile' instead.")
+  "The URL of the config XML associated with the evaluation kit source."
+  configXmlUrl: String @deprecated(reason: "Use 'projectSources.configXmlUrl' instead.")
+  "The URL of the config associated with the evaluation kit source."
+  configUrl: String @deprecated(reason: "Use 'projectSources' instead.")
+  "The URL of the readme associated with the evaluation kit source."
+  readmeUrl: String @deprecated(reason: "Use 'projectSources' instead.")
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "The project sources associated with the evaluation kit source."
+  projectSources: [SupSoftwareProjectEvalKitProjectSourceInput!]!
+}
+
+input SupSoftwareProjectFileInput {
+  fileId: String!
+  fileType: String!
+  fileName: String!
+}
+
+"Input for filtering software projects by additional conditions."
+input SupSoftwareProjectFilterInput {
+  "Filter by a list of software project types if specified."
+  types: [SupSoftwareProjectType!]
+  "Filter by a list of publisher identifiers if specified."
+  publisherIds: [String!]
+  "Filter by recommendation status if specified."
+  isRecommended: Boolean
+}
+
+"Input type for ordering."
+input SupSoftwareProjectOrderInput {
+  "The field to order by."
+  field: SupSoftwareProjectOrderField!
+  "The direction of the order."
+  direction: SupSoftwareProjectOrderDirection!
+}
+
+"Identifies a parameter by its title."
+input SupSoftwareProjectParameterInfoInput {
+  "The title of the parameter (case-sensitive)."
+  title: String!
+}
+
+"A parameter and its values."
+input SupSoftwareProjectParameterInput {
+  "Identifies the parameter by its title (case-sensitive)."
+  parameter: SupSoftwareProjectParameterInfoInput!
+  "The values for this parameter."
+  values: [String!]!
+}
+
+"Input for patching parameters on a software project."
+input SupSoftwareProjectPatchParametersInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "Parameters to add or update. Creates the parameter if new, replaces its values if it already exists."
+  addParameters: [SupSoftwareProjectParameterInput!]
+  "Titles of parameters to remove entirely from this software project."
+  removeParameters: [SupSoftwareProjectParameterInfoInput!]
+}
+
+"Input for patching preview images on a software project."
+input SupSoftwareProjectPatchPreviewImagesInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "Preview images to add."
+  addPreviewImages: [SupSoftwareProjectFileInput!]
+  "Preview image URLs to delete."
+  deletePreviewImageUrls: [String!]
+  "Preview image URLs in the desired sort order. Must cover all remaining images after deletes."
+  reorderPreviewImageUrls: [String!]
+}
+
+"Input for patching software project associations on a solution template."
+input SupSoftwareProjectPatchSoftwareProjectSolutionTemplatesInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "Software project IDs to associate with the solution template. Ignored if already associated."
+  addSoftwareProjectIds: [ID!]
+  "Software project IDs to remove from the solution template."
+  removeSoftwareProjectIds: [ID!]
+}
+
+input SupSoftwareProjectRemoveEvalKitSourceInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+}
+
+"Represents the filter for searching software projects."
+input SupSoftwareProjectSearchFilterInput {
+  "Searches by software project identifiers."
+  ids: [ID!]
+  "Searches by important fields (title, description)."
+  q: String
+  "Searches by title."
+  title: String
+  "Searches by description."
+  description: String
+  "Searches by type."
+  types: [SupSoftwareProjectType!]
+  "Searches by recommendation status."
+  isRecommended: Boolean
+}
+
+"Input for replacing all parameters on a software project."
+input SupSoftwareProjectSetParametersInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "The complete new set of parameters. Deletes all existing parameters and values, then inserts these."
+  parameters: [SupSoftwareProjectParameterInput!]
+}
+
+"Input for replacing all preview images on a software project."
+input SupSoftwareProjectSetPreviewImagesInput {
+  "The unique identifier of the software project."
+  softwareProjectId: ID!
+  "The new set of preview images. Replaces all existing preview images."
+  previewImages: [SupSoftwareProjectFileInput!]
+}
+
+"Input for replacing all software project associations on a solution template."
+input SupSoftwareProjectSetSoftwareProjectSolutionTemplatesInput {
+  "The unique identifier of the solution template."
+  solutionTemplateId: ID!
+  "The complete new set of software project IDs. Removes all existing associations and inserts these."
+  softwareProjectIds: [ID!]
+}
+
+"Input type for sorting."
+input SupSoftwareProjectSortInput {
+  "Sorting by title."
+  title: SortEnumType
+  "Sorting by recommendation score."
+  recommendScore: SortEnumType
+  "Sorting by recommendation status."
+  isRecommended: SortEnumType
+  "Sorting by creation date."
+  createdAt: SortEnumType
+  "Sorting by last update date."
+  updatedAt: SortEnumType
+}
+
+"Input for evaluation kit compatible software project update."
+input SupSoftwareProjectUpdateEvalKitCompatibleSoftwareProjectInput {
+  "The evaluation kit identifier."
+  id: ID!
+  "Add a new list of compatible software projects to evaluation kit."
+  addCompatibleSoftwareProjectIds: [ID!]
+  "Remove a list of compatible software projects from evaluation kit."
+  removeCompatibleSoftwareProjectIds: [ID!]
+}
+
+input SupSoftwareProjectUpdateEvalKitSourceInput {
+  "The compatible evaluation kit identifier."
+  compatibleEvalKitId: String!
+  "The evaluation kit identifier."
+  evalKitId: ID!
+  "Replace the current software project evaluation kit project sources with these ones."
+  newProjectSources: [SupSoftwareProjectEvalKitProjectSourceInput!]
+}
+
+"Input for software project update."
+input SupSoftwareProjectUpdateSoftwareProjectInput {
+  "The software project identifier."
+  id: ID!
+  "The software project title."
+  title: String
+  "The publisher identifier."
+  publisherId: String
+  "The software project description."
+  description: String
+  "The software project type."
+  type: SupSoftwareProjectType
+  "The recommendation score. Range is 0 to 65535."
+  recommendScore: Int
+  "Replace the current software project evaluation kit sources with these ones."
+  newCompatibleEvalKits: [SupSoftwareProjectEvalKitSourceInput!] @deprecated(reason: "Use 'AddCompatibleEvalKits', 'UpdateCompatibleEvalKits', 'RemoveCompatibleEvalKits' instead.")
+  "Add a new software project evaluation kit project sources."
+  addCompatibleEvalKits: [SupSoftwareProjectCreateEvalKitSourceInput!] @deprecated(reason: "AddCompatibleEvalKits is deprecated and no longer accepted.")
+  "Update current existing evaluation kit project sources."
+  updateCompatibleEvalKits: [SupSoftwareProjectUpdateEvalKitSourceInput!] @deprecated(reason: "UpdateCompatibleEvalKits is deprecated and no longer accepted.")
+  "Remove current existing evaluation kit project sources."
+  removeCompatibleEvalKits: [SupSoftwareProjectRemoveEvalKitSourceInput!] @deprecated(reason: "RemoveCompatibleEvalKits is deprecated and no longer accepted.")
+}
+
+enum SupSoftwareProjectErrorCode {
+  "The operation failed."
+  OPERATION_FAILED
+  "The software project was not found."
+  SUP_SOFTWARE_PROJECT_NOT_FOUND
+}
+
+enum SupSoftwareProjectEvalKitProjectSourceType {
+  "CMAKE project."
+  CMAKE
+  "E2STUDIO project."
+  E2STUDIO
+  "RASC CMAKE project."
+  RASC_CMAKE
+}
+
+enum SupSoftwareProjectOrderDirection {
+  "Ascending order."
+  ASC
+  "Descending order."
+  DESC
+}
+
+enum SupSoftwareProjectOrderField {
+  "Order by title."
+  TITLE
+  "Order by description."
+  DESCRIPTION
+  "Order by type."
+  TYPE
+  "Order by recommendation score."
+  IS_RECOMMENDED
+  "Order by recommend score."
+  RECOMMEND_SCORE
+  "Order by creation date."
+  CREATED_AT
+  "Order by last update date."
+  UPDATED_AT
+}
+
+enum SupSoftwareProjectType {
+  "Defines the Application type used to classify software projects."
+  APPLICATION
+  "Defines the Example type used to classify software projects."
+  EXAMPLE
+}

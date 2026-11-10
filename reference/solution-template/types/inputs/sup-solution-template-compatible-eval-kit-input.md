@@ -1,0 +1,31 @@
+---
+title: "SupSolutionTemplateCompatibleEvalKitInput"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-compatible-eval-kit-input"
+bounded_context: "Solution Template"
+kind: "inputs"
+experimental: false
+deprecated: false
+---
+
+# SupSolutionTemplateCompatibleEvalKitInput
+
+### Member Of
+
+[`SupSolutionTemplateCreateSolutionTemplateInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-create-solution-template-input.md) input · [`SupSolutionTemplatePatchCompatibleEvalKitsInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-patch-compatible-eval-kits-input.md) input · [`SupSolutionTemplateSetCompatibleEvalKitsInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-set-compatible-eval-kits-input.md) input · [`SupSolutionTemplateUpdateSolutionTemplateInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-update-solution-template-input.md) input
+
+```graphql
+input SupSolutionTemplateCompatibleEvalKitInput {
+  evalKitId: ID!
+  parameters: [SupSolutionTemplateParameterBundleInput!]
+}
+```
+
+### Fields
+
+#### `evalKitId` · [`ID!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/types/scalars/id.md) non-null scalar
+
+The evaluation kit identifier. Can be duplicated.
+
+#### `parameters` · [`[SupSolutionTemplateParameterBundleInput!]`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-parameter-bundle-input.md) list input
+
+The list of parameters associated with the compatible evaluation kit.

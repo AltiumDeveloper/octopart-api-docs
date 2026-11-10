@@ -1,0 +1,48 @@
+# Solution Template — Octopart API
+> Solution templates, reusable blueprints for an integrated hardware and software solution, and their applications, parameters, compatible evaluation kits and reference designs.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/schema.graphql) (~12251 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/overview.md).
+
+## Entities
+- [SupSolutionTemplate](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/objects/sup-solution-template.md): Solution Template — A publisher's template for a solution, held in the supply catalog. GRID `grid:supply::platform:solution-template/{id}`. Via: supSolutionTemplateById, supSolutionTemplatesByIds, supSolutionTemplateByName, supSolutionTemplates, supSolutionTemplatesByApplicationId, …
+
+## Entry points
+- [supSolutionTemplateApplicationById](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-application-by-id.md): Search a specific solution template by its unique identifier.
+- [supSolutionTemplateById](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-by-id.md): Search a specific solution template by its unique identifier.
+- [supSolutionTemplatesByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-templates-by-ids.md): Search a specific solution template by its unique identifier.
+- [supSolutionTemplates](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-templates.md) (list): List a solution templates.
+- [supSolutionTemplatesByApplicationId](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-templates-by-application-id.md) (list): Search a specific solution template by application identifier.
+- [supSolutionTemplateSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-search.md) (list): Searches solution templates.
+
+## Queries
+- [supSolutionTemplateApplicationByApplicationId](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-application-by-application-id.md): Search a specific solution template by its application identifier.
+- [supSolutionTemplateApplications](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-applications.md): List a solution template applications.
+- [supSolutionTemplateApplicationsSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-applications-search.md): Searches solution template applications.
+- [supSolutionTemplateByName](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-by-name.md): Search a specific solution template by its unique stable name identifier.
+- [supSolutionTemplateRefDesignSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/queries/sup-solution-template-ref-design-search.md): Search solution templates and reference designs.
+
+## Mutations
+- [supSolutionTemplateCreateSolutionTemplate](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-create-solution-template.md): Create a new solution template.
+- [supSolutionTemplateCreateSolutionTemplateApplication](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-create-solution-template-application.md): Create a new solution template application.
+- [supSolutionTemplateDeleteSolutionTemplate](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-delete-solution-template.md): Delete a solution template.
+- [supSolutionTemplateDeleteSolutionTemplateApplication](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-delete-solution-template-application.md): Delete a solution template application.
+- [supSolutionTemplateIndexSolutionTemplate](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-index-solution-template.md): Index list of solution templates by identifiers.
+- [supSolutionTemplatePatchCompatibleEvalKits](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-compatible-eval-kits.md): Add, update or remove individual compatible eval kits on a solution template.
+- [supSolutionTemplatePatchEsdSource](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-esd-source.md): Patch the ESD source of a solution template: upload, replace, or clear individual files.
+- [supSolutionTemplatePatchKeyFeatureGroups](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-key-feature-groups.md): Add or remove list of key feature groups related to a solution template.
+- [supSolutionTemplatePatchParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-parameters.md): Add, update, or remove individual parameters on a solution template.
+- [supSolutionTemplatePatchPreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-preview-images.md): Patch preview images on a solution template: add, delete, or reorder.
+- [supSolutionTemplatePatchRefDesigns](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-ref-designs.md): Add or remove individual reference designs on a solution template.
+- [supSolutionTemplatePatchTags](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-patch-tags.md): Add or remove list of tags related to a solution template.
+- [supSolutionTemplateSetCompatibleEvalKits](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-set-compatible-eval-kits.md): Replace all compatible eval kits on a solution template.
+- [supSolutionTemplateSetKeyFeatureGroups](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-set-key-feature-groups.md): Replace existing list of key feature groups by new one related to a solution template.
+- [supSolutionTemplateSetParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-set-parameters.md): Replace all parameters on a solution template.
+- [supSolutionTemplateSetPreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-set-preview-images.md): Replace all preview images on a solution template.
+- [supSolutionTemplateSetRefDesigns](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-set-ref-designs.md): Replace all reference designs on a solution template.
+- [supSolutionTemplateSetTags](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-set-tags.md): Replace existing list of tags by new one related to a solution template.
+- [supSolutionTemplateUpdateSolutionTemplate](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-update-solution-template.md): Update a solution template.
+- [supSolutionTemplateUpdateSolutionTemplateApplication](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-update-solution-template-application.md): Update a new solution template application.
+- [supSolutionTemplateUpdateSolutionTemplateStatus](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/operations/mutations/sup-solution-template-update-solution-template-status.md): Update the status of a solution template.
+
+## Optional
+- [All types in Solution Template](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types.txt): one line per type (~6604 tokens)

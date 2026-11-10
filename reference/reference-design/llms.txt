@@ -1,0 +1,19 @@
+# Reference Design — Octopart API
+> Reference designs, their files, parts, evaluation kits and resources.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/schema.graphql) (~3247 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/overview.md).
+
+## Entities
+- [SupRefDesign](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types/objects/sup-ref-design.md): Reference Design — An example design published in the supply catalog, bringing together its design files (e.g. schematics and layouts), documentation and the parts it uses. GRID `grid:supply::platform:ref-design/{id}`. Via: supRefDesignById, supRefDesignsByIds, supRefDesignByName, SupRefDesignResultSet.results, SupEvalKit.mainRefDesign, …
+
+## Entry points
+- [supRefDesignById](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/operations/queries/sup-ref-design-by-id.md): Search a specific reference design by its unique identifier.
+- [supRefDesignsByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/operations/queries/sup-ref-designs-by-ids.md): Search a specific reference designs by its unique identifiers.
+
+## Queries
+- [supRefDesignByName](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/operations/queries/sup-ref-design-by-name.md): Search a specific reference design by its unique name.
+- [supRefDesigns](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/operations/queries/sup-ref-designs.md): Search a reference designs.
+- [supRefParts](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/operations/queries/sup-ref-parts.md): Search a specific parts by reference design unique identifier and part's designators.
+
+## Optional
+- [All types in Reference Design](https://altiumdeveloper.github.io/octopart-api-docs/reference/reference-design/types.txt): one line per type (~1062 tokens)

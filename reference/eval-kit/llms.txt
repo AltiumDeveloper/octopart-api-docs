@@ -1,0 +1,41 @@
+# Eval Kit — Octopart API
+> Evaluation kits, their devices, parameters, preview images, and the reference designs and software projects they are compatible with.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/schema.graphql) (~8152 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/overview.md).
+
+## Entities
+- [SupEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit.md): Evaluation Kit — A vendor evaluation kit in the supply catalog, described by its associated devices, its reference designs (including a main one) and the software projects compatible with it. GRID `grid:supply::platform:eval-kit/{id}`. Via: supEvalKitById, supEvalKitsByIds, supEvalKitDetailsByRefDesignId, supEvalKits, supEvalKitSearch, …
+
+## Entry points
+- [supEvalKitById](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-by-id.md): Search a specific evaluation kit by its unique identifier.
+- [supEvalKitsByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kits-by-ids.md): Search a specific evaluation kit by its unique identifier.
+- [supEvalKitDetailsByRefDesignId](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-details-by-ref-design-id.md) (list): The evaluation kits of reference design.
+- [supEvalKits](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kits.md) (list): List a evaluation kits.
+- [supEvalKitSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-search.md) (list): Searches evaluation kits.
+
+## Queries
+- [supEvalKitParameterInfos](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-parameter-infos.md): List all available evaluation kit parameter definitions.
+- [supEvalKitSoftwareProjectCompatibleEvalKitBySoftwareProjectIdAndEvalKitId](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-software-project-compatible-eval-kit-by-software-project-id-and-eval-kit-id.md): The evaluation kit source associated with the software project.
+- [supEvalKitSoftwareProjectCompatibleEvalKitsBySoftwareProjectId](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-software-project-compatible-eval-kits-by-software-project-id.md): The list of evaluation kit sources associated with the software project.
+- [supEvalKitSoftwareProjectCompatibleEvalKitSearch](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-software-project-compatible-eval-kit-search.md): Searches evauation kit compatible software projects.
+- [supEvalKitSoftwareProjectToolchains](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/queries/sup-eval-kit-software-project-toolchains.md): Search project source toolchains by querying in the database.
+
+## Mutations
+- [supEvalKitAddDevices](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-add-devices.md): Add devices to an evaluation kit.
+- [supEvalKitAddPreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-add-preview-images.md): Add preview images to an evaluation kit.
+- [supEvalKitAddRefDesignCompatibleEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-add-ref-design-compatible-eval-kit.md): Add evaluation kits to a reference design.
+- [supEvalKitCreateEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-create-eval-kit.md): Create a new evaluation kit.
+- [supEvalKitDeleteDevices](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-delete-devices.md): Delete devices from an evaluation kit.
+- [supEvalKitDeleteEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-delete-eval-kit.md): Delete a evaluation kit.
+- [supEvalKitDeletePreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-delete-preview-images.md): Delete preview images from an evaluation kit.
+- [supEvalKitDeleteRefDesignCompatibleEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-delete-ref-design-compatible-eval-kit.md): Delete evaluation kits from a reference design.
+- [supEvalKitPatchParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-patch-parameters.md): Add or remove parameters on an evaluation kit.
+- [supEvalKitSetMainRefDesign](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-set-main-ref-design.md): Set the main reference design for an evaluation kit.
+- [supEvalKitSetParameters](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-set-parameters.md): Replace all parameters on an evaluation kit.
+- [supEvalKitSoftwareProjectCompatibleEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-software-project-compatible-eval-kit.md): Modify a software project compatible evaluation kit.
+- [supEvalKitSortPreviewImages](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-sort-preview-images.md): Sort preview images of an evaluation kit.
+- [supEvalKitUnsetMainRefDesign](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-unset-main-ref-design.md): Unset a specific main reference design for an evaluation kit.
+- [supEvalKitUpdateEvalKit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-update-eval-kit.md): Update a evaluation kit.
+
+## Optional
+- [All types in Eval Kit](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types.txt): one line per type (~3900 tokens)

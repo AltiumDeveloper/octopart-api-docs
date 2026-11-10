@@ -1,0 +1,7 @@
+# Common — Octopart API
+> Shared scalars, paging, errors and sorting types used across all bounded contexts.
+
+Schema slice: [schema.graphql](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/schema.graphql) (~269 tokens). Overview: [overview](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/overview.md).
+
+## Optional
+- [All types in Common](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/types.txt): one line per type (~769 tokens)

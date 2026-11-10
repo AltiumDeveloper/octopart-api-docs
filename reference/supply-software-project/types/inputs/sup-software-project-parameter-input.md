@@ -1,0 +1,33 @@
+---
+title: "SupSoftwareProjectParameterInput"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/inputs/sup-software-project-parameter-input"
+bounded_context: "Supply Software Project"
+kind: "inputs"
+experimental: false
+deprecated: false
+---
+
+# SupSoftwareProjectParameterInput
+
+A parameter and its values.
+
+### Member Of
+
+[`SupSoftwareProjectPatchParametersInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/inputs/sup-software-project-patch-parameters-input.md) input · [`SupSoftwareProjectSetParametersInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/inputs/sup-software-project-set-parameters-input.md) input
+
+```graphql
+input SupSoftwareProjectParameterInput {
+  parameter: SupSoftwareProjectParameterInfoInput!
+  values: [String!]!
+}
+```
+
+### Fields
+
+#### `parameter` · [`SupSoftwareProjectParameterInfoInput!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/supply-software-project/types/inputs/sup-software-project-parameter-info-input.md) non-null input
+
+Identifies the parameter by its title (case-sensitive).
+
+#### `values` · [`[String!]!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/types/scalars/string.md) non-null scalar
+
+The values for this parameter.

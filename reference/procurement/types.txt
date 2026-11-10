@@ -1,0 +1,13 @@
+# Procurement — types
+> Types of the Procurement bounded context that are not entities, one line each; Relay `*Connection` and `*Edge` types are omitted. Entities, entry points and operations: [llms.txt](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/llms.txt).
+
+- [DatBomAnalysis](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/objects/dat-bom-analysis.md)
+- [DatBomCategory](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/objects/dat-bom-category.md)
+- [DatBomPart](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/objects/dat-bom-part.md)
+- [DatBomPartHistory](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/objects/dat-bom-part-history.md)
+- [DatBomPartItem](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/objects/dat-bom-part-item.md)
+- [DatBomPartsResult](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/objects/dat-bom-parts-result.md)
+- [DatBomItemInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/inputs/dat-bom-item-input.md)
+- [DatBomPartItemInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/inputs/dat-bom-part-item-input.md)
+- [DatBomAnalysisLevel](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/enums/dat-bom-analysis-level.md)
+- [DatBomPartSearchStrategy](https://altiumdeveloper.github.io/octopart-api-docs/reference/procurement/types/enums/dat-bom-part-search-strategy.md)

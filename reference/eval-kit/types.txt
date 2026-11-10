@@ -1,0 +1,82 @@
+# Eval Kit — types
+> Types of the Eval Kit bounded context that are not entities, one line each; Relay `*Connection` and `*Edge` types are omitted. Entities, entry points and operations: [llms.txt](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/llms.txt).
+
+- [SupEvalKitAddDevicesPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-add-devices-payload.md): Payload returned after adding devices to the evaluation kit.
+- [SupEvalKitAddPreviewImagesPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-add-preview-images-payload.md)
+- [SupEvalKitAddRefDesignCompatibleEvalKitPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-add-ref-design-compatible-eval-kit-payload.md)
+- [SupEvalKitAddRefDesignCompatibleEvalKitsPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-add-ref-design-compatible-eval-kits-payload.md)
+- [SupEvalKitCreateEvalKitPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-create-eval-kit-payload.md): Payload associated with creating a evaluation kit.
+- [SupEvalKitDeleteDevicesPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-delete-devices-payload.md): Payload returned after deleting devices from an evaluation kit.
+- [SupEvalKitDeleteEvalKitPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-delete-eval-kit-payload.md): Payload associated with deleting a evaluation kit.
+- [SupEvalKitDeletePreviewImagesPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-delete-preview-images-payload.md)
+- [SupEvalKitDeleteRefDesignCompatibleEvalKitPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-delete-ref-design-compatible-eval-kit-payload.md)
+- [SupEvalKitDeleteRefDesignCompatibleEvalKitsPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-delete-ref-design-compatible-eval-kits-payload.md)
+- [SupEvalKitDevice](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-device.md)
+- [SupEvalKitESDSource](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-esdsource.md)
+- [SupEvalKitNotFoundError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-not-found-error.md)
+- [SupEvalKitOperationFailedError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-operation-failed-error.md)
+- [SupEvalKitParameter](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-parameter.md): Represents a parameter in the evaluation kit.
+- [SupEvalKitParameterInfo](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-parameter-info.md): Represents the information of a parameter in the evaluation kit.
+- [SupEvalKitPatchParametersPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-patch-parameters-payload.md): Payload returned after patching parameters on an evaluation kit.
+- [SupEvalKitSetMainRefDesignPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-set-main-ref-design-payload.md): Payload returned after setting the main reference design of an evaluation kit.
+- [SupEvalKitSetParametersPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-set-parameters-payload.md): Payload returned after setting parameters on an evaluation kit.
+- [SupEvalKitSoftwareProjectCompatibleEvalKitPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-software-project-compatible-eval-kit-payload.md): Payload associated with updating a software project compatible evaluation kits.
+- [SupEvalKitSoftwareProjectToolchain](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-software-project-toolchain.md)
+- [SupEvalKitSortPreviewImagesPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-sort-preview-images-payload.md)
+- [SupEvalKitUnsetMainRefDesignPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-unset-main-ref-design-payload.md): Payload returned after unsetting the main reference design of an evaluation kit.
+- [SupEvalKitUpdateEvalKitPayload](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-eval-kit-update-eval-kit-payload.md): Payload associated with updating a evaluation kit.
+- [SupSoftwareProjectEvalKitProjectSource](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-software-project-eval-kit-project-source.md)
+- [SupSoftwareProjectEvalKitProjectSourceArtifact](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-software-project-eval-kit-project-source-artifact.md)
+- [SupSoftwareProjectEvalKitSource](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/objects/sup-software-project-eval-kit-source.md)
+- [SupEvalKitAddDevicesError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-add-devices-error.md)
+- [SupEvalKitAddPreviewImagesError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-add-preview-images-error.md)
+- [SupEvalKitAddRefDesignCompatibleEvalKitError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-add-ref-design-compatible-eval-kit-error.md)
+- [SupEvalKitCreateEvalKitError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-create-eval-kit-error.md)
+- [SupEvalKitDeleteDevicesError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-delete-devices-error.md)
+- [SupEvalKitDeleteEvalKitError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-delete-eval-kit-error.md)
+- [SupEvalKitDeletePreviewImagesError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-delete-preview-images-error.md)
+- [SupEvalKitDeleteRefDesignCompatibleEvalKitError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-delete-ref-design-compatible-eval-kit-error.md)
+- [SupEvalKitPatchParametersError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-patch-parameters-error.md)
+- [SupEvalKitSetMainRefDesignError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-set-main-ref-design-error.md)
+- [SupEvalKitSetParametersError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-set-parameters-error.md)
+- [SupEvalKitSoftwareProjectCompatibleEvalKitError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-software-project-compatible-eval-kit-error.md)
+- [SupEvalKitSortPreviewImagesError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-sort-preview-images-error.md)
+- [SupEvalKitUnsetMainRefDesignError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-unset-main-ref-design-error.md)
+- [SupEvalKitUpdateEvalKitError](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/unions/sup-eval-kit-update-eval-kit-error.md)
+- [SupEvalKitAddDevicesInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-add-devices-input.md): Input for adding devices to an evaluation kit.
+- [SupEvalKitAddPreviewImagesInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-add-preview-images-input.md): Input for adding preview images to an evaluation kit.
+- [SupEvalKitAddRefDesignCompatibleEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-add-ref-design-compatible-eval-kit-input.md): Input for adding compatible evaluation kits to a reference design.
+- [SupEvalKitByRefDesignFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-by-ref-design-filter-input.md): Represents the filter for searching evaluation kits.
+- [SupEvalKitCreateEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-create-eval-kit-input.md): Input for evaluation kit creation.
+- [SupEvalKitCreateSoftwareProjectCompatibleEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-create-software-project-compatible-eval-kit-input.md)
+- [SupEvalKitDeleteDevicesInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-delete-devices-input.md): Input for deleting devices from an evaluation kit.
+- [SupEvalKitDeleteEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-delete-eval-kit-input.md): Input for evaluation kit delete.
+- [SupEvalKitDeletePreviewImagesInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-delete-preview-images-input.md): Input for deleting preview images from an evaluation kit.
+- [SupEvalKitDeleteRefDesignCompatibleEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-delete-ref-design-compatible-eval-kit-input.md): Input for deleting compatible evaluation kits from a reference design.
+- [SupEvalKitDeviceInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-device-input.md): Input type for device mutation.
+- [SupEvalKitFileInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-file-input.md)
+- [SupEvalKitFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-filter-input.md): Input for filtering evaluation kits by additional conditions.
+- [SupEvalKitOrderInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-order-input.md): Input type for ordering.
+- [SupEvalKitParameterInfoInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-parameter-info-input.md): Identifies a parameter by its title.
+- [SupEvalKitParameterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-parameter-input.md): A parameter and its values.
+- [SupEvalKitPatchParametersInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-patch-parameters-input.md): Input for patching parameters on an evaluation kit.
+- [SupEvalKitRemoveSoftwareProjectCompatibleEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-remove-software-project-compatible-eval-kit-input.md)
+- [SupEvalKitSearchFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-search-filter-input.md): Represents the filter for searching evaluation kits.
+- [SupEvalKitSetMainRefDesignInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-set-main-ref-design-input.md): Input for setting the main reference design of an evaluation kit.
+- [SupEvalKitSetParametersInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-set-parameters-input.md): Input for replacing all parameters on an evaluation kit.
+- [SupEvalKitSoftwareProjectCompatibleEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-software-project-compatible-eval-kit-input.md): Input for software project update.
+- [SupEvalKitSoftwareProjectCompatibleEvalKitProjectSourceInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-software-project-compatible-eval-kit-project-source-input.md)
+- [SupEvalKitSoftwareProjectToolchainFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-software-project-toolchain-filter-input.md): Represents the filter for searching project source toolchains.
+- [SupEvalKitSoftwareProjectToolchainSortInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-software-project-toolchain-sort-input.md): Input type for sorting.
+- [SupEvalKitSortInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-sort-input.md): Input type for sorting.
+- [SupEvalKitSortPreviewImagesInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-sort-preview-images-input.md): Input for reordering preview images of an evaluation kit.
+- [SupEvalKitUnsetMainRefDesignInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-unset-main-ref-design-input.md): Input for unsetting the main reference design of an evaluation kit.
+- [SupEvalKitUpdateEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-update-eval-kit-input.md): Input for evaluation kit update.
+- [SupEvalKitUpdateSoftwareProjectCompatibleEvalKitInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-update-software-project-compatible-eval-kit-input.md)
+- [SupSoftwareProjectCompatibleEvalKitFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-software-project-compatible-eval-kit-filter-input.md): Represents the filter for searching compatible software projects.
+- [SupSoftwareProjectCompatibleEvalKitSortInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-software-project-compatible-eval-kit-sort-input.md): Input type for sorting.
+- [SupEvalKitErrorCode](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/enums/sup-eval-kit-error-code.md)
+- [SupEvalKitOrderDirection](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/enums/sup-eval-kit-order-direction.md)
+- [SupEvalKitOrderField](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/enums/sup-eval-kit-order-field.md)
+- [SupSoftwareProjectEvalKitProjectSourceDeviceFamily](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/enums/sup-software-project-eval-kit-project-source-device-family.md)
+- [SupSoftwareProjectEvalKitProjectSourceFramework](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/enums/sup-software-project-eval-kit-project-source-framework.md)

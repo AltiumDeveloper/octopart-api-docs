@@ -1,0 +1,5 @@
+# Deprecated — Octopart API
+> Operations marked @deprecated. They still work; migrate to the replacement named in each reason.
+
+## Reference Design
+- [supRefDesignByIds](https://altiumdeveloper.github.io/octopart-api-docs/reference/deprecated/reference-design/operations/queries/sup-ref-design-by-ids.md): Search a specific reference designs by its unique identifiers. (deprecated: Use 'supRefDesignsByIds' instead.)

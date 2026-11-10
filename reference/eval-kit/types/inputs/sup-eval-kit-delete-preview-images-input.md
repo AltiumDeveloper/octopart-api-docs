@@ -1,0 +1,33 @@
+---
+title: "SupEvalKitDeletePreviewImagesInput"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/types/inputs/sup-eval-kit-delete-preview-images-input"
+bounded_context: "Eval Kit"
+kind: "inputs"
+experimental: false
+deprecated: false
+---
+
+# SupEvalKitDeletePreviewImagesInput
+
+Input for deleting preview images from an evaluation kit.
+
+### Member Of
+
+[`supEvalKitDeletePreviewImages`](https://altiumdeveloper.github.io/octopart-api-docs/reference/eval-kit/operations/mutations/sup-eval-kit-delete-preview-images.md) mutation
+
+```graphql
+input SupEvalKitDeletePreviewImagesInput {
+  evalKitId: ID!
+  imageUrls: [String!]!
+}
+```
+
+### Fields
+
+#### `evalKitId` · [`ID!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/types/scalars/id.md) non-null scalar
+
+The unique identifier of the evaluation kit.
+
+#### `imageUrls` · [`[String!]!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/common/types/scalars/string.md) non-null scalar
+
+The collection of image URLs to delete.

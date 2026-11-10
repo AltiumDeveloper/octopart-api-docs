@@ -1,0 +1,76 @@
+# Octopart API — Procurement schema slice (~446 tokens)
+# Not a complete schema: types from other contexts are referenced, not defined.
+# Full schema for code generation: https://altiumdeveloper.github.io/octopart-api-docs/schema.graphql
+# Referenced from other contexts:
+#   SupPart → Supply: https://altiumdeveloper.github.io/octopart-api-docs/reference/supply/schema.graphql
+
+type Query {
+  datBomPart(item: DatBomItemInput!): DatBomPartsResult!
+  datBomParts(items: [DatBomItemInput!]!): [DatBomPartsResult!]!
+  datBomPartHistories(partIds: [String!]!): [DatBomPartHistory]!
+  datBomDuplicateAnalyses(items: [DatBomPartItemInput!]!): [DatBomAnalysis!]!
+  datBomAnalyses(items: [DatBomPartItemInput!]!): [DatBomAnalysis!]!
+  datBomCategoryIdsByDesignator(designators: [String!]!): [DatBomCategory]!
+}
+
+type DatBomAnalysis {
+  items: [DatBomPartItem!]!
+  level: DatBomAnalysisLevel!
+  message: String!
+}
+
+type DatBomCategory {
+  categoryID: Int!
+}
+
+type DatBomPart {
+  partId: String!
+  confidence: Float!
+  strategy: DatBomPartSearchStrategy!
+  "Nexar supply part data for internal use only. Array of size 1."
+  part: [SupPart]!
+}
+
+type DatBomPartHistory {
+  threeMonthGrowthPercentage: Float!
+}
+
+type DatBomPartItem {
+  itemRefId: String
+  partId: String!
+  alternateCandidatePartIds: [String!]
+  quantity: Int!
+}
+
+type DatBomPartsResult {
+  itemRefId: String
+  parts: [DatBomPart!]!
+}
+
+input DatBomItemInput {
+  itemRefId: String
+  manufacturerName: String
+  mpn: String
+  description: String
+  designator: String
+}
+
+input DatBomPartItemInput {
+  itemRefId: String
+  partId: String!
+  alternateCandidatePartIds: [String!]
+  quantity: Int!
+}
+
+enum DatBomAnalysisLevel {
+  ERROR
+  WARNING
+  SUGGESTION
+}
+
+enum DatBomPartSearchStrategy {
+  EXACT
+  EXACT_MPN_ONLY
+  PARTIAL
+  FUZZY
+}

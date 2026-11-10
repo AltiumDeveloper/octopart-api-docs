@@ -1,0 +1,28 @@
+# Part Family — types
+> Types of the Part Family bounded context that are not entities, one line each; Relay `*Connection` and `*Edge` types are omitted. Entities, entry points and operations: [llms.txt](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/llms.txt).
+
+- [SupPartFamilyAppliedFilter](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-applied-filter.md): Used to show the filters that are applied to current search.
+- [SupPartFamilyBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-bucket.md)
+- [SupPartFamilyComplementaryPart](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-complementary-part.md): `SupPartFamilyComplementaryPart` contains the details of the complementary part for this part group.
+- [SupPartFamilyDocument](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-document.md): `SupPartFamilyDocument` contains the details for the documentation provided for a Part Family.
+- [SupPartFamilyFeatureMetadata](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-feature-metadata.md): `SupPartFamilyFeatureMetadata` contains additional information about a given feature.
+- [SupPartFamilyFilterValues](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-filter-values.md): Values applied within the filter.
+- [SupPartFamilyKeyFeature](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-key-feature.md): `SupPartFamilyKeyFeature` contains the key details for a Part Family feature.
+- [SupPartFamilyParameter](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-parameter.md): `SupPartFamilyParameter` is the parameter definition for a filterable parameter of a part group.
+- [SupPartFamilyParameterAgg](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-parameter-agg.md): Aggregation of parameter values, `buckets` contains aggregations of the different parameter values.
+- [SupPartFamilyParameterBucket](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-parameter-bucket.md): Aggregation bucket for parameter values.
+- [SupPartFamilyPart](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-part.md): Represents a part object from the supply schema.
+- [SupPartFamilyPartResultSet](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-part-result-set.md): `SupPartFamilyPartResultSet` is the search results with pagination information.
+- [SupPartFamilyPrice](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-price.md): `SupPartFamilyPrice` contains the min and max price of parts in the group.
+- [SupPartFamilyResultSet](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-result-set.md): `SupPartFamilyResultSet` is the search results with pagination and aggregation information.
+- [SupPartFamilySoftwareSupport](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-software-support.md): `SupPartFamilySoftwareSupport` contains the details for the software support provided for a Part Family.
+- [SupPartFamilyTag](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-tag.md): `SupPartFamilyTag` represents additional metadata for a Part Family.
+- [SupPartFamilyVideo](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/objects/sup-part-family-video.md): `SupPartFamilyVideo` contains the details and link for a given training video.
+- [SupPartFamilyEntity](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/interfaces/sup-part-family-entity.md): Shared Fields between `SupPartFamily` and `SupPartGroup`.
+- [SupPartFamilyPartSearchResult](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/unions/sup-part-family-part-search-result.md)
+- [SupPartFamilySearchResult](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/unions/sup-part-family-search-result.md)
+- [SupPartFamilyFilterInput](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/inputs/sup-part-family-filter-input.md)
+- [SupPartFamilyDocumentType](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/enums/sup-part-family-document-type.md): Valid document types for Part Family documentation.
+- [SupPartFamilyFeatureValueType](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/enums/sup-part-family-feature-value-type.md): Valid types a features value can take.
+- [SupPartFamilyFilterType](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/enums/sup-part-family-filter-type.md): Valid types for a parameter filter.
+- [SupPartFamilyLifecycleStatus](https://altiumdeveloper.github.io/octopart-api-docs/reference/part-family/types/enums/sup-part-family-lifecycle-status.md)

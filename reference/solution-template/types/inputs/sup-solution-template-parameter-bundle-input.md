@@ -1,0 +1,31 @@
+---
+title: "SupSolutionTemplateParameterBundleInput"
+url: "https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-parameter-bundle-input"
+bounded_context: "Solution Template"
+kind: "inputs"
+experimental: false
+deprecated: false
+---
+
+# SupSolutionTemplateParameterBundleInput
+
+### Member Of
+
+[`SupSolutionTemplateCompatibleEvalKitInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-compatible-eval-kit-input.md) input · [`SupSolutionTemplateCompatibleEvalKitUpdateInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-compatible-eval-kit-update-input.md) input · [`SupSolutionTemplateCreateSolutionTemplateInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-create-solution-template-input.md) input · [`SupSolutionTemplatePatchParametersInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-patch-parameters-input.md) input · [`SupSolutionTemplateSetParametersInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-set-parameters-input.md) input · [`SupSolutionTemplateUpdateSolutionTemplateInput`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-update-solution-template-input.md) input
+
+```graphql
+input SupSolutionTemplateParameterBundleInput {
+  parameter: SupSolutionTemplateParameterInput!
+  values: [SupSolutionTemplateParameterValueInput!]!
+}
+```
+
+### Fields
+
+#### `parameter` · [`SupSolutionTemplateParameterInput!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-parameter-input.md) non-null input
+
+The parameter to be bundled.
+
+#### `values` · [`[SupSolutionTemplateParameterValueInput!]!`](https://altiumdeveloper.github.io/octopart-api-docs/reference/solution-template/types/inputs/sup-solution-template-parameter-value-input.md) non-null input
+
+The list of parameter values associated with the parameter bundle.
